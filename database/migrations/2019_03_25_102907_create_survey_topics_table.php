@@ -16,7 +16,7 @@ class CreateSurveyTopicsTable extends Migration
     {
         Schema::create('survey_topics', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('topic');
+            $table->string('topic',50);
         });
     }
 

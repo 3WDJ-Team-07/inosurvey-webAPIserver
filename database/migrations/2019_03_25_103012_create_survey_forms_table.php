@@ -15,7 +15,7 @@ class CreateSurveyFormsTable extends Migration
     {
         Schema::create('survey_forms', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title');
+            $table->string('title',50);
             $table->string('description',255);
             $table->integer('respondent_number')->unsigned();
             $table->boolean('is_completed')->default(false);

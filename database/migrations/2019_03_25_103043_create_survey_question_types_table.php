@@ -15,7 +15,7 @@ class CreateSurveyQuestionTypesTable extends Migration
     {
         Schema::create('survey_question_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('type');
+            $table->string('type',50);
         });
     }
 

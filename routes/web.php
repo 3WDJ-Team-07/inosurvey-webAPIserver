@@ -12,6 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return 'hi';
 });
+
+//user
+Route::post('/register','User\RegisterController@register');
+Route::post('/login','User\LoginController@login');
+
+
+
 
