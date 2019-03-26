@@ -15,8 +15,8 @@ class CreateSurveyTargetsTable extends Migration
     {
         Schema::create('survey_targets', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('start_age')->nullable();
-            $table->string('end_age')->nullable();
+            $table->string('start_age',50)->nullable();
+            $table->string('end_age',50)->nullable();
             $table->integer('gender')->nullable();
             $table->integer('job_id')->unsigned()->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');

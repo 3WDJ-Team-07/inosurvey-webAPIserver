@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,13 @@ class User extends Authenticatable
     public function local(){
         return $this->belongsTo(Local::class);
     }
+
+
+    //패스워드 저장시 Hash속성으로 변환
+    public function setPasswordAttribute($value){
+        $this->attributes['password'] = Hash::make($value);
+    }
+
+
 
 }
