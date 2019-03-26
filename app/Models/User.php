@@ -39,22 +39,24 @@ class User extends Authenticatable
         return $this->hasOne(Wallet::class);
     }
     
-    //user테이블 jobs테이블 1-1
+    //users테이블 jobs테이블 1-1
     public function job(){
         return $this->belongsTo(Job::class);
     }
 
-    //user테이블 locals테이블 1-1
+    //users테이블 locals테이블 1-1
     public function local(){
         return $this->belongsTo(Local::class);
     }
 
+    //users테이블 survey_users테이블 1-N
+    public function surveyUser(){
+        return $this->hasMany(SurveyUser::class);
+    }
 
     //패스워드 저장시 Hash속성으로 변환
     public function setPasswordAttribute($value){
         $this->attributes['password'] = Hash::make($value);
     }
-
-
 
 }

@@ -19,14 +19,24 @@ class SurveyForm extends Model
     ];
 
 
+    //survey_forms테이블 survey_form_questions테이블 1-N
+    public function surveyFormQuestion(){
+        return $this->hasMany(SurveyFormQuestion::class);
+    }
+
+    //survey_forms테이블 survey_users테이블 1-N
+    public function surveyUser(){
+        return $this->hasMany(SurveyUser::class);
+    }
+
     //survey_topics테이블 Survey_forms테이블 1-N 
     public function surveyTopic(){
         return $this->belongsTo(SurveyTopic::class);
     }
 
-
-    
-    public function surveyTarget(){
-        return $this->hasOne(SurveyTarget::class);
+    //survey_forms테이블 survey_targets테이블 1-1
+    public function surveyForm(){
+        return $this->belongsTo(SurveyForm::class);
     }
+    
 }
