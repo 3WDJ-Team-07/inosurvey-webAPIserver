@@ -13,11 +13,25 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\Models\User::class, function (Faker $faker) {
+    $user_id = ['bogeun2012','pyc4411','pyc211','pyc2238','pyc3358'];
+    $num = $faker->numberBetween(0,4);
+    
+    $job_id_min = App\Models\Job::min('id');
+    $job_id_max = App\Models\Job::max('id');
+    $local_id_min = App\Models\Local::min('id');
+    $local_id_max = App\Models\Local::max('id');
+
+
     return [
-        'name' => $faker->name,
+        'user_id' => $user_id[$num] . $num,
+        'password' => '$2y$10$92IXUNpkjO0r/igi', 
         'email' => $faker->unique()->safeEmail,
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'remember_token' => str_random(10),
+        'nickname' => $faker->name,       
+        'gender' => rand(1,2),
+        'age' => '10대',
+        'job_id' => $faker->numberBetween($job_id_min,$job_id_max),
+        'local_id' => $faker->numberBetween($local_id_min,$local_id_max),
+        
     ];
 });
