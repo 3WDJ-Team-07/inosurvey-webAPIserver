@@ -14,4 +14,8 @@ class SurveyTarget  extends Model
         'job_id',
         'local_id'
     ];
+
+    public function surveyForm(){
+        return $this->hasOne(SurveyForm::class);
+    }
 }

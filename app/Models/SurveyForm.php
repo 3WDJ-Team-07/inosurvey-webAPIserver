@@ -17,4 +17,16 @@ class SurveyForm extends Model
         'topic_id'
         ,'target_id'
     ];
+
+
+    //survey_topics테이블 Survey_forms테이블 1-N
+    public function surveyTopic(){
+        return $this->belongsTo(SurveyTopic::class);
+    }
+
+
+    
+    public function surveyTarget(){
+        return $this->hasOne(SurveyTarget::class);
+    }
 }

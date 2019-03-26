@@ -33,4 +33,19 @@ class User extends Authenticatable
      * @var array
      */
 
+     //users테이블 wallet테이블 1-1
+    public function wallet() { 
+        return $this->hasOne(Wallet::class);
+    }
+    
+    //user테이블 jobs테이블 1-1
+    public function job(){
+        return $this->belongsTo(Job::class);
+    }
+
+    //user테이블 locals테이블 1-1
+    public function local(){
+        return $this->belongsTo(Local::class);
+    }
+
 }

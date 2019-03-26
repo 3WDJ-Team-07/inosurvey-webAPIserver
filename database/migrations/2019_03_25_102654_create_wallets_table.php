@@ -14,13 +14,14 @@ class CreateWalletsTable extends Migration
     public function up()
     {
         Schema::create('wallets', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('public_key',255);
             $table->string('private_key',255);
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
