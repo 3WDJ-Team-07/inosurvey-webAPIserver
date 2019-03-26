@@ -19,7 +19,7 @@ class SurveyForm extends Model
     ];
 
 
-    //survey_topics테이블 Survey_forms테이블 1-N
+    //survey_topics테이블 Survey_forms테이블 1-N gg
     public function surveyTopic(){
         return $this->belongsTo(SurveyTopic::class);
     }
