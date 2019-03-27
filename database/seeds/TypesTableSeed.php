@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class WalletsTableSeed extends Seeder
+class TypesTableSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class WalletsTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Users\Wallet::class,1)->create();
+        factory(App\Models\Surveies\Type::class,6)->create();
     }
 }

@@ -12,12 +12,12 @@
 */
 
 Route::get('/', function () {
-    return 'hi';
+    return 'hi2';
 });
 
 //user
-Route::post('/register','User\RegisterController@register');
-Route::post('/login','User\LoginController@login');
+Route::post('/register','Users\RegisterController@register');
+Route::post('/login','Users\LoginController@login');
 
 
 

@@ -12,17 +12,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(JobsTableSeed::class);
-        $this->call(LocalsTableSeed::class);
         $this->call(UsersTableSeed::class);
         $this->call(WalletsTableSeed::class);
-        $this->call(SurveyTopicsTableSeed::class);
-        $this->call(SurveyTargetsTableSeed::class);
-        $this->call(SurveyFormsTableSeed::class);
-        $this->call(SurveyQuestionTypesTableSeed::class);
-        $this->call(SurveyFormQuestionsTableSeed::class);
-        $this->call(SurveyFormQuestionItemsTableSeed::class);
-        $this->call(SurveiesUsersTableSeed::class);
-        $this->call(SurveyResponsesTableSeed::class);
-        $this->call(ItemsResponsesTableSeed::class);
+        $this->call(TopicsTableSeed::class);
+        $this->call(TargetsTableSeed::class);
+        $this->call(FormsTableSeed::class);
+        $this->call(TypesTableSeed::class);
+        $this->call(QuestionsTableSeed::class);
+        $this->call(QuestionItemsTableSeed::class);
+        $this->call(SurveyUsersTableSeed::class);
+        $this->call(ResponsesTableSeed::class);
+        $this->call(ItemResponsesTableSeed::class);
     }
 }
