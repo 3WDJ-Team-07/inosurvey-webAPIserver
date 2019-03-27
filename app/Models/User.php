@@ -49,11 +49,11 @@ class User extends Authenticatable
         return $this->belongsTo(Local::class);
     }
 
-    //users테이블 survey_users테이블 1-N
-    public function surveyUser(){
-        return $this->hasMany(SurveyUser::class);
+    //users테이블 survey_forms테이블 N-N (중간테이블-survey_users)
+    public function surveyForm(){
+        return $this->belongsToMany(SurveyForm::class,'survey_user','survey_id','respondent_id');
     }
-
+    
     //패스워드 저장시 Hash속성으로 변환
     public function setPasswordAttribute($value){
         $this->attributes['password'] = Hash::make($value);
