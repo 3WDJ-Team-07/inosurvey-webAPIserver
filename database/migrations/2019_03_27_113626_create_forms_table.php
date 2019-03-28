@@ -21,6 +21,8 @@ class CreateFormsTable extends Migration
             $table->integer('respondent_count')->default(0);
             $table->boolean('is_completed')->default(false);
             $table->boolean('is_sale')->default(false);
+            $table->string('donation_organization',50);
+            $table->boolean('targer_isactive')->default(false);
             $table->integer('topic_id')->unsigned();
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->integer('target_id')->unsigned();

@@ -23,5 +23,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SurveyUsersTableSeed::class);
         $this->call(ResponsesTableSeed::class);
         $this->call(ItemResponsesTableSeed::class);
+        $this->call(DonationTableSeed::class);
+        $this->call(DonationUserTableSeed::class);
     }
 }

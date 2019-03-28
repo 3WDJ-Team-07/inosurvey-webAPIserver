@@ -25,6 +25,7 @@ class User extends Authenticatable
         'gender',
         'age',
         'job_id',
+        'is_donator', 
     ];
 
 

@@ -18,7 +18,9 @@ class Form extends Model
         'topic_id',
         'target_id',
         'closed_at',
-        'created_at'
+        'created_at',
+        'donation _organization',
+        'targer_isactive'
 
     ];
 

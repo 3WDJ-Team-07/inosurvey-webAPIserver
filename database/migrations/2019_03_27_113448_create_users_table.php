@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('nickname',50);
             $table->integer('gender')->unsigned();
             $table->integer('age')->unsigned();
+            $table->boolean('is_donator')->default(false);
             $table->integer('job_id')->unsigned();
             $table->foreign('job_id')->references('id')->on('jobs');
             $table->timestamps();
