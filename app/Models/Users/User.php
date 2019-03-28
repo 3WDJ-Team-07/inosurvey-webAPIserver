@@ -28,12 +28,28 @@ class User extends Authenticatable
         'is_donator', 
     ];
 
-
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
+
+
+    //users테이블 wallet테이블 1-1
+    public function wallet() { 
+        return $this->hasOne('App\Models\Users\Wallet');
+    }
+    
+    //user테이블 jobs테이블 1-1
+    public function job(){
+        return $this->belongsTo('App\Models\Users\Job');
+    }
+
+
+    //user테이블 donation테이블 
+    public function donation(){
+        return $this->belongsToMany('App\Models\Donations\Donation','donation_user','donation_id','sponsors_id');
+    }
 
 
     //패스워드 저장시 Hash속성으로 변환

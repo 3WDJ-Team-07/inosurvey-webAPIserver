@@ -21,4 +21,8 @@ class Donation extends Model
         'donator_id',
 
     ];
+
+    public function user(){
+        return $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id');
+    }
 }

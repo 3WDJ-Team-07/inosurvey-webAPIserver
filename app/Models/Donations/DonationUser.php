@@ -12,7 +12,7 @@ class DonationUser extends Model
     protected $fillable = [
 
         'donation_id',
-        'Sponsors_id',
+        'sponsors_id',
     
     ];
 

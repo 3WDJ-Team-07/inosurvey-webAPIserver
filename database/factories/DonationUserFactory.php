@@ -12,7 +12,7 @@ $factory->define(App\Models\Donations\DonationUser::class, function (Faker $fake
     return [
         
         'donation_id' => $faker->numberBetween($donation_id_min,$donation_id_max),       
-        'Sponsors_id' => $faker->numberBetween($user_id_min,$user_id_max),
+        'sponsors_id' => $faker->numberBetween($user_id_min,$user_id_max),
 
     ];
 });
