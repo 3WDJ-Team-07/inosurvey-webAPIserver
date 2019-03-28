@@ -24,4 +24,10 @@ class Form extends Model
 
     ];
 
+    //topic테이블 form테이블 1-N
+    public function topic()
+    {
+        return $this->belongsTo('App\Models\Surveies\Topic');
+    }
+
 }

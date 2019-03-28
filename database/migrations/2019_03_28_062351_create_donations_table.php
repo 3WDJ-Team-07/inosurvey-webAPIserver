@@ -16,7 +16,6 @@ class CreateDonationsTable extends Migration
         Schema::create('donations', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',50);
-            $table->string('description',50);
             $table->string('content',255);
             $table->text('image');
             $table->integer('target_amount')->default(0);

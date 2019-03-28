@@ -10,7 +10,6 @@ class Donation extends Model
     protected $fillable = [
 
         'title',
-        'description',
         'content',
         'image',
         'target_amount',

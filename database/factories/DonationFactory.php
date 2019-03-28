@@ -10,7 +10,6 @@ $factory->define(App\Models\Donations\Donation::class, function (Faker $faker) {
 
     return [
         'title' => $faker->word,
-        'description' => $faker->word,
         'content' => $faker->text, 
         'image' => 'Example Image',
         'target_amount' => 5000000,
