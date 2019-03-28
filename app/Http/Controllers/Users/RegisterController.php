@@ -14,7 +14,7 @@ class RegisterController extends Controller
     function __construct(){
         $this->user = new User();
     }
-
+    //te
     public function register(Request $request) {
             $this->user->create(request()->all());
         return response()->json(['message'=>'true'],200);
