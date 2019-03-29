@@ -40,9 +40,19 @@ class Form extends Model
         return $this->belongsTo('App\Models\Donations\Donation');
     }
 
-      //forms테이블 questions테이블 1-N
-      public function question(){
+    //forms테이블 questions테이블 1-N
+     public function question(){
         return $this->hasMany('App\Models\Surveies\Question');
+    }
+
+    //form테이블 user테이블 N-N(중간테이블-survey_user)
+    public function respondentUsers(){
+        return $this->belongsToMany('App\Models\Users\User','survey_user','survey_id','respondent_id');
+    }
+
+    //form테이블 user테이블 N-N(중간테이블-replyable_user)
+    public function replyableUsers(){
+        return $this->belongsToMany('App\Models\Users\User','replyable_user','survey_id','replyable_id');
     }
 
 }
