@@ -21,7 +21,14 @@ class Donation extends Model
 
     ];
 
+    //user테이블 donation테이블 N-N
     public function user(){
         return $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id');
     }
+
+    public function form(){
+        return $this->hasMany('App\Models\Surveies\Form');
+    }
+
+
 }

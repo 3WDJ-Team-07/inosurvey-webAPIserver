@@ -19,7 +19,7 @@ class Form extends Model
         'target_id',
         'closed_at',
         'created_at',
-        'donation _organization',
+        'donation_id',
         'targer_isactive'
 
     ];
@@ -30,10 +30,14 @@ class Form extends Model
         return $this->belongsTo('App\Models\Surveies\Topic');
     }
 
-    //form테이블 target테이블 1-N
-    public function form()
-    {
-        return $this->hasOne('App\Models\Surveies\Target');
+    //forms테이블 targets테이블 1-1
+    public function target(){
+        return $this->belongsTo('App\Models\Surveies\Target');
+    }
+
+    //donations테이블 forms테이블 1-N
+    public function donation(){
+        return $this->belongsTo('App\Models\Donations\Donation');
     }
 
 }

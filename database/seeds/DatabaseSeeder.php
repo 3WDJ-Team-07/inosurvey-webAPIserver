@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(JobsTableSeed::class);
         $this->call(UsersTableSeed::class);
+        $this->call(DonationTableSeed::class);
         $this->call(WalletsTableSeed::class);
         $this->call(TopicsTableSeed::class);
         $this->call(TargetsTableSeed::class);
@@ -23,7 +24,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SurveyUsersTableSeed::class);
         $this->call(ResponsesTableSeed::class);
         $this->call(ItemResponsesTableSeed::class);
-        $this->call(DonationTableSeed::class);
         $this->call(DonationUserTableSeed::class);
         $this->call(ReplyableUserTableSeed::class);
     }

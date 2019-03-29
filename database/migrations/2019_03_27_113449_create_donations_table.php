@@ -17,7 +17,7 @@ class CreateDonationsTable extends Migration
             $table->increments('id');
             $table->string('title',50);
             $table->string('content',255);
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->integer('target_amount')->default(0);
             $table->integer('current_amount')->default(0);
             $table->timestamp('create_at')->default(now());
