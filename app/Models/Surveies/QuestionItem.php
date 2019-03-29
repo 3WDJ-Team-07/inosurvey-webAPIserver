@@ -16,8 +16,14 @@ class QuestionItem extends Model
     
     ];
 
-    
+    //questions테이블 questionItems테이블 1-N
+    public function question(){
+        return $this->belongsTo('App\Models\Surveies\Question');
+    }
 
-
+    //response테이블 questionItems테이블 N-N
+    public function responses(){
+        return $this->belongsToMany('App\Models\Surveies\Response','item_response','item_id','response_id');
+    }  
 
 }
