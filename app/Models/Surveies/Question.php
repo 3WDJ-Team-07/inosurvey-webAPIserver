@@ -12,7 +12,7 @@ class Question extends Model
         'title',
         'number',
         'image',
-        'survey_id',
+        'form_id',
         'type_id',
 
     ];
@@ -21,5 +21,10 @@ class Question extends Model
      //types테이블 questions테이블 1-N
      public function type(){
         return $this->belongsTo('App\Models\Surveies\Type');
+    }
+
+      //forms테이블 questions테이블 1-N
+      public function form(){
+        return $this->belongsTo('App\Models\Surveies\Form');
     }
 }

@@ -15,4 +15,9 @@ class QuestionItem extends Model
         'question_id',
     
     ];
+
+    
+
+
+
 }

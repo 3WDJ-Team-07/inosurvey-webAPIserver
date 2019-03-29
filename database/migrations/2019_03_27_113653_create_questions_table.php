@@ -18,8 +18,8 @@ class CreateQuestionsTable extends Migration
             $table->string('title',50);
             $table->integer('number')->unsigned();
             $table->text('image')->nullable();
-            $table->integer('survey_id')->unsigned();
-            $table->foreign('survey_id')->references('id')->on('forms');
+            $table->integer('form_id')->unsigned();
+            $table->foreign('form_id')->references('id')->on('forms');
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');
         });
