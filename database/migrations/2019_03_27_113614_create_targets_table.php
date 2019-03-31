@@ -18,7 +18,7 @@ class CreateTargetsTable extends Migration
             $table->integer('start_age')->nullable();
             $table->integer('end_age')->nullable();
             $table->integer('gender')->unsigned()->nullable();
-            $table->integer('job_id')->unsigned();
+            $table->integer('job_id')->unsigned()->nullable();
             $table->foreign('job_id')->references('id')->on('jobs');
         });
     }

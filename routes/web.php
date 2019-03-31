@@ -1,5 +1,5 @@
 <?php
-
+use Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +12,8 @@
 */
 
 Route::get('/', function () {
-    return 'hi2';
+    $now = new Carbon;
+    dd($now);
 });
 
 //user

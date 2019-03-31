@@ -27,4 +27,17 @@ class Question extends Model
       public function form(){
         return $this->belongsTo('App\Models\Surveies\Form');
     }
+
+    //questions테이블 reponses테이블 1-N
+    public function response(){
+        return $this->hasMany('App\Models\Surveies\Response');
+    } 
+    
+    //questions테이블 questionItems테이블 1-N
+    public function questionItem(){
+        return $this->hasMany('App\Models\Surveies\QuestionItem');
+    } 
+
+    
+
 }
