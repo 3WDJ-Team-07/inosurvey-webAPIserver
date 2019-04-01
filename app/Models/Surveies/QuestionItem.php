@@ -24,7 +24,7 @@ class QuestionItem extends Model
 
     //response테이블 questionItems테이블 N-N
     public function responses(){
-        return $this->belongsToMany('App\Models\Surveies\Response','item_response','response_id','item_id');
+        return $this->belongsToMany('App\Models\Surveies\Response','item_response','item_id','response_id');
     }  
 
 }
