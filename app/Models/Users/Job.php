@@ -4,8 +4,12 @@ namespace App\Models\Users;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Traits\ModelScopes;
+
 class Job extends Model
 {
+    use ModelScopes;
+
     public $timestamps = false;
     protected $fillable = ['name'];
 
@@ -18,4 +22,6 @@ class Job extends Model
     public function target(){
         return $this->hasMany('App\Models\Surveies\Target');
     }
+
+
 }
