@@ -9,8 +9,8 @@ $factory->define(App\Models\Surveies\Question::class, function (Faker $faker) {
     $type_id_max = App\Models\Surveies\Type::max('id');
    
     return [
-        'title' => $faker->word,
-        'number' => 1,
+        'question_title' => $faker->word,
+        'question_number' => 1,
         'image' => 'imagesExample',
         'form_id' => $faker->numberBetween($form_id_min,$form_id_max),
         'type_id' => $faker->numberBetween($type_id_min,$type_id_max),

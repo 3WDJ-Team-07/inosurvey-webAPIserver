@@ -12,14 +12,23 @@ use Carbon\Carbon;
 */
 
 Route::get('/', function () {
-    $now = new Carbon;
-    dd($now);
+    // $now = new Carbon;
+    // return now();
+    return date('Y-m-d H:00');
+    // return date('Y-m-d H:00',strtotime(now()));
 });
+Route::get('/test','Helpers\TestController@test');
 
-//user
-Route::post('/register','Users\RegisterController@register');
-Route::post('/login','Users\LoginController@login');
+Route::group(['prefix' => 'api'], function () {
+    //user
+    Route::group(['prefix' => 'user'], function () {
+        Route::post('/register','Users\RegisterController@register');
+        Route::post('/login','Users\LoginController@login');
+    });
 
-
-
-
+    //survey
+    Route::group(['prefix' => 'survey'], function () {
+        Route::post('/create','Surveies\SurveyController@create');
+        Route::get('/questionBank','Surveies\SurveyController@questionBank'); 
+    });
+});

@@ -9,8 +9,8 @@ class Question extends Model
     public $timestamps = false;
     protected $fillable = [
 
-        'title',
-        'number',
+        'question_title',
+        'question_number',
         'image',
         'form_id',
         'type_id',

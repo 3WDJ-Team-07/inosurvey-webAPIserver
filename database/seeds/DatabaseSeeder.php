@@ -26,5 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemResponsesTableSeed::class);
         $this->call(DonationUserTableSeed::class);
         $this->call(ReplyableUserTableSeed::class);
+        $this->call(QuestionBanksTableSeed::class);
     }
 }

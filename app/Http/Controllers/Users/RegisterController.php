@@ -7,16 +7,15 @@ use App\Http\Controllers\Controller;
 use App\Models\Users\User;
 // use App\Http\Requests\UserRequest;
 
-class RegisterController extends Controller
-{
-    private $user = null;
+class RegisterController extends Controller {
+    private $userModel = null;
 
     function __construct(){
-        $this->user = new User();
+        $this->userModel = new User();
     }
-    
-    public function register(Request $request) {
-            $this->user->create(request()->all());
+                                  
+    public function register(Request $request){
+            $this->userModel->create(request()->all());
         return response()->json(['message'=>'true'],200);
     }
 }

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-
+use Carbon\Carbon;
 class CreateFormsTable extends Migration
 {
     /**
@@ -16,7 +16,7 @@ class CreateFormsTable extends Migration
         Schema::create('forms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title',50);
-            $table->string('description',255);
+            $table->text('description');
             $table->integer('respondent_number')->unsigned();
             $table->integer('respondent_count')->default(0);
             $table->boolean('is_completed')->default(false);

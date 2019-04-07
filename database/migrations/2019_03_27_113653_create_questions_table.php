@@ -15,8 +15,8 @@ class CreateQuestionsTable extends Migration
     {
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('title',50);
-            $table->integer('number')->unsigned();
+            $table->string('question_title',50);
+            $table->integer('question_number')->unsigned();
             $table->text('image')->nullable();
             $table->integer('form_id')->unsigned();
             $table->foreign('form_id')->references('id')->on('forms');
