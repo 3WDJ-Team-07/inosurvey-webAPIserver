@@ -11,6 +11,7 @@ use App\Models\Surveies\QuestionItem;
 use App\Models\Surveies\QuestionBank;
 
 class SurveyController extends Controller {
+    
     private $formModel          = null;
     private $questionModel      = null;
     private $questionItemModel  = null;
@@ -57,7 +58,8 @@ class SurveyController extends Controller {
 
         return response()->json(['message'=>'true'],200);
     }
-
+    
+    //질문 은행
     public function questionBank(){
         if(Questionbank::all()) {
             return Questionbank::all();

@@ -1,5 +1,6 @@
 <?php
 use Carbon\Carbon;
+use App\Models\Surveies\Type;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,12 @@ Route::get('/', function () {
     return date('Y-m-d H:00');
     // return date('Y-m-d H:00',strtotime(now()));
 });
+Route::get('/boards',function(){
+    return Type::find(1);
+});
+
 Route::get('/test','Helpers\TestController@test');
+
 
 Route::group(['prefix' => 'api'], function () {
     //user
@@ -32,3 +38,4 @@ Route::group(['prefix' => 'api'], function () {
         Route::get('/questionBank','Surveies\SurveyController@questionBank'); 
     });
 });
+

@@ -11,7 +11,10 @@ class LoginController extends Controller {
 
    public function login(Request $request) {
        
-        $credentials = $request->only(['user_id','password']);
+        $credentials = $request->only([
+                $this::LOGIN_TYPE['type'],
+                $this::LOGIN_TYPE['password'],
+            ]);
 
         //유저 정보 체크
         if(Auth::attempt($credentials)){
@@ -24,7 +27,6 @@ class LoginController extends Controller {
 
     }
     
-
     //jwt토큰 생성
     public function ganerateToken(){
         
@@ -41,9 +43,10 @@ class LoginController extends Controller {
     }
 
 
-    //아이디로 로그인
+    //로그인 타입
     public function username(){
-        return 'user_id';
+        return $this::LOGIN_TYPE['type'];
     }
+
 
 }

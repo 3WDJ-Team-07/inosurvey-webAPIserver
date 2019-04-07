@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \GuzzleHttp\Client;
 
-class GuzzleController extends Controller {
+Trait Guzzles  {
     
      public function getGuzzleRequest($http,$url) { 
         $host = config('constants.ethereum_host');
@@ -16,7 +16,7 @@ class GuzzleController extends Controller {
         $request = $client->request($http,$host.':'.$port.$url); 
         $response = $request->getBody(); 
         $dd = (json_decode($response,true)); 
-            dd($dd); 
+            dd($dd['user']); 
      }
      
 }
