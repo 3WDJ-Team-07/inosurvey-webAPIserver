@@ -47,17 +47,25 @@ class User extends Authenticatable
 
 
     //user테이블 donation테이블 
+    //후원자 정보 - 기부정보
     public function donations(){
         return $this->belongsToMany('App\Models\Donations\Donation','donation_user','sponsors_id','donation_id');
+    }
+    
+    //user테이블 donation테이블 1-N
+    //기부정보 - 기부단체 정보
+    public function donation(){
+        return $this->hasMany('App\Models\Donations\Donation','donator_id');
     }
 
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function respondentForms(){
         return $this->belongsToMany('App\Models\Surveies\Form','survey_user','respondent_id','survey_id');
     }
+
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function replyableForms(){
-        return $this->belongsToMany('App\Models\Surveies\Form','replyable_user','replyable_id','survey_id');
+        return $this->belongsToMany('Ahh                                           Zp\Models\Surveies\Form','replyable_user','replyable_id','survey_id');
     }
 
     //패스워드 저장시 Hash속성으로 변환
@@ -65,6 +73,11 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-
-
+    //나이 연령대로 반환
+    public function getAgeAttribute($age){
+        $nowDate = date('Y');
+        $ageGroup = $nowDate-$age+1;
+        return $ageGroup;
+    }
+    
 }

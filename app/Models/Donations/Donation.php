@@ -22,8 +22,15 @@ class Donation extends Model
     ];
 
     //user테이블 donation테이블 N-N
+    //기부정보 - 후원자 정보
     public function users(){
         return $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id');
+    }
+
+    //user테이블 donation테이블 1-N
+    //기부정보 - 기부단체 정보
+    public function user(){
+        return $this->belongsTo('App\Models\Users\User','donator_id');
     }
 
     public function form(){

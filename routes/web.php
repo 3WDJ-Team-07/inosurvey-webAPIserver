@@ -11,7 +11,6 @@ use App\Models\Surveies\Type;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
     // $now = new Carbon;
     // return now();
@@ -21,9 +20,7 @@ Route::get('/', function () {
 Route::get('/boards',function(){
     return Type::find(1);
 });
-
 Route::get('/test','Helpers\TestController@test');
-
 
 Route::group(['prefix' => 'api'], function () {
     //user
@@ -31,11 +28,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/register','Users\RegisterController@register');
         Route::post('/login','Users\LoginController@login');
     });
-
     //survey
     Route::group(['prefix' => 'survey'], function () {
         Route::post('/create','Surveies\SurveyController@create');
         Route::get('/questionBank','Surveies\SurveyController@questionBank'); 
     });
 });
-
