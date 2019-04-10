@@ -14,7 +14,7 @@ class Donation extends Model
         'image',
         'target_amount',
         'current_amount',
-        'create_at',
+        'created_at',
         'closed_at',
         'is_achieved',
         'donator_id',
