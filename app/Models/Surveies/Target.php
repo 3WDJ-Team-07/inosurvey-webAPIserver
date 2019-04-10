@@ -24,5 +24,14 @@ class Target extends Model
         return $this->hasOne('App\Models\Surveies\Form');
     }
 
+    //타겟 유저 선택
+    public function selectTargetUser($id){
+        $target = $this::where('id',$id)->get();
+        //if(){
+
+        //}
+
+    }
+
 
 }

@@ -54,9 +54,9 @@ class Form extends Model
         return $this->belongsToMany('App\Models\Users\User','replyable_user','survey_id','replyable_id');
     }
 
-      //패스워드 저장시 date속성 포맷 변환
-      public function setPasswordAttribute($value){
+    //패스워드 저장시 date속성 포맷 변환
+    public function setPasswordAttribute($value){
         $this->attributes['created_at'] = Hash::make($value);
     }
-
+    
 }

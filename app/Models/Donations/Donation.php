@@ -4,6 +4,7 @@ namespace App\Models\Donations;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Donation extends Model
 {
     public $timestamps = false;
@@ -33,9 +34,14 @@ class Donation extends Model
         return $this->belongsTo('App\Models\Users\User','donator_id');
     }
 
+    //donation테이블 form테이블 1-N
     public function form(){
         return $this->hasMany('App\Models\Surveies\Form');
     }
 
+    //후원자 정보 조회
+    public function selectSponsors($id){
+        return Donation::where('id',$id)->first()->users;
+    }  
 
 }

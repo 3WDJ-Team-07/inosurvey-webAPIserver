@@ -80,4 +80,9 @@ class User extends Authenticatable
         return $ageGroup;
     }
     
+    //기부단체 회원 - 기부 테이블 조회 
+    public function selectDonation($id){
+        return User::where('id',$id)->first()->donations;
+    }
+
 }
