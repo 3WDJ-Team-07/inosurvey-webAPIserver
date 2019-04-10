@@ -8,6 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use App\Http\Controllers\Helpers\Guzzles;
 
+
 /**
  * 클래스명:                       ConstantEnum
  * @package                       App\Http\Controllers\
@@ -18,7 +19,7 @@ use App\Http\Controllers\Helpers\Guzzles;
  * 상수 목록
  *      LOGIN_TYPE :             로그인 유형을 정의
  */
-
+   
 
 class Controller extends BaseController
 {
@@ -27,6 +28,11 @@ class Controller extends BaseController
     const LOGIN_TYPE =  [
         'type'              =>'user_id',
         'password'          => 'password',
+    ];
+
+    const S3 =  [
+        'donations'         =>'donations',
+        'donationsUrl'      =>'https://s3.ap-northeast-2.amazonaws.com/inosurvey/donations/',
     ];
 
 

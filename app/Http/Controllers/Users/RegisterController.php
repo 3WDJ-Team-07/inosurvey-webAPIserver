@@ -16,6 +16,6 @@ class RegisterController extends Controller {
                                   
     public function register(Request $request){
             $this->userModel->create(request()->all());
-        return response()->json(['message'=>'true'],200);
+        return response()->json(['message'=>'true'],201);
     }
 }
