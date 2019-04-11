@@ -17,10 +17,10 @@ class CreateDonationsTable extends Migration
             $table->increments('id');
             $table->string('title',50);
             $table->string('content',255);
-            $table->text('image')->nullable();
+            $table->string('image',255)->nullable();
             $table->integer('target_amount')->default(0);
             $table->integer('current_amount')->default(0);
-            $table->timestamp('started_at')->default(now());
+            $table->timestamp('started_at');
             $table->timestamp('closed_at')->nullable();
             $table->boolean('is_achieved')->default(false);
             $table->integer('donator_id')->unsigned();

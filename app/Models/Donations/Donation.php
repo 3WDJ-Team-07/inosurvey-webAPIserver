@@ -57,4 +57,12 @@ class Donation extends Model
     public function updateAmount($id,$amount){
         Donation::where('id',$id)->increment('current_amount',$amount);
     }
+
+    //started_at 현재 시간 저장
+    public static function boot() {
+        parent::boot(); static::creating(function ($model) {
+        $model->started_at = $model->freshTimestamp(); 
+        });
+    }
+
 }
