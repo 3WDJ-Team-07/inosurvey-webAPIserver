@@ -65,7 +65,7 @@ class User extends Authenticatable
 
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function replyableForms(){
-        return $this->belongsToMany('Ahh                                           Zp\Models\Surveies\Form','replyable_user','replyable_id','survey_id');
+        return $this->belongsToMany('App\Models\Surveies\Form','replyable_user','replyable_id','survey_id');
     }
 
     //패스워드 저장시 Hash속성으로 변환

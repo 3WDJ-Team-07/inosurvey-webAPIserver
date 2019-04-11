@@ -28,7 +28,7 @@ class CreateFormsTable extends Migration
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->integer('target_id')->unsigned()->nullable();
             $table->foreign('target_id')->references('id')->on('targets');
-            $table->timestamp('created_at')->default(now());
+            $table->timestamp('started_at')->default(now());
             $table->timestamp('closed_at')->nullable();
         });
     }

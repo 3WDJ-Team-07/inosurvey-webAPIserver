@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use App\Models\Surveies\Type;
+use App\Models\Donations\Donation;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,7 +21,8 @@ Route::get('/', function () {
 Route::get('/boards',function(){
     return Type::find(1);
 });
-Route::get('/test','Helpers\TestController@test');
+Route::post('/test','Helpers\TestController@selectUser');
+
 
 Route::group(['prefix' => 'api'], function () {
     //user

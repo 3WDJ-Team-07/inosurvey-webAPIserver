@@ -15,7 +15,7 @@ class Donation extends Model
         'image',
         'target_amount',
         'current_amount',
-        'create_at',
+        'started_at',
         'closed_at',
         'is_achieved',
         'donator_id',
@@ -40,8 +40,21 @@ class Donation extends Model
     }
 
     //후원자 정보 조회
-    public function selectSponsors($id){
+    public static function selectSponsors($id){
         return Donation::where('id',$id)->first()->users;
     }  
 
+    //달성치 계산 (스캐줄링)
+    public static function achieveAmount($id){
+        $donation = Donation::where('id',$id)->first();
+        $target_amount = $donation->target_amount;
+        $current_amount = $donation->current_amount;
+        $achieveAmount = floor($current_amount/$target_amount*100);
+        return $achieveAmount;
+    }
+    
+    //현재 금액 update
+    public function updateAmount($id,$amount){
+        Donation::where('id',$id)->increment('current_amount',$amount);
+    }
 }

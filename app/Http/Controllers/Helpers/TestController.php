@@ -16,26 +16,4 @@ class TestController extends Controller
         $this->donationModel        = new Donation();
     }
 
-    public function test(){
-        // return $this::LOGIN_TYPE['type'];
-        return $this->getGuzzleRequest('GET','/test/asd');
-    }
-
-    public function json(Request $request){
-        $id = $request->donation_id;
-        $value = $this->donationModel->where('id', $id)->first();
-        
-        if($id){
-            return response()->json(['message' => 'true' , 'value' => $value],200);
-        }else{
-            return response()->json(['message' => 'false'],401);
-
-        }
-    }
-    public function selectUser(Request $request){
-        $id = $request->id;
-        $name = $this->donationModel->sponsorsName($id);
-        return response()->json(['name'=>$name]);
-    }
-
 }

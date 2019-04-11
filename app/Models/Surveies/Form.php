@@ -18,7 +18,7 @@ class Form extends Model
         'topic_id',
         'target_id',
         'closed_at',
-        'created_at',
+        'started_at',
         'donation_id',
         'targer_isactive'
 
@@ -58,5 +58,5 @@ class Form extends Model
     public function setPasswordAttribute($value){
         $this->attributes['created_at'] = Hash::make($value);
     }
-    
+
 }
