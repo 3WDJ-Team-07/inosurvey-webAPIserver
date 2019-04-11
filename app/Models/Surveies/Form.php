@@ -19,6 +19,7 @@ class Form extends Model
         'target_id',
         'started_at',
         'closed_at',
+        'started_at',
         'targer_isactive'
 
     ];
@@ -53,6 +54,7 @@ class Form extends Model
         parent::boot(); static::creating(function ($model) {
         $model->started_at = $model->freshTimestamp(); 
        });
+
     }
 
 }

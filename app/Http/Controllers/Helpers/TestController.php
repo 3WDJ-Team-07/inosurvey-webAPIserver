@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Helpers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\Helpers\GuzzleController;
 use App\Http\Controllers\Helpers\ConstantEnum;
 
 class TestController extends Controller
 {
+    private $donationModel          = null;
 
     
     function __construct(){
@@ -22,6 +24,7 @@ class TestController extends Controller
         return config('filesystems.disks.s3.url').'/donations/umr.jpg';
         // return $this::LOGIN_TYPE['type'];
         return $this->getGuzzleRequest('GET','/test/asd');
+
     }
 
     // public function arrayTest(Request $request){

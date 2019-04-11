@@ -1,6 +1,7 @@
 <?php
 use Carbon\Carbon;
 use App\Models\Surveies\Type;
+use App\Models\Donations\Donation;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,14 +13,15 @@ use App\Models\Surveies\Type;
 |
 */
 
-
 //Test
+
 Route::get('/', function () {
     $now = new Carbon;
     return now();
     // return date('Y-m-d H:00');
     // return date('Y-m-d H:00',strtotime(now()));
 });
+
 
 Route::get('/test','Helpers\TestController@test');
 Route::get('/boards','Helpers\TestController@arrayTest2');
@@ -32,7 +34,6 @@ Route::get('file',function(){
 
 
 
-
 Route::group(['prefix' => 'api'], function () {
     
     //user
@@ -40,7 +41,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/register','Users\RegisterController@register');
         Route::post('/login','Users\LoginController@login');
     });
-
     //survey
     Route::group(['prefix' => 'survey'], function () {
         Route::post('/create','Surveies\SurveyController@create');
