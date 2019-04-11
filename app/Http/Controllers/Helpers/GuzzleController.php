@@ -6,9 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \GuzzleHttp\Client;
 
-Trait Guzzles  {
+class GuzzleController extends Controller{
     
      public function getGuzzleRequest($http,$url) { 
+     
         $host = config('constants.ethereum_host');
         $port = config('constants.ethereum_port');
 

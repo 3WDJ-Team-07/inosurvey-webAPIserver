@@ -14,7 +14,7 @@ class Donation extends Model
         'image',
         'target_amount',
         'current_amount',
-        'created_at',
+        'started_at',
         'closed_at',
         'is_achieved',
         'donator_id',
@@ -26,9 +26,10 @@ class Donation extends Model
         return $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id');
     }
 
-    public function form(){
-        return $this->hasMany('App\Models\Surveies\Form');
+    //started_at 현재 시간 저장
+    public static function boot() {
+        parent::boot(); static::creating(function ($model) {
+        $model->started_at = $model->freshTimestamp(); 
+        });
     }
-
-
 }
