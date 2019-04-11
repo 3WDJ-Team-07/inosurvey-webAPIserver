@@ -17,9 +17,8 @@ class Form extends Model
         'is_sale',
         'topic_id',
         'target_id',
+        'started_at',
         'closed_at',
-        'created_at',
-        'donation_id',
         'targer_isactive'
 
     ];
@@ -34,12 +33,7 @@ class Form extends Model
     public function target(){
         return $this->belongsTo('App\Models\Surveies\Target');
     }
-
-    //donations테이블 forms테이블 1-N
-    public function donation(){
-        return $this->belongsTo('App\Models\Donations\Donation');
-    }
-
+  
     //forms테이블 questions테이블 1-N
      public function question(){
         return $this->hasMany('App\Models\Surveies\Question');
@@ -54,9 +48,11 @@ class Form extends Model
         return $this->belongsToMany('App\Models\Users\User','replyable_user','survey_id','replyable_id');
     }
 
-      //패스워드 저장시 date속성 포맷 변환
-      public function setPasswordAttribute($value){
-        $this->attributes['created_at'] = Hash::make($value);
+    //started_at칼럼 현재 시간 저장
+    public static function boot() {
+        parent::boot(); static::creating(function ($model) {
+        $model->started_at = $model->freshTimestamp(); 
+       });
     }
 
 }

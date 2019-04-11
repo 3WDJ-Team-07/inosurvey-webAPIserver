@@ -6,14 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use \Firebase\JWT\JWT;
 use Auth;
+use App\Http\Controllers\Helpers\ConstantEnum;
 
 class LoginController extends Controller {
 
    public function login(Request $request) {
        
         $credentials = $request->only([
-                $this::LOGIN_TYPE['type'],
-                $this::LOGIN_TYPE['password'],
+                ConstantEnum::LOGIN_TYPE['type'],
+                ConstantEnum::LOGIN_TYPE['password'],
             ]);
 
         //유저 정보 체크
@@ -45,7 +46,7 @@ class LoginController extends Controller {
 
     //로그인 타입
     public function username(){
-        return $this::LOGIN_TYPE['type'];
+        return ConstantEnum::LOGIN_TYPE['type'];
     }
 
 
