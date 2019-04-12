@@ -44,13 +44,13 @@ Route::group(['prefix' => 'api'], function () {
     //survey
     Route::group(['prefix' => 'survey'], function () {
         Route::post('/create','Surveies\SurveyController@create');
-        Route::get('/questionBank','Surveies\SurveyController@questionBank'); 
+        Route::get('/question-bank','Surveies\QuestionBankController@questionBank'); 
     });
     
     //donation
     Route::group(['prefix' => 'donation'], function () {
         Route::get('/index','Donations\DonationController@index');
-        Route::post('/create','Donations\DonationController@create')->middleware('donator');
+        Route::post('/create','Donations\DonationController@create')/*->middleware('donator')*/;
          
     });
     

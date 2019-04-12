@@ -5,19 +5,16 @@ namespace App\Http\Controllers\Helpers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Http\Controllers\Helpers\GuzzleController;
+use App\Http\Controllers\Helpers\Guzzles;
 use App\Http\Controllers\Helpers\ConstantEnum;
 
 class TestController extends Controller
 {
-    private $donationModel          = null;
-
-    
-    function __construct(){
-        $this->Guzzle = new GuzzleController();
-    }
-
+    use Guzzles;
+ 
     public function test(){
+        $result = collect($this->getGuzzleRequest('GET','wallet/create'));
+        return $result->public_key;
         return response()->json(['message'=>'false'],400);
         return config('filesystems.disks.s3.url').'/'.ConstantEnum::S3['donations'].'/'.'umr.jpg';
         return ConstantEnum::LOGIN_TYPE['type'];

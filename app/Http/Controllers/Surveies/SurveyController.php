@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
 use App\Models\Surveies\QuestionItem;
-use App\Models\Surveies\QuestionBank;
+
 
 class SurveyController extends Controller {
     
@@ -58,14 +58,6 @@ class SurveyController extends Controller {
 
         return response()->json(['message'=>'true'],200);
     }
-    
-    //질문 은행
-    public function questionBank(){
-        if(Questionbank::all()) {
-            return Questionbank::all();
-        }else {
-            return response()->json(['message'=>'false'],400);
-        }
-    }
+
 
 }

@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Helpers;
  *
  * 상수 목록
  *      LOGIN_TYPE :             로그인 유형을 정의
+ *      S3         :             AWS S3의 저장소 이름을 정의
  */
 
 use Illuminate\Http\Request;
