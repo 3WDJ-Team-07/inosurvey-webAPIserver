@@ -8,15 +8,13 @@ class Target extends Model
 {
     public $timestamps = false;
     protected $fillable = [
-        'start_age',
-        'end_age',
-        'gender',
-        'job_id',
+        'age',
+        'gender'
     ];
 
-    //jobs테이블 targets테이블 1-N
-    public function job(){
-        return $this->belongsTo('App\Models\Users\Job');
+    //jobs테이블 targets테이블 N-N (중간테이블 job_target)
+    public function jobs(){
+        return $this->belongsToMany('App\Models\Users\Job','job_target');
     }
     
     //forms테이블 targets테이블 1-1
