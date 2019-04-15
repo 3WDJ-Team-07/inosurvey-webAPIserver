@@ -31,5 +31,9 @@ class Target extends Model
 
     }
 
+    //질문 저장시 json속성 포맷 변환
+    public function setAgeAttribute($value) {
+        $this->attributes['age'] = json_encode($value,JSON_UNESCAPED_UNICODE);
+    }
 
 }
