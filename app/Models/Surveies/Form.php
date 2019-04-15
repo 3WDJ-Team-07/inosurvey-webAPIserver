@@ -3,9 +3,12 @@
 namespace App\Models\Surveies;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ModelScopes;
 
 class Form extends Model
 {
+    use ModelScopes;
+
     public $timestamps = false;
     protected $fillable = [
         

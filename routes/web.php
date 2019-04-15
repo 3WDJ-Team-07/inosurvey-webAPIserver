@@ -24,9 +24,15 @@ Route::get('/', function () {
 });
 
 
+<<<<<<< HEAD
 Route::post('/imageData','Helpers\TestController@test');
+=======
+Route::get('/test','Helpers\TestController@test');
+Route::post('/test','Surveies\ResponseController@selectQuestionItem');
+>>>>>>> 7d6240fc779bd3650728b137f4bab483297ec436
 Route::get('/boards','Helpers\TestController@arrayTest2');
 Route::get('/boards','Helpers\TestController@arrayTest');
+
 
 Route::get('file',function(){
     return view('test');
