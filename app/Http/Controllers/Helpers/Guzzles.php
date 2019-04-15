@@ -21,7 +21,7 @@ trait Guzzles {
      public function getGuzzleRequest($http,$url) { 
         $host = config('constants.ethereum_host');
         $port = config('constants.ethereum_port');
-     
+        
         $client = new Client(); 
         $request = $client->request($http,$host.':'.$port.'/'.$url); 
         $response = $request->getBody();

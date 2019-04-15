@@ -20,7 +20,7 @@ class Form extends Model
         'started_at',
         'closed_at',
         'started_at',
-        'targer_isactive'
+        'target_isactive'
 
     ];
 

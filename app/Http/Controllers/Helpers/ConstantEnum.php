@@ -25,6 +25,7 @@ class ConstantEnum extends Controller
 
     const S3 =  [
         'donations'         =>'donations',
+        'surveies'          =>'surveies',
     ];
 
 }
