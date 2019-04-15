@@ -47,9 +47,9 @@ class Donation extends Model
     //달성치 계산 (스캐줄링)
     public static function achieveAmount($id){
         $donation = Donation::where('id',$id)->first();
-        $target_amount = $donation->target_amount;
+        $target_amount  = $donation->target_amount;
         $current_amount = $donation->current_amount;
-        $achieveAmount = floor($current_amount/$target_amount*100);
+        $achieveAmount  = floor($current_amount/$target_amount*100);
         return $achieveAmount;
     }
     
