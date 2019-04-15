@@ -29,15 +29,22 @@ class Question extends Model
     }
 
     //questions테이블 reponses테이블 1-N
-    public function response(){
+    public function responses(){
         return $this->hasMany('App\Models\Surveies\Response');
     } 
     
     //questions테이블 questionItems테이블 1-N
-    public function questionItem(){
+    public function questionItems(){
         return $this->hasMany('App\Models\Surveies\QuestionItem');
     } 
 
-    
+    public function selectItems($id){
 
+            $questionItem = Question::with(['questionItems' => function ($query){
+                    $query->orderBy('content_number','asc');
+                }
+            ])->where('form_id',$id)->orderBy('id','asc')->get();
+
+        return $questionItem;    
+    }
 }

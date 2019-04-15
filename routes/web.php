@@ -24,8 +24,10 @@ Route::get('/', function () {
 
 
 Route::get('/test','Helpers\TestController@test');
+Route::post('/test','Surveies\ResponseController@selectQuestionItem');
 Route::get('/boards','Helpers\TestController@arrayTest2');
 Route::post('/boards','Helpers\TestController@arrayTest');
+
 
 Route::get('file',function(){
     return view('test');
