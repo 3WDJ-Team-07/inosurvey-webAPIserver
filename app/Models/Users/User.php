@@ -58,10 +58,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Donations\Donation','donator_id');
     }
 
-    //user테이블 form테이블 1-N
-    public function form(){
-        return $this->hasMany('App\Models\Surveies\Form');
-    }
+    // //user테이블 form테이블 1-N
+    // public function form(){
+    //     return $this->hasMany('App\Models\Surveies\Form');
+    // }
 
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function respondentForms(){
