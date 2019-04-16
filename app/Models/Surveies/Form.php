@@ -25,7 +25,7 @@ class Form extends Model
         'started_at',
         'targer_isactive',
         'bgcolor',
-        'user_id'
+        //'user_id'
 
     ];
 
@@ -45,10 +45,10 @@ class Form extends Model
         return $this->hasMany('App\Models\Surveies\Question');
     }
 
-    //user테이블 form테이블 1-N
-    public function user(){
-        return $this->belongsTo('App\Models\Surveies\Form');
-    }
+    // //user테이블 form테이블 1-N
+    // public function user(){
+    //     return $this->belongsTo('App\Models\Surveies\Form');
+    // }
 
     //form테이블 user테이블 N-N(중간테이블-survey_user)
     public function respondentUsers(){
