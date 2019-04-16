@@ -28,6 +28,8 @@ class User extends Authenticatable
         'is_donator', 
     ];
 
+    protected $hidden = ['password'];
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -82,7 +84,7 @@ class User extends Authenticatable
     
     //기부단체 회원 - 기부 테이블 조회 
     public function selectDonation($id){
-        return User::where('id',$id)->first()->donations;
+        return $this->where('id',$id)->first()->donations;
     }
 
 }

@@ -24,7 +24,7 @@ class Target extends Model
 
     //타겟 유저 선택
     public function selectTargetUser($id){
-        $target = $this::where('id',$id)->get();
+        $target = $this->where('id',$id)->get();
         //if(){
 
         //}

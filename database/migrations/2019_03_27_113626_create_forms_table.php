@@ -17,7 +17,7 @@ class CreateFormsTable extends Migration
             $table->increments('id');
             $table->string('title',50);
             $table->text('description');
-            $table->integer('respondent_number')->unsigned();
+            $table->integer('respondent_number')->nullable();
             $table->integer('respondent_count')->default(0);
             $table->boolean('is_completed')->default(false);
             $table->boolean('is_sale')->default(false);

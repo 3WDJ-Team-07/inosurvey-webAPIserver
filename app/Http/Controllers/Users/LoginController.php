@@ -31,8 +31,8 @@ class LoginController extends Controller {
 
         //유저 정보 체크
         if(Auth::attempt($credentials)){
-            //jwt 토큰 생성
-            $jwt = $this->ganerateToken();
+            
+            $jwt = $this->ganerateToken(Auth::user()); //jwt 토큰 생성
             return response()->json(['message' => 'true','access_token' => $jwt],200); 
         }else{
             return response()->json(['message' => 'false'],401);
@@ -41,11 +41,11 @@ class LoginController extends Controller {
     }
     
     //jwt토큰 생성
-    public function ganerateToken(){
+    public function ganerateToken($user){
         
         $key = "inosurvey";
         $token = array(
-            "user" => "@zxc123123",
+            "user" => $user,
             // "exp" => 24*7,
             // "iat" => 1356999524     
         );

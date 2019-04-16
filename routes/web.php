@@ -24,12 +24,7 @@ Route::get('/', function () {
 });
 
 
-<<<<<<< HEAD
 Route::post('/imageData','Helpers\TestController@test');
-=======
-Route::get('/test','Helpers\TestController@test');
-Route::post('/test','Surveies\ResponseController@selectQuestionItem');
->>>>>>> 7d6240fc779bd3650728b137f4bab483297ec436
 Route::get('/boards','Helpers\TestController@arrayTest2');
 Route::get('/boards','Helpers\TestController@arrayTest');
 
@@ -47,6 +42,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'user'], function () {
         Route::post('/register','Users\RegisterController@register');
         Route::post('/login','Users\LoginController@login');
+        Route::post('/check','Users\UserController@check');
     });
     //survey
     Route::group(['prefix' => 'survey'], function () {
