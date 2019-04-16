@@ -22,10 +22,13 @@ class CreateFormsTable extends Migration
             $table->boolean('is_completed')->default(false);
             $table->boolean('is_sale')->default(false);
             $table->boolean('targer_isactive')->default(false);
+            $table->string('bgcolor')->default('#ffffff');
             $table->integer('topic_id')->unsigned()->nullable();
             $table->foreign('topic_id')->references('id')->on('topics');
             $table->integer('target_id')->unsigned()->nullable();
             $table->foreign('target_id')->references('id')->on('targets');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamp('started_at');
             $table->timestamp('closed_at')->nullable();
         });
