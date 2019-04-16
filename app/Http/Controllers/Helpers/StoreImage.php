@@ -14,23 +14,27 @@ namespace App\Http\Controllers\Helpers;
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Webpatser\Uuid\Uuid;
 
 trait StoreImage
 {
     public function fileUpload($request,$storage){
-        if($request->hasFile('image')) {
-            $file = $request->file('image')->getClientOriginalName();
-            $file = config('filesystems.disks.s3.url').'/'.$storage.'/'.$file;
+       
+        if($request->hasFile('file')) {
+            $file = $request->file('file')->getClientOriginalName();
+            $uuid = (String)Uuid::generate(4);
+            $file = $uuid.$file;
+            $fileUrl = config('filesystems.disks.s3.url').'/'.$storage.'/'.$file;
         }else {
             return false;
         } 
 
-        $request->file('image')->storeAs(
+        $request->file('file')->storeAs(
             $storage,
             $file,
             's3'
         );
 
-        return $file;
+        return $fileUrl;
     }
 }

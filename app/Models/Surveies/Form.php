@@ -25,7 +25,7 @@ class Form extends Model
         'started_at',
         'targer_isactive',
         'bgcolor',
-        //'user_id'
+        //'user_id
 
     ];
 

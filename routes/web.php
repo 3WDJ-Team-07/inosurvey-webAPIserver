@@ -4,12 +4,13 @@ use App\Models\Surveies\Type;
 use App\Models\Donations\Donation;
 /*
 |--------------------------------------------------------------------------
-| Web Routes
+| REST API 설계 규칙
 |--------------------------------------------------------------------------
+|1.URI는 정보의 자원을 표현해야한다.
+|2.자원에 대한 행위는 HTTP Metohd(GET,POST,PUT,DELETE)로 표현한다.
+|3.슬래시 구분자(/)는 계층 관계를 나타내는데 사용한다.
+|4.Method 작명은 HTTP와 처리 할 액션으로 구성한다. 
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
 |
 */
 
@@ -23,10 +24,14 @@ Route::get('/', function () {
 });
 
 
+<<<<<<< HEAD
+Route::post('/imageData','Helpers\TestController@test');
+=======
 Route::get('/test','Helpers\TestController@test');
 Route::post('/test','Surveies\ResponseController@selectQuestionItem');
+>>>>>>> 7d6240fc779bd3650728b137f4bab483297ec436
 Route::get('/boards','Helpers\TestController@arrayTest2');
-Route::post('/boards','Helpers\TestController@arrayTest');
+Route::get('/boards','Helpers\TestController@arrayTest');
 
 
 Route::get('file',function(){
@@ -46,6 +51,7 @@ Route::group(['prefix' => 'api'], function () {
     //survey
     Route::group(['prefix' => 'survey'], function () {
         Route::post('/create','Surveies\SurveyController@create');
+        Route::post('/image-data','Surveies\SurveyController@imageUpload');
         Route::get('/question-bank','Surveies\QuestionBankController@questionBank'); 
     });
     
