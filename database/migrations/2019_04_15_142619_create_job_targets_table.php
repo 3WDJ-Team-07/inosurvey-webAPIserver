@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTargetsTable extends Migration
+class CreateJobTargetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class CreateTargetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('targets', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('start_age')->nullable();
-            $table->integer('end_age')->nullable();
-            $table->integer('gender')->dafault(0);
-            $table->integer('job_id')->unsigned()->nullable();
+        Schema::create('job_target', function (Blueprint $table) {
+            $table->integer('job_id')->unsigned();
             $table->foreign('job_id')->references('id')->on('jobs');
+            $table->integer('target_id')->unsigned();
+            $table->foreign('target_id')->references('id')->on('targets');
         });
     }
 
@@ -30,6 +28,6 @@ class CreateTargetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('targets');
+        Schema::dropIfExists('job_target');
     }
 }

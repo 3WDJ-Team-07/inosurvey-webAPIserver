@@ -43,10 +43,11 @@ class Question extends Model
 
     public function selectItems($id){
 
-            $questionItem = Question::with(['questionItems' => function ($query){
-                    $query->orderBy('content_number','asc');
+            $questionItem = $this->with(['questionItems' => function ($query){
+                    $query->oldest('content_number');
                 }
             ])->where('form_id',$id)->orderBy('question_number','asc')->get();
+
 
         return $questionItem;    
     }

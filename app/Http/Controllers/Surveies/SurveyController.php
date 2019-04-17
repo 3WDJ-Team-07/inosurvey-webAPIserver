@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Surveies;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use App\Http\Controllers\Helpers\StoreImage;
+use App\Http\Controllers\Helpers\ConstantEnum;
+
 use App\Http\Controllers\Helpers\GuzzleController;
+
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -14,8 +19,11 @@ use App\Models\Surveies\JobTarget;
 use App\Models\Surveies\Target;
 use App\Models\Users\job;
 
+
 class SurveyController extends Controller {
     
+    use StoreImage;
+
     private $formModel          = null;
     private $questionModel      = null;
     private $questionItemModel  = null;
@@ -32,8 +40,12 @@ class SurveyController extends Controller {
         $this->jobTargetModel       = new JobTarget();
     }
 
+
+
+
     //설문 작성
     public function create(Request $request){
+
         
         $gender         = $request->input('target.gender');
         $responseNumber = $request->input('target.responseNumber');
@@ -94,16 +106,19 @@ class SurveyController extends Controller {
             //user_id묻기 target_id update
         }
 
+
         return response()->json(['message'=>'true'],200);
     }
-    
-    //질문 은행
-    public function questionBank(){
-        if(Questionbank::all()) {
-            return Questionbank::all();
-        }else {
+
+    public function imageUpload(Request $request){
+
+        $file = $this->fileUpload($request,ConstantEnum::S3['surveies']);
+        
+        if($file == false){
             return response()->json(['message'=>'false'],400);
-        }
+         }
+        
+        return $file;
     }
 
 

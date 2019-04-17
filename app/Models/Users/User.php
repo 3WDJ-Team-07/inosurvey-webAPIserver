@@ -28,6 +28,8 @@ class User extends Authenticatable
         'is_donator', 
     ];
 
+    protected $hidden = ['password'];
+    
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -58,6 +60,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Donations\Donation','donator_id');
     }
 
+    // //user테이블 form테이블 1-N
+    // public function form(){
+    //     return $this->hasMany('App\Models\Surveies\Form');
+    // }
+
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function respondentForms(){
         return $this->belongsToMany('App\Models\Surveies\Form','survey_user','respondent_id','survey_id');
@@ -82,7 +89,7 @@ class User extends Authenticatable
     
     //기부단체 회원 - 기부 테이블 조회 
     public function selectDonation($id){
-        return User::where('id',$id)->first()->donations;
+        return $this->where('id',$id)->first()->donations;
     }
 
 }
