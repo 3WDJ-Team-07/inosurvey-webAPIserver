@@ -25,6 +25,7 @@ Route::get('/', function () {
 
 Route::get('/test','Helpers\TestController@test');
 Route::post('/test','Surveies\ResponseController@selectQuestionItem');
+Route::post('/receive','Surveies\SurveyController@create');
 Route::get('/boards','Helpers\TestController@arrayTest2');
 Route::post('/boards','Helpers\TestController@arrayTest');
 
