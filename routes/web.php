@@ -24,7 +24,11 @@ Route::get('/', function () {
 });
 
 
+
+Route::post('/test','Surveies\ResponseController@selectQuestionItem');
+Route::post('/receive','Surveies\SurveyController@create');
 Route::post('/imageData','Helpers\TestController@test');
+
 Route::get('/boards','Helpers\TestController@arrayTest2');
 Route::get('/boards','Helpers\TestController@arrayTest');
 

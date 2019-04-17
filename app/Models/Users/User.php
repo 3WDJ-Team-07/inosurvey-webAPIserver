@@ -80,7 +80,7 @@ class User extends Authenticatable
         $this->attributes['password'] = Hash::make($value);
     }
 
-    //나이 연령대로 반환
+    //출생연도 현재나이(한국기준)로 반환
     public function getAgeAttribute($age){
         $nowDate = date('Y');
         $ageGroup = $nowDate-$age+1;

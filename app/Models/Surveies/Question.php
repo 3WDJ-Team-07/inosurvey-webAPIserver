@@ -3,9 +3,12 @@
 namespace App\Models\Surveies;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ModelScopes;
 
 class Question extends Model
 {
+    use ModelScopes;
+    
     public $timestamps = false;
     protected $fillable = [
 
@@ -43,7 +46,8 @@ class Question extends Model
             $questionItem = $this->with(['questionItems' => function ($query){
                     $query->oldest('content_number');
                 }
-            ])->where('form_id',$id)->oldest('id')->get();
+            ])->where('form_id',$id)->orderBy('question_number','asc')->get();
+
 
         return $questionItem;    
     }
