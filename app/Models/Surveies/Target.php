@@ -3,6 +3,7 @@
 namespace App\Models\Surveies;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ModelScopes;
 
 class Target extends Model
 {
