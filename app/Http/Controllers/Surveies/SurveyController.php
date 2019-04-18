@@ -46,7 +46,6 @@ class SurveyController extends Controller {
     //설문 작성
     public function create(Request $request){
 
-        
         $gender         = $request->input('target.gender');
         $responseNumber = $request->input('target.responseNumber');
         $countAgeJob    = count($request->input('target.*.*'));
@@ -72,11 +71,12 @@ class SurveyController extends Controller {
                 'gender'        => $request->target['gender']
             ]);
         }
-        $this->targetModel->insertMsgs($targetData);
+        //$this->targetModel->insertMsgs($targetData);
 
         
         foreach ($request->list as $question){
         
+            return count($question['items']);
             $questionData = array([
                 'question_number'       => $question['index'],
                 'question_title'        => $question['question_title'],
@@ -93,7 +93,7 @@ class SurveyController extends Controller {
 
             $contentNumber = 1;
             
-            return count($question['items']);
+            
             foreach ($question['items'] as $item){
                 $itemData = array([
                     'content'               => $item['value'],
