@@ -29,7 +29,7 @@ class SurveyController extends Controller {
     private $questionItemModel  = null;
     private $targetModel        = null;
     private $jobModel           = null;
-    private $jobTargetModel           = null;
+    private $jobTargetModel     = null;
 
     public function __construct() {
         $this->formModel            = new Form();
@@ -39,9 +39,6 @@ class SurveyController extends Controller {
         $this->jobModel             = new Job();
         $this->jobTargetModel       = new JobTarget();
     }
-
-
-
 
     //설문 작성
     public function create(Request $request){
@@ -59,29 +56,38 @@ class SurveyController extends Controller {
             'respondent_number'     => $request->target['responseNumber'],
             'target_isactive'       => $targetIsActive,
             'bgcolor'               => $request->bgcolor,
-            'closed_at'             => $request->closed_at.' 00:00:00'
+            'closed_at'             => $request->closed_at.' 00:00:00',
+            'user_id'               => Auth::id()
         ]);
         //$this->formModel->insertMsgs($formData);
-        //응답수는 무조건 설정해야하는걸로 
-
         $formId = $this->formModel->getLatest('started_at')->id;
-        if($targetIsActive == true){
-            $targetData = array([
-                'age'           => $request->target['age'],
-                'gender'        => $request->target['gender']
-            ]);
-        }
-        //$this->targetModel->insertMsgs($targetData);
 
-        
-        foreach ($request->list as $question){
-        
-            return count($question['items']);
+        if($targetIsActive == true){
+                $targetData = array([
+                    'age'           => $request->input('target.age',''),
+                    'gender'        => $request->input('target.gender','')
+                ]);
+            //$this->targetModel->insertMsgs($targetData);
+            $targetId = $this->targetModel->getLatest('id')->id;
+
+            if( $request->target['job']){
+                foreach ($requesst->target['job'] as $job){
+                    $jobTargetData = array([
+                        'job_id'            => $job,
+                        'target_id'         => $targetId
+                    ]);
+                    $this->jobTargetModel->insertMsgs($jobTargetData);
+                }
+            }
+
+        }//end of insert targets & update form
+
+        foreach ($request->list as $question){        
+
             $questionData = array([
                 'question_number'       => $question['index'],
                 'question_title'        => $question['question_title'],
                 'image'                 => $question['question_image'],
-                //question_bank 묻기
                 'form_id'               => $formId,
                 'type_id'               => $question['type']
             ]); 
@@ -91,21 +97,19 @@ class SurveyController extends Controller {
             $questionId         = $latestQuestion->id;
             $questionType       = $latestQuestion->type;
 
-            $contentNumber = 1;
-            
-            
-            foreach ($question['items'] as $item){
-                $itemData = array([
-                    'content'               => $item['value'],
-                    'content_number'        => $contentNumber,
-                    'question_id'           => $questionId
-                ]);
-                //$this->questionItemModel->insertMsgs($itemData);
-                $contentNumber ++;
-            }
-            //user_id묻기 target_id update
-        }
-
+            if($question['items']){
+                $contentNumber = 1;
+                    foreach ($question['items'] as $item){
+                        $itemData = array([
+                            'content'               => $item['value'],
+                            'content_number'        => $contentNumber,
+                            'question_id'           => $questionId
+                        ]);
+                        //$this->questionItemModel->insertMsgs($itemData);
+                        $contentNumber ++;
+                    }
+            }//end of questionItem
+        }//end of question foreach loop
 
         return response()->json(['message'=>'true'],200);
     }
