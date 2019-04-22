@@ -27,7 +27,7 @@ class ResponseController extends Controller
     //설문조사 리스트 내용 select
     public function selectForm(Request $request){
         
-        $value = $this->formModel->getMsg('id', $request->id);
+        $value = $this->formModel->getData('id', $request->id);
         
         if($request->id ==1){
             return response()->json(['message' => 'true' , 'value' => $value],200);
