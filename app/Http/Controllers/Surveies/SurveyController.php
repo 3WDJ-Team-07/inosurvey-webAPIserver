@@ -44,8 +44,11 @@ class SurveyController extends Controller {
         $gender         = $request->input('target.gender');
         $countAgeJob    = count($request->input('target.*.*'));
         
-        if($gender==0 && $countAgeJob==0) $targetIsActive = false;
-        else $targetIsActive = true;
+        if($gender==0 && $countAgeJob==0){
+            $targetIsActive = false;
+        } else{
+            $targetIsActive = true;
+        } 
         
 
         $formData = array([
@@ -54,11 +57,11 @@ class SurveyController extends Controller {
             'respondent_number'     => $request->target['responseNumber'],
             'target_isactive'       => $targetIsActive,
             'bgcolor'               => $request->bgcolor,
-            'closed_at'             => $request->closed_at.' 00:00:00',
-            //'user_id'               => Auth::id()
-            'user_id'               => '1',
+            'closed_at'             => $request->closed_at.'00:00:00',
+            'user_id'               => 1,
             'is_sale'               => $request->is_sale
         ]);
+
         $this->formModel->insertMsgs($formData);
         $formId = $this->formModel->getLatest('started_at')->id;
 
