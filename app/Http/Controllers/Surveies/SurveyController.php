@@ -44,12 +44,12 @@ class SurveyController extends Controller {
     public function create(Request $request){
 
         $gender         = $request->input('target.gender');
-        $responseNumber = $request->input('target.responseNumber');
         $countAgeJob    = count($request->input('target.*.*'));
         
         if($gender==0 && $countAgeJob==0) $targetIsActive = false;
         else $targetIsActive = true;
         
+
         $formData = array([
             'title'                 => $request->survey_title,
             'description'           => $request->survey_description,
@@ -57,21 +57,25 @@ class SurveyController extends Controller {
             'target_isactive'       => $targetIsActive,
             'bgcolor'               => $request->bgcolor,
             'closed_at'             => $request->closed_at.' 00:00:00',
-            'user_id'               => Auth::id()
+            //'user_id'               => Auth::id()
+            'user_id'               => '1',
+            'is_sale'               => $request->is_sale
         ]);
-        //$this->formModel->insertMsgs($formData);
+        $this->formModel->insertMsgs($formData);
         $formId = $this->formModel->getLatest('started_at')->id;
 
-        if($targetIsActive == true){
-                $targetData = array([
-                    'age'           => $request->input('target.age',''),
-                    'gender'        => $request->input('target.gender','')
-                ]);
-            //$this->targetModel->insertMsgs($targetData);
-            $targetId = $this->targetModel->getLatest('id')->id;
 
-            if( $request->target['job']){
-                foreach ($requesst->target['job'] as $job){
+        if($targetIsActive == true){
+          
+            $age        = $request->input('target.age','');
+            $gender     = $request->target['gender'];
+            $this->targetModel->create(['age' => $age, 'gender' => $gender]);
+
+            $targetId   = $this->targetModel->getLatest('id')->id;
+
+            if($request->target['job']){
+                
+                foreach ($request->target['job'] as $job){
                     $jobTargetData = array([
                         'job_id'            => $job,
                         'target_id'         => $targetId
@@ -80,10 +84,12 @@ class SurveyController extends Controller {
                 }
             }
 
+            $this->formModel->UpdateMsg($formId, 'target_id', $targetId);
         }//end of insert targets & update form
 
-        foreach ($request->list as $question){        
 
+        foreach ($request->list as $question){    
+               
             $questionData = array([
                 'question_number'       => $question['index'],
                 'question_title'        => $question['question_title'],
@@ -91,21 +97,24 @@ class SurveyController extends Controller {
                 'form_id'               => $formId,
                 'type_id'               => $question['type']
             ]); 
-            //$this->questionModel->insertMsgs($questionData);
+           $this->questionModel->insertMsgs($questionData);
             
-            $latestQuestion     = $this->questionModel->getLatest('id');
-            $questionId         = $latestQuestion->id;
-            $questionType       = $latestQuestion->type;
+            $questionId         = $this->questionModel->getLatest('id')->id;
+            $questionType       = $this->questionModel->getLatest('id')->type_id;
 
             if($question['items']){
-                $contentNumber = 1;
+                    $contentNumber = 1;
                     foreach ($question['items'] as $item){
                         $itemData = array([
                             'content'               => $item['value'],
                             'content_number'        => $contentNumber,
                             'question_id'           => $questionId
                         ]);
-                        //$this->questionItemModel->insertMsgs($itemData);
+                        $this->questionItemModel->insertMsgs($itemData);
+
+                        $itemId = $this->questionItemModel->getLatest('id')->id;
+                        if($questionType == 6) $this->questionItemModel->updateImg($itemId, $item['img']);
+                        
                         $contentNumber ++;
                     }
             }//end of questionItem
@@ -120,7 +129,7 @@ class SurveyController extends Controller {
         
         if($file == false){
             return response()->json(['message'=>'false'],400);
-         }
+        }
         
         return $file;
     }
