@@ -14,7 +14,7 @@ $factory->define(App\Models\Surveies\Form::class, function (Faker $faker) {
         'description' => $faker->text, 
         // 'closed_at' => '',  
         // 'is_sale' => '', 
-        // 'donation_organization' => $faker->word, 
+        // 'started_at' => time(), 
         'respondent_number' => rand(1,200),
         'topic_id' => $faker->numberBetween($topic_id_min,$topic_id_max),
         'target_id' => $faker->numberBetween($target_id_min,$target_id_max),

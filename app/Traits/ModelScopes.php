@@ -8,8 +8,9 @@ trait ModelScopes{
         return $query->insert($msgs);
     }
 
-    public function scopeGetMsg($query,$id){
-        return $query->where('id', $id)->first();
+    public function scopeGetData($query,$col,$arg){
+        return $query->where($col,$arg)->first();
+
     }
 
     //최근 생성된 컬럼 선택

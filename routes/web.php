@@ -18,8 +18,8 @@ use App\Models\Donations\Donation;
 
 Route::get('/', function () {
     $now = new Carbon;
-    return now();
-    // return date('Y-m-d H:00');
+    // return $now;
+    return date('Y-m-d H:i:s');
     // return date('Y-m-d H:00',strtotime(now()));
 });
 
@@ -30,7 +30,7 @@ Route::post('/receive','Surveies\SurveyController@create');
 Route::post('/imageData','Helpers\TestController@test');
 
 Route::get('/boards','Helpers\TestController@arrayTest2');
-Route::get('/boards','Helpers\TestController@arrayTest');
+Route::post('/boards','Surveies\SurveyController@test');
 
 
 Route::get('file',function(){
@@ -51,10 +51,23 @@ Route::group(['prefix' => 'api'], function () {
     //survey
     Route::group(['prefix' => 'survey'], function () {
         Route::post('/create','Surveies\SurveyController@create');
-        Route::post('/image-data','Surveies\SurveyController@imageUpload');
+        Route::post('/image-data','Surveies\SurveyController@uploadImage');
+        Route::post('/image-delete','Surveies\SurveyController@deleteImage');
+        Route::get('/index','Surveies\SurveyController@index');
         Route::get('/question-bank','Surveies\QuestionBankController@questionBank'); 
     });
     
+     //survey-response
+     Route::group(['prefix' => 'response'], function () {
+        Route::get('/index','Surveies\ResponseController@getForm');
+        Route::get('/questions','Surveies\ResponseController@selectQuestionItem');
+    });  
+
+    //market
+    Route::group(['prefix' => 'market'], function () {
+        Route::get('/index','Markets\MarketController@index');        
+    });
+
     //donation
     Route::group(['prefix' => 'donation'], function () {
         Route::get('/index','Donations\DonationController@index');

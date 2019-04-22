@@ -10,6 +10,7 @@ namespace App\Http\Controllers\Helpers;
  *
  * 상수 목록
  *      LOGIN_TYPE :             로그인 유형을 정의
+ *      JWT_KEY    :             JWT 토큰의 key를 정의
  *      S3         :             AWS S3의 저장소 이름을 정의
  */
 
@@ -21,6 +22,10 @@ class ConstantEnum extends Controller
     const LOGIN_TYPE =  [
         'type'              =>'user_id',
         'password'          =>'password',
+    ];
+
+    const JWT_KEY = [
+        'key'               =>'inosurvey',
     ];
 
     const S3 =  [

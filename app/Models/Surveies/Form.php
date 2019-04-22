@@ -25,7 +25,7 @@ class Form extends Model
         'started_at',
         'targer_isactive',
         'bgcolor',
-        //'user_id
+        'user_id'
 
     ];
 
@@ -45,10 +45,10 @@ class Form extends Model
         return $this->hasMany('App\Models\Surveies\Question');
     }
 
-    // //user테이블 form테이블 1-N
-    // public function user(){
-    //     return $this->belongsTo('App\Models\Surveies\Form');
-    // }
+    //user테이블 form테이블 1-N
+    public function user(){
+        return $this->belongsTo('App\Models\Users\User');
+    }
 
     //form테이블 user테이블 N-N(중간테이블-survey_user)
     public function respondentUsers(){
@@ -61,10 +61,28 @@ class Form extends Model
 
     //started_at칼럼 현재 시간 저장
     public static function boot() {
-        parent::boot(); static::creating(function ($model) {
+         parent::boot(); static::creating(function ($model) {
         $model->started_at = $model->freshTimestamp(); 
        });
-
     }
 
-}
+
+
+
+    
+    //설문 정보 
+    public function getSurveies(){
+        return $this->with(['user','target.job','question.questionItems'])->get();
+    }
+
+     //판매 가능 설문 정보 
+     public function saleSurveies(){
+        return $this->with(['user','target.job','question.questionItems'])->where('is_sale',1)->get();
+    }
+
+    //설문 폼 정보 
+    public function getSurveiesForm(){
+        return $this->with(['user','target.job'])->get();
+    }
+    
+}                       

@@ -34,7 +34,7 @@ class QuestionItem extends Model
     } 
 
 
-    //response테이블 questionItems테이블 N-N
+    //response테이블 questionItems테이블 N-N(중간 테이블 item_response)
     public function responses(){
         return $this->belongsToMany('App\Models\Surveies\Response','item_response','item_id','response_id');
     }  

@@ -15,7 +15,7 @@ class Job extends Model
     }
     
     //jobs테이블 targets테이블 N-N (중간테이블 job_target)
-    public function targets(){
+    public function target(){
         return $this->belongsToMany('App\Models\Surveies\Target','job_target');
     }
 }

@@ -19,7 +19,7 @@ class Response extends Model
     public function surveyUser(){
         return $this->belongsTo('App\Models\Surveies\SurveyUser','response_id');
     }
-    //response테이블 questionItems테이블 N-N
+    //response테이블 questionItems테이블 N-N (중간테이블 item_response)
     public function questionItems(){
         return $this->belongsToMany('App\Models\Surveies\QuestionItem','item_response','response_id','item_id');
     }  

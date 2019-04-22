@@ -10,15 +10,15 @@ namespace App\Http\Controllers\Users;
  *
  * 함수 목록
  * login(회원정보):             회원정보를 받아 인증하고 권한부여
- * ganerateToken()             JWT토큰을 생성하는 함수
+ * ganerateToken(회원정보)      JWT토큰을 생성하는 함수
  * username()     :            유저 로그인 형식을 지정하는 함수    
  *
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\ConstantEnum;
 use \Firebase\JWT\JWT;
 use Auth;
-use App\Http\Controllers\Helpers\ConstantEnum;
 
 class LoginController extends Controller {
 
@@ -32,7 +32,7 @@ class LoginController extends Controller {
         //유저 정보 체크
         if(Auth::attempt($credentials)){
             
-            $jwt = $this->ganerateToken(Auth::user()); //jwt 토큰 생성
+            $jwt = $this->ganerateToken(Auth::user());     //jwt 토큰 발급
             return response()->json(['message' => 'true','access_token' => $jwt],200); 
         }else{
             return response()->json(['message' => 'false'],401);
@@ -43,14 +43,15 @@ class LoginController extends Controller {
     //jwt토큰 생성
     public function ganerateToken($user){
         
-        $key = "inosurvey";
+        $key = ConstantEnum::JWT_KEY['key'];
         $token = array(
-            "user" => $user,
-            // "exp" => 24*7,
-            // "iat" => 1356999524     
+            "user"  => $user,                           //로그인 유저정보
+            "iss"   => 'inosurvey.com',                 //토큰 발급자
+            "exp"   => time()+ 60*60,                   //토큰 만료시간
+            "iat"   => time()                           //토큰 발급시간     
         );
 
-        $jwt = JWT::encode($token, $key,'HS256');
+        $jwt = JWT::encode($token, $key,'HS256');       //토큰 생성
         
         return $jwt;
     }

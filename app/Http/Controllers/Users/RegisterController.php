@@ -29,7 +29,7 @@ class RegisterController extends Controller {
     
         $user = User::create(request()->all());
         
-        $wallet = $this->getGuzzleRequest('GET','wallet/create');
+        $wallet = $this->getGuzzleRequest('GET','wallet/create');   //지갑 공개키,개인키 발급
     
         $param = array(
             'public_key' => $wallet['public_key'],
