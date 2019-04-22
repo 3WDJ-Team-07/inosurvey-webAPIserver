@@ -38,7 +38,7 @@ class DonationController extends Controller
             'image'         =>  $file,
             'target_amount' =>  $request->target_amount,
             'closed_at'     =>  $request->closed_at,
-            'donator_id'    =>  Auth::id(),
+            'donator_id'    =>  1,
         );
 
         Donation::create($param);

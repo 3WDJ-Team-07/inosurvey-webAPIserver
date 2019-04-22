@@ -49,4 +49,10 @@ class ResponseController extends Controller
     public function insertForm(Requet $requet){
 
     }
+
+
+
+    public function getForm(){
+        return $this->formModel->getSurveiesForm();
+    }
 }

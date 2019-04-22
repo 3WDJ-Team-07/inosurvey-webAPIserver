@@ -11,9 +11,8 @@ trait ModelScopes{
         //return $this->donationModel->create(request()->all());
     }
 
-    public function scopeGetMsg($query,$id)
-    {
-        return $query->where('id', $id)->first();
+    public function scopeGetData($query,$col,$arg){
+        return $query->where($col,$arg)->first();
     }
 
 }

@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(DonationUserTableSeed::class);
         $this->call(ReplyableUserTableSeed::class);
         $this->call(QuestionBanksTableSeed::class);
+        $this->call(JobTargetTableSeed::class);
     }
 }

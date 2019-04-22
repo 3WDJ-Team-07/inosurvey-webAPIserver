@@ -6,10 +6,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
-
+use App\Traits\ModelScopes;
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,ModelScopes;
 
     /**
      * The attributes that are mass assignable.
@@ -28,7 +28,10 @@ class User extends Authenticatable
         'is_donator', 
     ];
 
-    protected $hidden = ['password'];
+    protected $hidden = [
+        'user_id',
+        'password',
+    ];
     
     /**
      * The attributes that should be hidden for arrays.
@@ -60,10 +63,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Donations\Donation','donator_id');
     }
 
-    // //user테이블 form테이블 1-N
-    // public function form(){
-    //     return $this->hasMany('App\Models\Surveies\Form');
-    // }
+    //user테이블 form테이블 1-N
+    public function form(){
+        return $this->hasMany('App\Models\Surveies\Form');
+    }
 
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function respondentForms(){

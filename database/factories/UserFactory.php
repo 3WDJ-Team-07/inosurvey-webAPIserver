@@ -12,7 +12,7 @@ $factory->define(App\Models\Users\User::class, function (Faker $faker) {
 
     return [
         // 'user_id' => $user_id[$num] . $num,
-        'user_id' => 'pyc5836',
+        'user_id' => 'pyc5836'.rand(0,100),
         'password' => 'zxc12345', 
         'email' => $faker->unique()->safeEmail,
         'nickname' => $faker->name,       
