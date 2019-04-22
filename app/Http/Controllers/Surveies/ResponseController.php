@@ -39,9 +39,8 @@ class ResponseController extends Controller
     //설문조사 아이템, 질문 내용 select
     public function selectQuestionItem(Request $request){
 
-        $formId = $request->id;
-        //$question = $this->questionModel->where('form_id',$formId)->orderBy('question_number','asc')->get();
-        $questionItem = $this->questionModel->selectItems($formId);
+        $formId         = $request->id;
+        $questionItem   = $this->questionModel->selectItems($formId);
         return response()->json(['message' => 'true' , 'questionItem' => $questionItem],200);
     }
 

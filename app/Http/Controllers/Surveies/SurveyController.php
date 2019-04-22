@@ -20,6 +20,15 @@ use App\Models\Users\job;
 
 
 
+use App\Models\Surveies\Form;
+use App\Models\Surveies\Question;
+use App\Models\Surveies\QuestionItem;
+use App\Models\Surveies\QuestionBank;
+use App\Models\Surveies\JobTarget;
+use App\Models\Surveies\Target;
+use App\Models\Users\job;
+
+
 class SurveyController extends Controller {
     
     use StoreImage;
@@ -40,11 +49,9 @@ class SurveyController extends Controller {
         $this->jobTargetModel       = new JobTarget();
     }
 
-
-
-
     //설문 작성
     public function create(Request $request){
+<<<<<<< HEAD
         
         // return $request->target['start_age'];
         // return $target = $request->get(['gender','responseNumber']);
@@ -88,6 +95,76 @@ class SurveyController extends Controller {
             $this->formModel->create($formData);
             // $this->questionModel->create($questionData);
             // $this->questionItemModel->create($itemData);
+=======
+
+        $gender         = $request->input('target.gender');
+        $responseNumber = $request->input('target.responseNumber');
+        $countAgeJob    = count($request->input('target.*.*'));
+        
+        if($gender==0 && $countAgeJob==0) $targetIsActive = false;
+        else $targetIsActive = true;
+        
+        $formData = array([
+            'title'                 => $request->survey_title,
+            'description'           => $request->survey_description,
+            'respondent_number'     => $request->target['responseNumber'],
+            'target_isactive'       => $targetIsActive,
+            'bgcolor'               => $request->bgcolor,
+            'closed_at'             => $request->closed_at.' 00:00:00',
+            'user_id'               => Auth::id()
+        ]);
+        //$this->formModel->insertMsgs($formData);
+        $formId = $this->formModel->getLatest('started_at')->id;
+
+        if($targetIsActive == true){
+                $targetData = array([
+                    'age'           => $request->input('target.age',''),
+                    'gender'        => $request->input('target.gender','')
+                ]);
+            //$this->targetModel->insertMsgs($targetData);
+            $targetId = $this->targetModel->getLatest('id')->id;
+
+            if( $request->target['job']){
+                foreach ($requesst->target['job'] as $job){
+                    $jobTargetData = array([
+                        'job_id'            => $job,
+                        'target_id'         => $targetId
+                    ]);
+                    $this->jobTargetModel->insertMsgs($jobTargetData);
+                }
+            }
+
+        }//end of insert targets & update form
+
+        foreach ($request->list as $question){        
+
+            $questionData = array([
+                'question_number'       => $question['index'],
+                'question_title'        => $question['question_title'],
+                'image'                 => $question['question_image'],
+                'form_id'               => $formId,
+                'type_id'               => $question['type']
+            ]); 
+            //$this->questionModel->insertMsgs($questionData);
+            
+            $latestQuestion     = $this->questionModel->getLatest('id');
+            $questionId         = $latestQuestion->id;
+            $questionType       = $latestQuestion->type;
+
+            if($question['items']){
+                $contentNumber = 1;
+                    foreach ($question['items'] as $item){
+                        $itemData = array([
+                            'content'               => $item['value'],
+                            'content_number'        => $contentNumber,
+                            'question_id'           => $questionId
+                        ]);
+                        //$this->questionItemModel->insertMsgs($itemData);
+                        $contentNumber ++;
+                    }
+            }//end of questionItem
+        }//end of question foreach loop
+>>>>>>> 0cb4aaaa40bd0a39ffc8c7bd867ec5865f5ac647
 
         return response()->json(['message'=>'true'],200);
     }
@@ -114,6 +191,7 @@ class SurveyController extends Controller {
     }
 
 
+<<<<<<< HEAD
     public function deleteImage(Request $request){
         return $request->file;
         $filePath = 'https://s3.ap-northeast-2.amazonaws.com/inosurvey/surveies/02f50e22-ce9e-48bc-9c87-412768ddff86mountaineer-2080138_1920.jpg';
@@ -121,4 +199,6 @@ class SurveyController extends Controller {
         return 'true';
     }
 
+=======
+>>>>>>> 0cb4aaaa40bd0a39ffc8c7bd867ec5865f5ac647
 }

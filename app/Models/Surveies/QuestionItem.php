@@ -3,6 +3,7 @@
 namespace App\Models\Surveies;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ModelScopes;
 /**
  * 클래스명:                       QuestionItem
  * @package                       App\Http\Models\Surveies\QuestionItem
@@ -15,6 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class QuestionItem extends Model
 {
+    use ModelScopes;
+    
     public $timestamps = false;
     protected $fillable = [
 
