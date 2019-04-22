@@ -7,6 +7,8 @@ use App\Traits\ModelScopes;
 
 class Target extends Model
 {
+    use ModelScopes;
+
     public $timestamps = false;
     protected $fillable = [
         'age',
