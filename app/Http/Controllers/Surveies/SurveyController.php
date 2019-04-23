@@ -18,10 +18,8 @@ namespace App\Http\Controllers\Surveies;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\StoreImage;
-
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -73,8 +71,8 @@ class SurveyController extends Controller {
             'respondent_number'     => $request->target['responseNumber'],
             'target_isactive'       => $targetIsActive,
             'bgcolor'               => $request->bgcolor,
-            'closed_at'             => $request->closed_at.'00:00:00',
-            'user_id'               => 1,
+            'closed_at'             => $request->closed_at,
+            'user_id'               => $request->user_id,
             'is_sale'               => $request->is_sale
         ]);
 
@@ -172,10 +170,9 @@ class SurveyController extends Controller {
 
     //이미지 등록 취소
     public function deleteImage(Request $request){
-        return $request->file;
-        $filePath = 'https://s3.ap-northeast-2.amazonaws.com/inosurvey/surveies/02f50e22-ce9e-48bc-9c87-412768ddff86mountaineer-2080138_1920.jpg';
-        Storage::disk('s3')->delete($filePath);    
-        return 'true';
-    }//end of deleteImage
+
+        return $this->fileDelete($request);
+ 
+    }
 
 }

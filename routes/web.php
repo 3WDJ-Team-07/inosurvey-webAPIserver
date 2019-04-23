@@ -48,7 +48,6 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/login','Users\LoginController@login');
         Route::post('/check','Users\UserController@check');
         Route::post('/user-surveies','Users\UserController@userSurveies');
-        // Route::post('/user-donations','Users\UserController@userDonations');
     });
 
     //survey
