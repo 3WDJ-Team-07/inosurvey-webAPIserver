@@ -14,9 +14,9 @@ namespace App\Http\Controllers\Users;
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\ConstantEnum;
 use \Firebase\JWT\JWT;
 use Auth;
-use App\Http\Controllers\Helpers\ConstantEnum;
 
 use App\Models\Users\User;
 use App\Models\Surveies\Form;
