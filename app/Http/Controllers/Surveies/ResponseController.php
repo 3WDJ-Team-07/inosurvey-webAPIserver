@@ -36,16 +36,20 @@ class ResponseController extends Controller
     // }
 
     //설문 리스트
+    
     public function getForm(){
-        return $this->formModel->getSurveiesForm();
+    
+        $form = $this->formModel->getSurveiesForm();
+    
+        return response()->json(['message' => 'true','form' => $form],200);
     }
    
     //설문조사 아이템, 질문 내용 select
     public function selectQuestionItem(Request $request){
 
-        $formId         = $request->id;
-        $questionItem   = $this->questionModel->selectItems($formId);
-        return response()->json(['message' => 'true' , 'questionItem' => $questionItem],200);
+        $questionItem   = $this->questionModel->selectItems($request->id);
+        
+        return response()->json(['message' => 'true','questionItem' => $questionItem],200);
     }
 
 

@@ -14,10 +14,5 @@ class MarketController extends Controller
     function __construct(){
         $this->formModel = new Form();
     }
-
-
-    public function index(){
-        return $this->formModel->saleSurveies();
-    }
     
 }

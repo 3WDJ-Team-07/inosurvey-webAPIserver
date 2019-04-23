@@ -47,7 +47,10 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/register','Users\RegisterController@register');
         Route::post('/login','Users\LoginController@login');
         Route::post('/check','Users\UserController@check');
+        Route::post('/user-surveies','Users\UserController@userSurveies');
+        // Route::post('/user-donations','Users\UserController@userDonations');
     });
+
     //survey
     Route::group(['prefix' => 'survey'], function () {
         Route::post('/create','Surveies\SurveyController@create');
@@ -65,14 +68,14 @@ Route::group(['prefix' => 'api'], function () {
 
     //market
     Route::group(['prefix' => 'market'], function () {
-        Route::get('/index','Markets\MarketController@index');        
+        // Route::get('/index','Markets\MarketController@index');        
     });
 
     //donation
     Route::group(['prefix' => 'donation'], function () {
         Route::get('/index','Donations\DonationController@index');
         Route::post('/create','Donations\DonationController@create')/*->middleware('donator')*/;
-         
+        Route::post('/show','Donations\DonationController@show'); 
     });
     
 });
