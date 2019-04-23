@@ -19,15 +19,17 @@ use Auth;
 use App\Http\Controllers\Helpers\ConstantEnum;
 
 use App\Models\Users\User;
+use App\Models\Surveies\Form;
 
 class UserController extends Controller
 {
 
     private $userModel = null;
+    private $formModel = null;
 
     function __construct(){
         $this->userModel = new User();
-        
+        $this->formModel = new Form();
     }
 
 
@@ -44,11 +46,23 @@ class UserController extends Controller
             $user = (array) JWT::decode($jwt, $key, array('HS256'));                //decode후  Array로 캐스팅
 
             if($user['user']->id){
-                    $userData = $this->userModel->getData('id',$user['user']->id);  //토큰의 정보와 일치하는 유저 정보를 추출
+                    $userData = $this->userModel->getData('id',$user['user']->id)->first();  //토큰의 정보와 일치하는 유저 정보를 추출
                 return response()->json(['message'=>'true','user'=>$userData],200);
             }else {
                 return response()->json(['message'=>'false'],400);
             }
+    }//end of check
+
+
+    //내가 만든 설문조사
+    public function userSurveies(Request $request){
+        
+        $serveies = $this->formModel->getSurveies()->where('user_id',$request->id)->get();
+
+        return response()->json(['message'=>'true','serveies'=>$serveies],200);
     }
+
+
+  
 
 }

@@ -67,20 +67,13 @@ class Form extends Model
     }
 
 
-
+    //설문 정보 스코프
+    public function scopeGetSurveies(){
+        return $this->with(['user','target.job','question.questionItems']);
+    }
 
     
-    //설문 정보 
-    public function getSurveies(){
-        return $this->with(['user','target.job','question.questionItems'])->get();
-    }
-
-     //판매 가능 설문 정보 
-     public function saleSurveies(){
-        return $this->with(['user','target.job','question.questionItems'])->where('is_sale',1)->get();
-    }
-
-    //설문 폼 정보 
+    //설문 폼 정보 (Android)
     public function getSurveiesForm(){
         return $this->with(['user','target.job'])->get();
     }

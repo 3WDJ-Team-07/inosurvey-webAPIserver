@@ -90,9 +90,9 @@ class User extends Authenticatable
         return $ageGroup;
     }
     
-    //기부단체 회원 - 기부 테이블 조회 
-    public function selectDonation($id){
-        return $this->where('id',$id)->first()->donations;
-    }
+    //     //기부 정보 스코프
+    //    public function scopeGetDonations(){
+    //     return $this->with(['donation']);
+    // }
 
 }

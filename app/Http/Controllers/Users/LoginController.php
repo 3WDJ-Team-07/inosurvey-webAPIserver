@@ -38,7 +38,7 @@ class LoginController extends Controller {
             return response()->json(['message' => 'false'],401);
         }
 
-    }
+    }//end of login
     
     //jwt토큰 생성
     public function ganerateToken($user){
@@ -54,7 +54,7 @@ class LoginController extends Controller {
         $jwt = JWT::encode($token, $key,'HS256');       //토큰 생성
         
         return $jwt;
-    }
+    }//end of ganerateToken
 
 
     //로그인 타입
