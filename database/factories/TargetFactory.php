@@ -7,6 +7,6 @@ $factory->define(App\Models\Surveies\Target::class, function (Faker $faker) {
     
     return [
         'age' => $age,
-        'gender' => rand(0,3),
+        'gender' => rand(0,2),
     ];
 });

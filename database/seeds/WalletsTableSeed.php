@@ -23,7 +23,7 @@ class WalletsTableSeed extends Seeder
 
             array(
                 'user_id' => 2,
-                'public_key' => ' 0xb63db2e294815ae8f63617213b6ae91599afc445',
+                'public_key' => '0xb63db2e294815ae8f63617213b6ae91599afc445',
                 'private_key' => '1003407dacad47802488135ff2581bf297dccd3951abfe266f51074772381f95',  
             
                 ),

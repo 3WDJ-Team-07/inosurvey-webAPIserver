@@ -18,7 +18,6 @@ class Form extends Model
         'respondent_count',
         'is_completed',
         'is_sale',
-        'topic_id',
         'target_id',
         'started_at',
         'closed_at',
@@ -29,12 +28,7 @@ class Form extends Model
 
     ];
 
-    //topic테이블 form테이블 1-N
-    public function topic()
-    {
-        return $this->belongsTo('App\Models\Surveies\Topic');
-    }
-
+  
     //forms테이블 targets테이블 1-1
     public function target(){
         return $this->belongsTo('App\Models\Surveies\Target');
