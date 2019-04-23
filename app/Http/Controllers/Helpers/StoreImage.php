@@ -10,10 +10,11 @@ namespace App\Http\Controllers\Helpers;
  *
  * 함수 목록
  * fileUpload(파일,저장소명) :    파일 이미지를 검증하고  AWS S3 저장소에 파일을 저장한다.
- *
+ * fileDelete(파일)         :    선택 취소된 파일을 S3저장소에서 삭제한다.
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 use Webpatser\Uuid\Uuid;
 
 trait StoreImage
@@ -39,4 +40,15 @@ trait StoreImage
 
         return $filePath;
     }
+
+    public function fileDelete($request){
+        if($request->file){
+            $filePath = $request->file;
+            Storage::disk('s3')->delete($filePath);    
+            return response()->json(['message'=>'true'],200);
+        }else{
+            return response()->json(['message'=>'error'],400);
+        }
+    }
+
 }

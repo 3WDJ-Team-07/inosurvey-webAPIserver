@@ -90,9 +90,4 @@ class User extends Authenticatable
         return $ageGroup;
     }
     
-    //     //기부 정보 스코프
-    //    public function scopeGetDonations(){
-    //     return $this->with(['donation']);
-    // }
-
 }
