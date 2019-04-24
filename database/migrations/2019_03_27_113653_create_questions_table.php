@@ -19,6 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->integer('question_number')->unsigned();
             $table->text('image')->nullable();
             $table->integer('form_id')->unsigned();
+            $table->boolean('is_plural')->default(0);
             $table->foreign('form_id')->references('id')->on('forms');
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->references('id')->on('types');
