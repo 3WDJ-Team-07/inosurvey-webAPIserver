@@ -60,7 +60,7 @@ Route::group(['prefix' => 'api'], function () {
      //survey-response
      Route::group(['prefix' => 'response'], function () {
         Route::get('/index','Surveies\ResponseController@getForm');
-        Route::get('/questions','Surveies\ResponseController@selectQuestionItem');
+        Route::post('/questions','Surveies\ResponseController@selectQuestionItem');
     });  
 
     //market
