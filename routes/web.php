@@ -25,9 +25,8 @@ Route::get('/', function () {
 });
 
 
-Route::get('file',function(){
-    return view('test');
-});
+Route::get('/test','Helpers\TestController@test');
+
 //////////////////////////////////////////////////////////////////
 
 
@@ -39,8 +38,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/register','Users\RegisterController@register');
         Route::post('/login','Users\LoginController@login');
         Route::post('/check','Users\UserController@check');
-        Route::post('/user-surveies','Users\UserController@userSurveies');
-        // Route::get('/:user_id',)
+        Route::post('/surveies','Users\UserController@userSurveies');
+        Route::post('/wallet','Users\UserController@getWallet');
     });
 
     //survey

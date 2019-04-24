@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Helpers;
  *      LOGIN_TYPE :             로그인 유형을 정의
  *      JWT_KEY    :             JWT 토큰의 key를 정의
  *      S3         :             AWS S3의 저장소 이름을 정의
+ *      ETHEREUM   :             블록체인의 정보를 조회하기위한 key를 정의
  */
 
 use Illuminate\Http\Request;
@@ -19,6 +20,7 @@ use App\Http\Controllers\Controller;
 
 class ConstantEnum extends Controller
 {
+
     const LOGIN_TYPE =  [
         'type'              =>'user_id',
         'password'          =>'password',
@@ -30,7 +32,11 @@ class ConstantEnum extends Controller
 
     const S3 =  [
         'donations'         =>'donations',
-        'surveies'          =>'surveies',
+        'surveies'          =>'surveies', 
     ];
 
+    const ETHEREUM =  [
+        'amount'            =>'currAmount',
+        'totalAmount'       =>'totalAmount',
+    ];
 }

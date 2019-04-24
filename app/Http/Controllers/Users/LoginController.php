@@ -28,11 +28,12 @@ class LoginController extends Controller {
                 ConstantEnum::LOGIN_TYPE['type'],
                 ConstantEnum::LOGIN_TYPE['password'],
             ]);
-
+            
         //유저 정보 체크
         if(Auth::attempt($credentials)){
             
             $jwt = $this->ganerateToken(Auth::user());     //jwt 토큰 발급
+
             return response()->json(['message' => 'true','access_token' => $jwt],200); 
         }else{
             return response()->json(['message' => 'false'],401);
