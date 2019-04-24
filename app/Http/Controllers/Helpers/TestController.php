@@ -14,6 +14,12 @@ class TestController extends Controller
     use Guzzles;
  
     public function test(){
+        $host = config('constants.ethereum_host');
+        $port = config('constants.ethereum_port');
+        
+        return url($host,$port);
+
+        return $host.':'.$port.'/';
         return 'asd';
         return  $file = $request->file('image')->getClientOriginalName();
       

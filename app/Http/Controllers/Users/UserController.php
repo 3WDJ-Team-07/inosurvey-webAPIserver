@@ -15,6 +15,7 @@ namespace App\Http\Controllers\Users;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
+use App\Http\Controllers\Helpers\Guzzles;
 use \Firebase\JWT\JWT;
 use Auth;
 
@@ -23,6 +24,7 @@ use App\Models\Surveies\Form;
 
 class UserController extends Controller
 {
+    use Guzzles;
 
     private $userModel = null;
     private $formModel = null;
@@ -43,7 +45,7 @@ class UserController extends Controller
             $key = ConstantEnum::JWT_KEY['key']; 
             $jwt = $request->access_token;
 
-            $user = (array) JWT::decode($jwt, $key, array('HS256'));                //decode후  Array로 캐스팅
+            $user = (array) JWT::decode($jwt, $key, array('HS256'));                         //decode후  Array로 캐스팅
 
             if($user['user']->id){
                     $userData = $this->userModel->getData('id',$user['user']->id)->first();  //토큰의 정보와 일치하는 유저 정보를 추출
@@ -63,6 +65,31 @@ class UserController extends Controller
     }
 
 
+    //유저 지갑 조회
+    public function getWallet(Request $request){
+        
+        $payload = array( 
+                        'form_params' => [
+                            'user_id' => $request->id,
+                        ]
+                    );
+
+        $response = $this->postGuzzleRequest($payload,'/wallet/amount');
+
+        $result = (json_decode($response,true)); 
+
+        $current = $result[ConstantEnum::ETHEREUM['amount']];
+        
+        // $total = $result[ConstantEnum::ETHEREUM['totalAmount']];
+        $total = "12213125152";   
+
+        return response()->json([
+            'message'       => 'true',
+            'current_ino'   => $current,
+            'total_ino'     => $total,
+        ],200);
+    
+    }
   
 
 }

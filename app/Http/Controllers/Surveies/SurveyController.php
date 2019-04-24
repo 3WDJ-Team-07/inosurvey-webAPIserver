@@ -144,7 +144,7 @@ class SurveyController extends Controller {
             }//end of questionItem
         }//end of question foreach loop
 
-        return response()->json(['message'=>'true'],201);
+        return response()->json(['message'=>'true'],200);
     }
 
 
