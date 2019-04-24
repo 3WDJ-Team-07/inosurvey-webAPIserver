@@ -52,7 +52,7 @@ class SurveyController extends Controller {
 
     //설문 작성
     public function create(Request $request){
-
+        
         $gender         = $request->input('target.gender');
         $countAgeJob    = count($request->input('target.*.*'));
         
@@ -77,7 +77,7 @@ class SurveyController extends Controller {
         ]);
 
         $this->formModel->insertMsgs($formData);
-        $formId = $this->formModel->getLatest('started_at')->id;
+        $formId = $this->formModel->getLatest('id')->id;
 
 
         //targets테이블 - 설문 타겟 true일 경우(age,gender,job이 해당)
@@ -137,7 +137,7 @@ class SurveyController extends Controller {
                         $itemId = $this->questionItemModel->getLatest('id')->id;
 
                         //question_items테이블 - 이미지 선택 타입일 경우 image update
-                        if($questionType == 6) $this->questionItemModel->updateImg($itemId, $item['img']);
+                        if($questionType == 6) $this->questionItemModel->updateImg($itemId, $item['image']);
                         
                         $contentNumber ++;
                     }

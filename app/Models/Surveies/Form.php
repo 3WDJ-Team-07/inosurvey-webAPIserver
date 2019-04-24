@@ -66,10 +66,21 @@ class Form extends Model
         return $this->with(['user','target.job','question.questionItems']);
     }
 
-    
+    // 판매 설문 리스트
+    public function saleList(){
+        return $this->getSurveies()->where('is_sale',1)->where('is_completed',1);
+                    
+    }
+
     //설문 폼 정보 (Android)
     public function getSurveiesForm(){
         return $this->with(['user','target.job'])->get();
     }
     
+    //현재시간과 마감시간이 같은 설문폼을 추출
+    // public function isCompleted(){
+    //     $now = date('Y-m-d H:i:s');
+        
+    //     return $this->where('')
+    // }
 }                       

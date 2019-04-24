@@ -17,20 +17,12 @@ use App\Models\Donations\Donation;
 //Test
 
 Route::get('/', function () {
-    $now = new Carbon;
-    // return $now;
-    return date('Y-m-d H:i:s');
+    // $now = new Carbon('Y-m-d H:i:s');
+    $now = date('Y-m-d H:i:s');
+    return $now;
+    // return date('Y-m-d H:i:s');
     // return date('Y-m-d H:00',strtotime(now()));
 });
-
-
-
-Route::post('/test','Surveies\ResponseController@selectQuestionItem');
-Route::post('/receive','Surveies\SurveyController@create');
-Route::post('/imageData','Helpers\TestController@test');
-
-Route::get('/boards','Helpers\TestController@arrayTest2');
-Route::post('/boards','Surveies\SurveyController@test');
 
 
 Route::get('file',function(){
@@ -48,6 +40,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/login','Users\LoginController@login');
         Route::post('/check','Users\UserController@check');
         Route::post('/user-surveies','Users\UserController@userSurveies');
+        // Route::get('/:user_id',)
     });
 
     //survey
@@ -67,7 +60,8 @@ Route::group(['prefix' => 'api'], function () {
 
     //market
     Route::group(['prefix' => 'market'], function () {
-        // Route::get('/index','Markets\MarketController@index');        
+        Route::get('/index','Markets\MarketController@index');
+        Route::post('/show','Markets\MarketController@show');        
     });
 
     //donation
