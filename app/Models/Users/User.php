@@ -113,7 +113,6 @@ class User extends Authenticatable
         }
 
         return $users->get();
-        ///응답자 필터링 안하는 경우 피봇테이블 만들어야 하는지 
     }
 
 }

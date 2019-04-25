@@ -18,7 +18,6 @@ class Form extends Model
         'respondent_count',
         'is_completed',
         'is_sale',
-        'topic_id',
         'target_id',
         'started_at',
         'closed_at',
@@ -29,12 +28,7 @@ class Form extends Model
 
     ];
 
-    //topic테이블 form테이블 1-N
-    public function topic()
-    {
-        return $this->belongsTo('App\Models\Surveies\Topic');
-    }
-
+  
     //forms테이블 targets테이블 1-1
     public function target(){
         return $this->belongsTo('App\Models\Surveies\Target');
@@ -67,22 +61,26 @@ class Form extends Model
     }
 
 
-
-
-    
-    //설문 정보 
-    public function getSurveies(){
-        return $this->with(['user','target.job','question.questionItems'])->get();
+    //설문 정보 스코프
+    public function scopeGetSurveies(){
+        return $this->with(['user','target.job','question.questionItems']);
     }
 
-     //판매 가능 설문 정보 
-     public function saleSurveies(){
-        return $this->with(['user','target.job','question.questionItems'])->where('is_sale',1)->get();
+    // 판매 설문 리스트
+    public function saleList(){
+        return $this->getSurveies()->where('is_sale',1)->where('is_completed',1);
+                    
     }
 
-    //설문 폼 정보 
+    //설문 폼 정보 (Android)
     public function getSurveiesForm(){
         return $this->with(['user','target.job'])->get();
     }
     
+    //현재시간과 마감시간이 같은 설문폼을 추출
+    // public function isCompleted(){
+    //     $now = date('Y-m-d H:i:s');
+        
+    //     return $this->where('')
+    // }
 }                       

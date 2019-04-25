@@ -28,17 +28,18 @@ class LoginController extends Controller {
                 ConstantEnum::LOGIN_TYPE['type'],
                 ConstantEnum::LOGIN_TYPE['password'],
             ]);
-
+            
         //유저 정보 체크
         if(Auth::attempt($credentials)){
             
             $jwt = $this->ganerateToken(Auth::user());     //jwt 토큰 발급
+
             return response()->json(['message' => 'true','access_token' => $jwt],200); 
         }else{
             return response()->json(['message' => 'false'],401);
         }
 
-    }
+    }//end of login
     
     //jwt토큰 생성
     public function ganerateToken($user){
@@ -54,7 +55,7 @@ class LoginController extends Controller {
         $jwt = JWT::encode($token, $key,'HS256');       //토큰 생성
         
         return $jwt;
-    }
+    }//end of ganerateToken
 
 
     //로그인 타입

@@ -62,7 +62,6 @@ class SurveyController extends Controller {
         $gender         = $request->target['gender'];
         $countAgeJob    = count($request->input('target.*.*'));
         $existJob       = false;
-        
 
         //설문 타겟 설정 여부
         if($gender==0 && $countAgeJob==0){

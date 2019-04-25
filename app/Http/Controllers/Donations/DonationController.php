@@ -14,16 +14,23 @@ class DonationController extends Controller
 {
     use StoreImage;
 
+    private $donationModel = null;
+
+    function __construct(){
+        $this->donationModel = new Donation();
+    }
+
+    //기부단체 리스트
     public function index(){
         if(Donation::all()) {
-            return Donation::all();
+            return response()->json(['message'=>'true','donation'=>Donation::all()],200);
         }else {
             return response()->json(['message'=>'false'],400);
         }
     }
 
 
-
+    //기부단체 등록
     public function create(Request $request){
   
         $file = $this->fileUpload($request,ConstantEnum::S3['donations']);
@@ -43,11 +50,18 @@ class DonationController extends Controller
 
         Donation::create($param);
 
-       return response()->json(['message'=>'true'],201);
+       return response()->json(['message'=>'true'],200);
     
     }
 
+
+      //기부단체 정보
+      public function show(Request $request){
     
+        $donations = $this->donationModel->getData('id',$request->id)->first();
+
+        return response()->json(['message'=>'true','donations'=>$donations],200);
+    }
 
 
 

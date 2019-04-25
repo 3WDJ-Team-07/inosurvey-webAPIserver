@@ -3,10 +3,13 @@
 namespace App\Models\Donations;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\ModelScopes;
 
 
 class Donation extends Model
 {
+    use ModelScopes;
+
     public $timestamps = false;
     protected $fillable = [
 
