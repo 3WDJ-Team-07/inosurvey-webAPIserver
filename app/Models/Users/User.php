@@ -7,6 +7,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ModelScopes;
+
+use App\Models\Surveies\JobTarget;
 class User extends Authenticatable
 {
     use Notifiable,ModelScopes;
@@ -86,13 +88,32 @@ class User extends Authenticatable
     //출생연도 현재나이(한국기준)로 반환
     public function getAgeAttribute($age){
         $nowDate = date('Y');
-        $ageGroup = $nowDate-$age+1;
+        $age = $nowDate-$age+1;
+        $ageGroup = floor($age/10);
+        $ageGroup = $ageGroup*10;
         return $ageGroup;
     }
     
     //기부단체 회원 - 기부 테이블 조회 
     public function selectDonation($id){
         return $this->where('id',$id)->first()->donations;
+    }
+
+    //응답가능 유저 선택
+    public function getReplyableUser($gender, $target, $targetId, $existJob){
+        if($gender !=0) $users = $this->where('gender',$gender);
+        else $users = $this->whereIn('gender',[1,2]);
+
+        if(count($target['age']) != 0){
+            $users = $users->whereIn('age',$target['age']);
+        }
+        if($existJob){
+            $jobs = JobTarget::where('target_id',$targetId)->get()->pluck('job_id')->toArray();
+            $users = $users->whereIn('job_id',$jobs);
+        }
+
+        return $users->get();
+        ///응답자 필터링 안하는 경우 피봇테이블 만들어야 하는지 
     }
 
 }
