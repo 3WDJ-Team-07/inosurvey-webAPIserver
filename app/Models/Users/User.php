@@ -115,7 +115,7 @@ class User extends Authenticatable
             $users  = $users->whereIn('job_id',$jobs);
         }
 
-        return $users->get();
+        return $users;
     }
 
     public function getReplyableForm($userId){
