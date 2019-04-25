@@ -69,7 +69,11 @@ class Form extends Model
     // 판매 설문 리스트
     public function saleList(){
         return $this->getSurveies()->where('is_sale',1)->where('is_completed',1);
-                    
+    }
+
+    // 완료(is_sale = false) 설문 리스트
+    public function completedList($userId){
+        return $this->getData('user_id',$userId)->where('is_sale',0)->where('is_completed',1);
     }
 
     //설문 폼 정보 (Android)
