@@ -25,9 +25,11 @@ use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
 use App\Models\Surveies\QuestionItem;
 use App\Models\Surveies\QuestionBank;
+use App\Models\Surveies\ReplyableUser;
 use App\Models\Surveies\JobTarget;
 use App\Models\Surveies\Target;
 use App\Models\Users\job;
+use App\Models\Users\User;
 
 
 class SurveyController extends Controller {
@@ -40,6 +42,8 @@ class SurveyController extends Controller {
     private $targetModel        = null;
     private $jobModel           = null;
     private $jobTargetModel     = null;
+    private $replyableUserModel = null;
+    private $userModel          = null;
 
     public function __construct() {
         $this->formModel            = new Form();
@@ -48,14 +52,16 @@ class SurveyController extends Controller {
         $this->targetModel          = new Target();
         $this->jobModel             = new Job();
         $this->jobTargetModel       = new JobTarget();
+        $this->replyableUserModel   = new ReplyableUser();
+        $this->userModel            = new User();
     }
 
     //설문 작성
     public function create(Request $request){
         
-        $gender         = $request->input('target.gender');
+        $gender         = $request->target['gender'];
         $countAgeJob    = count($request->input('target.*.*'));
-        
+        $existJob       = false;
 
         //설문 타겟 설정 여부
         if($gender==0 && $countAgeJob==0){
@@ -84,14 +90,15 @@ class SurveyController extends Controller {
         if($targetIsActive == true){
           
             $age        = $request->input('target.age','');
-            $gender     = $request->target['gender'];
+            $gender     = $gender;
             $this->targetModel->create(['age' => $age, 'gender' => $gender]);
 
             $targetId   = $this->targetModel->getLatest('id')->id;
 
             //target->job 타겟
             if($request->target['job']){
-                
+
+                $existJob = true;
                 foreach ($request->target['job'] as $job){
 
                     //job_target테이블(피봇테이블) - 생성
@@ -105,6 +112,30 @@ class SurveyController extends Controller {
 
             //forms테이블 - target_id(null -> $targetId) 변경
             $this->formModel->UpdateMsg($formId, 'target_id', $targetId);
+
+            //replyable_user테이블 - 응답가능유저 저장
+            $target  = $request->target;
+            $users = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob);
+
+            foreach($users as $user){
+                $replyableUserData = array([
+                    'replyable_id'      => $user->id,
+                    'survey_id'         => $formId
+                ]);
+                $this->replyableUserModel->insertMsgs($replyableUserData);
+            }
+
+        }else{
+            //target이 없는 경우 
+            //replyable_user테이블 모든 회원 추가
+            $users = $this->userModel->get();
+            foreach($users as $user){
+                $replyableUserData = array([
+                    'replyable_id'      => $user->id,
+                    'survey_id'         => $formId
+                ]);
+                $this->replyableUserModel->insertMsgs($replyableUserData);
+            }
         }//end of insert targets & update form
 
 
@@ -144,7 +175,7 @@ class SurveyController extends Controller {
             }//end of questionItem
         }//end of question foreach loop
 
-        return response()->json(['message'=>'true'],200);
+        return response()->json(['message'=>'true'],201);
     }
 
 
