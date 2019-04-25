@@ -75,7 +75,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Surveies\Form','survey_user','respondent_id','survey_id');
     }
 
-    //user테이블 form테이블 N-N(중간테이블-survey_user)
+    //user테이블 form테이블 N-N(중간테이블-replyable_user)
     public function replyableForms(){
         return $this->belongsToMany('App\Models\Surveies\Form','replyable_user','replyable_id','survey_id');
     }
@@ -87,10 +87,10 @@ class User extends Authenticatable
 
     //출생연도 현재나이(한국기준)로 반환
     public function getAgeAttribute($age){
-        $nowDate = date('Y');
-        $age = $nowDate-$age+1;
-        $ageGroup = floor($age/10);
-        $ageGroup = $ageGroup*10;
+        $nowDate    = date('Y');
+        $age        = $nowDate-$age+1;
+        $ageGroup   = floor($age/10);
+        $ageGroup   = $ageGroup*10;
         return $ageGroup;
     }
     
@@ -101,18 +101,25 @@ class User extends Authenticatable
 
     //응답가능 유저 선택
     public function getReplyableUser($gender, $target, $targetId, $existJob){
-        if($gender !=0) $users = $this->where('gender',$gender);
-        else $users = $this->whereIn('gender',[1,2]);
+        if($gender !=0){
+            $users = $this->where('gender',$gender);
+        } else {
+            $users = $this->whereIn('gender',[1,2]);
+        }
 
         if(count($target['age']) != 0){
-            $users = $users->whereIn('age',$target['age']);
+            $users  = $users->whereIn('age',$target['age']);
         }
         if($existJob){
-            $jobs = JobTarget::where('target_id',$targetId)->get()->pluck('job_id')->toArray();
-            $users = $users->whereIn('job_id',$jobs);
+            $jobs   = JobTarget::where('target_id',$targetId)->get()->pluck('job_id')->toArray();
+            $users  = $users->whereIn('job_id',$jobs);
         }
 
         return $users->get();
     }
 
+    public function getReplyableForm($userId){
+        $form = $this->find($userId)->replyableForms;
+        return $form;
+    }
 }
