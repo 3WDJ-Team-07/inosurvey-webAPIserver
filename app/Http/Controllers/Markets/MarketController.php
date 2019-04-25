@@ -33,6 +33,12 @@ class MarketController extends Controller
         return response()->json(['message'=>'true','survey'=>$survey],200);
     }
 
+    //완료(is_sale = false) 설문 리스트
+    public function sellableForms(Request $request){
+        $sellableList = $this->formModel->completedList($request->id)->get();
+
+        return response()->json(['message'=>'true','list'=>$sellableList],200);
+    }
 
     // //설문이 완료 되었는지 체크하는 함수 (스케줄링)
     // public function isCompleted(Request $request){
