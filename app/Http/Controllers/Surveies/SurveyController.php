@@ -114,8 +114,8 @@ class SurveyController extends Controller {
             $this->formModel->UpdateMsg($formId, 'target_id', $targetId);
 
             //replyable_user테이블 - 응답가능유저 저장
-            $target  = $request->target;
-            $users = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob);
+            $target = $request->target;
+            $users  = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob);
 
             foreach($users as $user){
                 $replyableUserData = array([
