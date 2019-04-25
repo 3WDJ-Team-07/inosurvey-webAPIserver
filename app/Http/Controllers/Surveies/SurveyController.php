@@ -115,7 +115,7 @@ class SurveyController extends Controller {
 
             //replyable_user테이블 - 응답가능유저 저장
             $target = $request->target;
-            $users  = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob);
+            $users  = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob)->get();
 
             foreach($users as $user){
                 $replyableUserData = array([
