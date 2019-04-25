@@ -39,4 +39,8 @@ class QuestionItem extends Model
         return $this->belongsToMany('App\Models\Surveies\Response','item_response','item_id','response_id');
     }  
 
+    public function updateImg($itemId, $img){
+        return $this->find($itemId)->update(['content_image' => $img]);
+    }
+
 }
