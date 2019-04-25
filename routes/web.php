@@ -53,14 +53,16 @@ Route::group(['prefix' => 'api'], function () {
     
      //survey-response
      Route::group(['prefix' => 'response'], function () {
-        Route::get('/index','Surveies\ResponseController@getForm');
+        Route::post('/index','Surveies\ResponseController@getForm');
         Route::post('/questions','Surveies\ResponseController@selectQuestionItem');
+        Route::post('/create','Surveies\ResponseController@create');
     });  
 
     //market
     Route::group(['prefix' => 'market'], function () {
         Route::get('/index','Markets\MarketController@index');
-        Route::post('/show','Markets\MarketController@show');        
+        Route::post('/show','Markets\MarketController@show');       
+        Route::post('/sellable-forms','Markets\MarketController@sellableForms'); 
     });
 
     //donation
