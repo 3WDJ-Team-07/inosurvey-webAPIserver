@@ -26,16 +26,14 @@ class RegisterController extends Controller {
     use Guzzles;
 
     public function register(Request $request){
-        
+    
         $user = User::create(request()->all());
         
-        $response = $this->getGuzzleRequest('GET','./wallet/create');   //지갑 공개키,개인키 발급
-        
-        $result = (json_decode($response,true)); 
-        
+        $response = $this->getGuzzleRequest('./wallet/create');   //지갑 공개키,개인키 발급
+    
         $param = array(
-            'public_key' => $result['public_key'],
-            'private_key' => $result['private_key'],
+            'public_key' => $response['body']['public_key'],
+            'private_key' => $response['body']['private_key'],
             'user_id' => $user->id,
             );
         

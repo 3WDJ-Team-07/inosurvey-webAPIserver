@@ -19,7 +19,7 @@ use \GuzzleHttp\Client;
 trait Guzzles {
     
 
-     public function getGuzzleRequest($http,$url) { 
+     public function getGuzzleRequest($url) { 
 
           $host = config('constants.ethereum_host');
           $port = config('constants.ethereum_port');
@@ -29,8 +29,14 @@ trait Guzzles {
                'base_uri' => $base,
              ]);
 
-          $request = $client->request($http,$url); 
-          return $response = $request->getBody();
+          $response = $client->request('GET',$url,['http_errors' => false]); 
+          
+          $result = array(
+               'body'    => (json_decode($response->getBody(),true)),
+               'status'  => $response->getStatusCode(),
+          );
+
+          return $result;
        }
 
 
@@ -39,14 +45,18 @@ trait Guzzles {
           $host = config('constants.ethereum_host');
           $port = config('constants.ethereum_port');
           $base = $host.':'.$port;
+          $payload['http_errors'] = false;
 
           $client = new Client([
                'base_uri' => $base,
              ]);
-
+               
           $response = $client->post($url,$payload);
-
-          return $response = $response->getBody();
+          $result = array(
+               'body'    => (json_decode($response->getBody(),true)),
+               'status'  => $response->getStatusCode(),
+          );
+          return $result;
              
      }
      

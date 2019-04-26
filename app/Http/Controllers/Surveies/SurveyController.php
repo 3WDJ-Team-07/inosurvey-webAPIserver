@@ -20,6 +20,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\StoreImage;
+use App\Http\Controllers\Helpers\Guzzles;
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -34,7 +35,7 @@ use App\Models\Users\User;
 
 class SurveyController extends Controller {
     
-    use StoreImage;
+    use StoreImage, Guzzles;
 
     private $formModel          = null;
     private $questionModel      = null;
@@ -58,7 +59,28 @@ class SurveyController extends Controller {
 
     //설문 작성
     public function create(Request $request){
-        
+      
+       
+        $payload = array( 
+            'form_params' => [
+                'user_id'       => $request->user_id,
+                'maximumCount'  => $request->target,
+                // 'maximumCount'  => $request->target['responseNumber'],
+                'questionCount' => $request->questions,
+                // 'questionCount' => count($request->list),
+                'startedAt'     => time(),
+            ]
+        );
+
+        $response = $this->postGuzzleRequest($payload,'/survey/request');
+       
+         //설문 요청 성공
+        if($response['status'] != 200){
+            return response()->json(['message'=>'Payment failed'],401);
+        }
+    
+        return 'asd';
+
         $gender         = $request->target['gender'];
         $countAgeJob    = count($request->input('target.*.*'));
         $existJob       = false;

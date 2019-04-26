@@ -30,10 +30,10 @@ class MarketController extends Controller
     
         $survey = $this->formModel->saleList()->getData('id',$request->id)->first();
 
-        return response()->json(['message'=>'true','survey'=>$survey],200);
+        return response()->json(['message'=>'true','list'=>$survey],200);
     }
 
-    //완료(is_sale = false) 설문 리스트
+    //완료(is_sale = false,is_completed = true) 설문 리스트
     public function sellableForms(Request $request){
         $sellableList = $this->formModel->completedList($request->id)->get();
 
