@@ -17,8 +17,8 @@ use App\Models\Donations\Donation;
 //Test
 
 Route::get('/', function () {
-    // $now = new Carbon('Y-m-d H:i:s');
-    $now = date('Y-m-d H:i:s');
+    $now = new Carbon();
+    // $now = date('Y-m-d H:i:s');
     return $now;
     // return date('Y-m-d H:i:s');
     // return date('Y-m-d H:00',strtotime(now()));
