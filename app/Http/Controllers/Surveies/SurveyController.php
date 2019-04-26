@@ -59,15 +59,12 @@ class SurveyController extends Controller {
 
     //설문 작성
     public function create(Request $request){
-      
        
         $payload = array( 
             'form_params' => [
                 'user_id'       => $request->user_id,
-                'maximumCount'  => $request->target,
-                // 'maximumCount'  => $request->target['responseNumber'],
-                'questionCount' => $request->questions,
-                // 'questionCount' => count($request->list),
+                'maximumCount'  => $request->target['responseNumber'],
+                'questionCount' => count($request->list),
                 'startedAt'     => time(),
             ]
         );
@@ -78,8 +75,9 @@ class SurveyController extends Controller {
         if($response['status'] != 200){
             return response()->json(['message'=>'Payment failed'],401);
         }
+        
     
-        return 'asd';
+        
 
         $gender         = $request->target['gender'];
         $countAgeJob    = count($request->input('target.*.*'));
