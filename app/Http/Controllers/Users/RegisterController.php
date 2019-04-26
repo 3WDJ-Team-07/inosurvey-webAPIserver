@@ -14,6 +14,7 @@ namespace App\Http\Controllers\Users;
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
 
 use App\Models\Users\User;
@@ -32,9 +33,9 @@ class RegisterController extends Controller {
         $response = $this->getGuzzleRequest('./wallet/create');   //지갑 공개키,개인키 발급
     
         $param = array(
-            'public_key' => $response['body']['public_key'],
-            'private_key' => $response['body']['private_key'],
-            'user_id' => $user->id,
+            'public_key'    => $response['body'][ConstantEnum::ETHEREUM['public']],
+            'private_key'   => $response['body'][ConstantEnum::ETHEREUM['private']],
+            'user_id'       => $user->id,
             );
         
         Wallet::create($param);
