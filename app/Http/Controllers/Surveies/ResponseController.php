@@ -31,13 +31,19 @@ class ResponseController extends Controller
     private $formModel          = null;
     private $questionModel      = null;
     private $questionItemModel  = null;
-    private $userModel = null;
+    private $itemResponseModel  = null;
+    private $surveyUserModel    = null;
+    private $responseModel      = null;
+    private $userModel          = null;
 
     public function __construct() {
         $this->formModel            = new Form();
         $this->questionModel        = new Question();
         $this->questionItemModel    = new QuestionItem();
-        $this->userModel           = new User();
+        $this->itemResponseModel    = new ItemResponse();
+        $this->surveyUserModel      = new SurveyUser();
+        $this->responseModel        = new Response();
+        $this->userModel            = new User();
     }
 
     //응답 내용 저장
