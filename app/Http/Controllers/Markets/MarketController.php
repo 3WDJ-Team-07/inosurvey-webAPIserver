@@ -39,13 +39,4 @@ class MarketController extends Controller
 
         return response()->json(['message'=>'true','list'=>$sellableList],200);
     }
-
-    // //설문이 완료 되었는지 체크하는 함수 (스케줄링)
-    // public function isCompleted(Request $request){
-
-    //     //
-
-
-    // }
-
 }
