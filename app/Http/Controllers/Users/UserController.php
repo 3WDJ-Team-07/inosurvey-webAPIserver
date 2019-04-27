@@ -36,7 +36,7 @@ class UserController extends Controller
 
 
     public function check(Request $request){
-        
+     
         //클라이언트 토큰 유무 검증
         if(!$request->access_token){
             return response()->json(['message'=>'Not Token'],400); 
