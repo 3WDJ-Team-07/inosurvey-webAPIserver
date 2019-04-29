@@ -59,6 +59,7 @@ class SurveyController extends Controller {
     //설문 작성
     public function create(Request $request){
        
+        //설문 결제
         $payload = array( 
             'form_params' => [
                 'user_id'       => $request->user_id,
@@ -67,10 +68,10 @@ class SurveyController extends Controller {
                 'startedAt'     => time(),
             ]
         );
-
-        $response = $this->postGuzzleRequest($payload,'/survey/request');
+        
+        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['payment']);
        
-         //설문 요청 성공
+         //설문 요청 실패
         if($response['status'] != 200){
             return response()->json(['message'=>'Payment failed'],401);
         }

@@ -51,4 +51,9 @@ class Question extends Model
 
         return $questionItem;    
     }
+    
+    //질문의 객관식 주관식 판단 
+    public function questiontype(){
+        return $this->with(['type']);
+    }
 }

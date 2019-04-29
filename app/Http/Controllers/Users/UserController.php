@@ -73,8 +73,8 @@ class UserController extends Controller
                             'user_id' => $request->id,
                         ]
                     );
-
-        $response = $this->postGuzzleRequest($payload,'/wallet/amount');
+                    
+        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['wallet']);
         
 
         $current = $response['body'][ConstantEnum::ETHEREUM['amount']];

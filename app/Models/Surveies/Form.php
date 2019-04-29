@@ -79,5 +79,9 @@ class Form extends Model
     public function getSurveiesForm(){
         return $this->with(['user','target.job'])->get();
     }
-  
+   //설문 응답자 정보 
+    public function respondent(){
+        return $this->with(['respondentUsers']);
+    }
+
 }                       
