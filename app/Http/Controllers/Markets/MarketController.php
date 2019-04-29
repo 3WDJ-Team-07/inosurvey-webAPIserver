@@ -19,16 +19,16 @@ class MarketController extends Controller
        $saleList =  $this->formModel->saleList()->get();
 
         if($saleList){
-            return response()->json(['message'=>'true','list' => $saleList],201);
+            return response()->json(['message'=>'true','list' => $saleList],200);
         }else{
-            return response()->json(['message'=>'Not sale list'],201);
+            return response()->json(['message'=>'Not sale list'],400);
         }
     }
 
     //마켓 설문 정보
     public function show(Request $request){
     
-        $survey = $this->formModel->saleList()->getData('id',$request->id)->first();
+        $survey = $this->formModel->saleList()->where('id',$request->id)->first();
 
         return response()->json(['message'=>'true','list'=>$survey],200);
     }
