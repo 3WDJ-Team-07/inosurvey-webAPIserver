@@ -36,7 +36,7 @@ class UserController extends Controller
 
 
     public function check(Request $request){
-        
+     
         //클라이언트 토큰 유무 검증
         if(!$request->access_token){
             return response()->json(['message'=>'Not Token'],400); 
@@ -75,10 +75,9 @@ class UserController extends Controller
                     );
 
         $response = $this->postGuzzleRequest($payload,'/wallet/amount');
+        
 
-        $result = (json_decode($response,true)); 
-
-        $current = $result[ConstantEnum::ETHEREUM['amount']];
+        $current = $response['body'][ConstantEnum::ETHEREUM['amount']];
         
         // $total = $result[ConstantEnum::ETHEREUM['totalAmount']];
         $total = "12213125152";   

@@ -9,11 +9,31 @@ use App\Http\Controllers\Helpers\Guzzles;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Models\Users\User;
 use Webpatser\Uuid\Uuid;
+use App\Models\Surveies\Form;
 class TestController extends Controller
 {
+
+    private $formModel = null;
+    function __construct(){
+        $this->formModel = new Form();
+    }
+
+
     use Guzzles;
  
     public function test(){
+
+        return $this->formModel->isCompleted()->get();
+
+
+
+
+
+
+
+
+
+
         $host = config('constants.ethereum_host');
         $port = config('constants.ethereum_port');
         

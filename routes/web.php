@@ -17,8 +17,8 @@ use App\Models\Donations\Donation;
 //Test
 
 Route::get('/', function () {
-    // $now = new Carbon('Y-m-d H:i:s');
-    $now = date('Y-m-d H:i:s');
+    $now = new Carbon();
+    // $now = date('Y-m-d H:i:s');
     return $now;
     // return date('Y-m-d H:i:s');
     // return date('Y-m-d H:00',strtotime(now()));
@@ -48,7 +48,8 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/image-data','Surveies\SurveyController@uploadImage');
         Route::post('/image-delete','Surveies\SurveyController@deleteImage');
         Route::get('/index','Surveies\SurveyController@index');
-        Route::get('/question-bank','Surveies\QuestionBankController@questionBank'); 
+        Route::get('/question-bank','Surveies\QuestionBankController@questionBank');
+
     });
     
      //survey-response
