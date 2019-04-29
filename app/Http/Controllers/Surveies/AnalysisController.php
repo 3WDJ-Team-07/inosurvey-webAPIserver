@@ -7,5 +7,7 @@ use App\Http\Controllers\Controller;
 
 class AnalysisController extends Controller
 {
-    //
+    public function analysis(){
+        return 'asd';
+    }
 }
