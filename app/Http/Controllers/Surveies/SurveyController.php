@@ -226,4 +226,12 @@ class SurveyController extends Controller {
  
     }
 
+    //설문 중단
+    public function abort(Request $request){
+        
+        $this->formModel->where('id',$request->id)->update(['is_completed' => 1]);
+
+        return response()->json(['message'=>'true'],200);
+    }
+
 }

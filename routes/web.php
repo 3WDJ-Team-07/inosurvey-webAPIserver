@@ -47,9 +47,9 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/create','Surveies\SurveyController@create');
         Route::post('/image-data','Surveies\SurveyController@uploadImage');
         Route::post('/image-delete','Surveies\SurveyController@deleteImage');
+        Route::post('/abort','Surveies\SurveyController@abort');
         Route::get('/index','Surveies\SurveyController@index');
         Route::get('/question-bank','Surveies\QuestionBankController@questionBank');
-
     });
     
      //survey-response

@@ -135,13 +135,13 @@ class ResponseController extends Controller
         }//end of foreach
 
         //설문 응답시 응답 횟수를 증가 
-        $this->formModel->getData('id',$request->form_id)->increment('respondent_count');
+        $this->formModel->where('id',$request->form_id)->increment('respondent_count');
 
-        $survey = $this->formModel->getData('id',$request->form_id)->first();
+        $survey = $this->formModel->where('id',$request->form_id)->first();
         
         //목표 응답수를 달성시 설문마감
         if($survey->respondent_number == $survey->respondent_count){
-            $this->formModel->getData('id',$request->form_id)->update(['is_completed' => 1]);
+            $this->formModel->where('id',$request->form_id)->update(['is_completed' => 1]);
         }
 
 

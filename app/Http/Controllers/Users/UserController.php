@@ -48,7 +48,7 @@ class UserController extends Controller
             $user = (array) JWT::decode($jwt, $key, array('HS256'));                         //decode후  Array로 캐스팅
 
             if($user['user']->id){
-                    $userData = $this->userModel->getData('id',$user['user']->id)->first();  //토큰의 정보와 일치하는 유저 정보를 추출
+                    $userData = $this->userModel->where('id',$user['user']->id)->first();  //토큰의 정보와 일치하는 유저 정보를 추출
                 return response()->json(['message'=>'true','user'=>$userData],200);
             }else {
                 return response()->json(['message'=>'false'],400);
