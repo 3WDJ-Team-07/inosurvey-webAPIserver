@@ -120,6 +120,6 @@ class User extends Authenticatable
 
     public function getReplyableForm($userId){
         $form = $this->find($userId)->replyableForms;
-        return $form;
+        return $form->where('is_completed',0);
     }
 }

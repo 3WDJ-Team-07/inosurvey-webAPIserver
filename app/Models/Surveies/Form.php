@@ -60,7 +60,6 @@ class Form extends Model
        });
     }
 
-
     //설문 정보 스코프
     public function scopeGetSurveies(){
         return $this->with(['user','target.job','question.questionItems']);
@@ -80,13 +79,9 @@ class Form extends Model
     public function getSurveiesForm(){
         return $this->with(['user','target.job'])->get();
     }
-
-    //설문 응답자 정보 
+   //설문 응답자 정보 
     public function respondent(){
         return $this->with(['respondentUsers']);
     }
-
-    
-
 
 }                       
