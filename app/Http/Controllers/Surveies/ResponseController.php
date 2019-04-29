@@ -16,6 +16,7 @@ namespace App\Http\Controllers\Surveies;
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\Guzzles;
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -27,7 +28,9 @@ use App\Models\Users\User;
 
 class ResponseController extends Controller
 { 
-   
+    
+    use Guzzles;
+
     private $formModel          = null;
     private $questionModel      = null;
     private $questionItemModel  = null;
@@ -47,9 +50,119 @@ class ResponseController extends Controller
     }
 
     //응답 내용 저장
-    public function create(Request $request){
-        return $request;
-    }
+    public function response(Request $request){
+
+        $surveyUserData = array(
+            'survey_id'         => $request->form_id,
+            'respondent_id'     => $request->user_id,
+        );
+        
+        $respondent = $this->surveyUserModel->create($surveyUserData);
+
+        foreach ($request->question as $responseItem){
+            $rs = $this->questionModel->where('form_id', $request->form_id)
+                        ->where('question_number', $responseItem['question_id'])
+                        ->first();
+            // return $rs->type_id;
+
+            switch ($rs->type_id) {
+                  //해당 질문이 객관식일 경우
+                case 1:
+                case 6:
+                  
+                    $responseData = array(
+                        'question_id'            => $rs->id,
+                        'response_id'            => $respondent->id,
+                    );
+
+                    $response = $this->responseModel->create($responseData);
+
+                    $itemNumber = $this->questionItemModel->where('question_id',$rs->id)
+                            ->where('content_number', (int)$responseItem['item'])
+                            ->first();
+            
+                    $itemResponseData = array(
+                        'response_id'        => $response->id,
+                        'item_id'            => $itemNumber->id,
+                    );
+                
+                    $this->itemResponseModel->create($itemResponseData);
+                    break;
+                //해당 질문이 주관식일 경우
+                case 2:
+                case 4:
+                case 5:
+                
+                    //response테이블 데이터
+                    $responseData = array(
+                        'question_id'            => $rs->id,
+                        'response_id'            => $respondent->id,
+                        'question_text'          => $responseItem['item'],
+                    );
+
+                    $response = $this->responseModel->create($responseData); 
+                    break;
+
+                //해당 질문이 복수형일 경우 
+                case 3:
+               
+                    //문자열을 배열로 변환
+                    $items  = json_decode($responseItem['item'],true);
+                      
+                    foreach($items as $value){
+                        $responseData = array(
+                            'question_id'            => $rs->id,
+                            'response_id'            => $respondent->id,
+                        );
+    
+                        $response = $this->responseModel->create($responseData);
+    
+                        $itemNumber = $this->questionItemModel->where('question_id',$rs->id)
+                            ->where('content_number', (int)$value)
+                            ->first();
+                
+                        $itemResponseData = array(
+                            'response_id'        => $response->id,
+                            'item_id'            => $itemNumber->id,
+                        );
+                    
+                        $this->itemResponseModel->create($itemResponseData);
+                    }
+                    
+                default:
+                    break;
+            }
+        }//end of foreach
+
+        //설문 응답시 응답 횟수를 증가 
+        $this->formModel->getData('id',$request->form_id)->increment('respondent_count');
+
+        $survey = $this->formModel->getData('id',$request->form_id)->first();
+        
+        //목표 응답수를 달성시 설문마감
+        if($survey->respondent_number == $survey->respondent_count){
+            $this->formModel->getData('id',$request->form_id)->update(['is_completed' => 1]);
+        }
+
+
+        //유저 응답 보상 지급 
+        $payload = array( 
+            'form_params' => [
+                'user_id'   => $request->user_id,
+                'survey_id' => $request->form_id,
+            ]
+        );
+        
+        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['reward']);
+         
+        //요청 실패
+         if($response['status'] != 200){
+            return response()->json(['message'=>'Failure to pay compensation'],401);
+        }
+
+       return response()->json(['message' => 'true'],200);;
+    }//end of response
+
     
     //설문 리스트 
     public function getForm(Request $request){
