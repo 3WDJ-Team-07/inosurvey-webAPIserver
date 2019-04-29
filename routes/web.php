@@ -57,6 +57,11 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/index','Surveies\ResponseController@getForm');
         Route::post('/questions','Surveies\ResponseController@selectQuestionItem');
         Route::post('/create','Surveies\ResponseController@response');
+    });
+    
+     //survey-analysis
+     Route::group(['prefix' => 'analysis'], function () {
+      Route::post('/index','Surveies\AnalysisController@analysis');
     });  
 
     //market
