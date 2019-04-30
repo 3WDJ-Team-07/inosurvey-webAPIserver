@@ -12,6 +12,7 @@ namespace App\Http\Controllers\Users;
  * check(회원정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환  
  *
  */
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
@@ -36,23 +37,22 @@ class UserController extends Controller
 
 
     public function check(Request $request){
-     
-        //클라이언트 토큰 유무 검증
-        if(!$request->access_token){
-            return response()->json(['message'=>'Not Token'],400); 
-        }
+      
+        $key = ConstantEnum::JWT_KEY['key']; 
+        $jwt = $request->access_token;
 
-            $key = ConstantEnum::JWT_KEY['key']; 
-            $jwt = $request->access_token;
-
+        try {
             $user = (array) JWT::decode($jwt, $key, array('HS256'));                         //decode후  Array로 캐스팅
-
-            if($user['user']->id){
-                    $userData = $this->userModel->getData('id',$user['user']->id)->first();  //토큰의 정보와 일치하는 유저 정보를 추출
-                return response()->json(['message'=>'true','user'=>$userData],200);
+            
+            if($user['user']) {
+                $userData = $this->userModel->where('id',$user['user'])->first();           //토큰의 정보와 일치하는 유저 정보를 추출
+                return response()->json(['message'=>'true', 'user'=>$userData], 200);
             }else {
-                return response()->json(['message'=>'false'],400);
+                return response()->json(['message'=>'false'], 400);
             }
+        } catch (\Throwable $th) {
+            return response()->json(['message'=>'false'], 400);
+        }
     }//end of check
 
 
@@ -88,6 +88,15 @@ class UserController extends Controller
             'total_ino'     => $total,
         ],200);
     
+    }
+
+
+       // 나의 판매 등록
+       public function isSale(Request $request){
+        
+        $this->formModel->where('id',$request->id)->update(['is_sale' => 1]);
+        
+        return response()->json(['message'=>'true'],200);
     }
   
 

@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ModelScopes;
 
+use App\Models\Surveies\SurveyUser;
 use App\Models\Surveies\JobTarget;
 class User extends Authenticatable
 {
@@ -118,8 +119,10 @@ class User extends Authenticatable
         return $users;
     }
 
-    public function getReplyableForm($userId){
-        $form = $this->find($userId)->replyableForms;
-        return $form->where('is_completed',0);
+    //필터링 == true인 form select
+    public function getTrappedForm($userId){
+        return $form = $this->where('id',$userId)->first()->replyableForms;
     }
+
+    
 }

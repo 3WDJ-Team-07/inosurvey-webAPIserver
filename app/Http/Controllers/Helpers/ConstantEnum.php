@@ -29,6 +29,7 @@ class ConstantEnum extends Controller
 
     const JWT_KEY = [
         'key'               => 'inosurvey',
+        'iss'               => 'inosurvey.com',
     ];
 
     const S3 =  [

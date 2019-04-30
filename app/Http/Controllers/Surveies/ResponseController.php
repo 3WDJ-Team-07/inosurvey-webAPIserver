@@ -14,8 +14,10 @@ namespace App\Http\Controllers\Surveies;
  * selectQuestionItem(파일)     파일 업로드
  * 
  */
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
 
 use App\Models\Surveies\Form;
@@ -46,25 +48,26 @@ class ResponseController extends Controller
         $this->itemResponseModel    = new ItemResponse();
         $this->surveyUserModel      = new SurveyUser();
         $this->responseModel        = new Response();
-        $this->userModel            = new User();
+        $this->userModel            = new User(); 
     }
 
     //응답 내용 저장
     public function response(Request $request){
+      
+        $data = json_decode($request->data, true);
 
         $surveyUserData = array(
-            'survey_id'         => $request->form_id,
-            'respondent_id'     => $request->user_id,
+            'survey_id'         =>  $data["form_id"],
+            'respondent_id'     =>  $data["user_id"],
         );
         
         $respondent = $this->surveyUserModel->create($surveyUserData);
 
-        foreach ($request->question as $responseItem){
-            $rs = $this->questionModel->where('form_id', $request->form_id)
-                        ->where('question_number', $responseItem['question_id'])
+        foreach ($data["question"] as $responseItem){
+            $rs = $this->questionModel->where('form_id',  $data["form_id"])
+                        ->where('id', $responseItem['question_id'])
                         ->first();
-            // return $rs->type_id;
-
+       
             switch ($rs->type_id) {
                   //해당 질문이 객관식일 경우
                 case 1:
@@ -77,7 +80,7 @@ class ResponseController extends Controller
 
                     $response = $this->responseModel->create($responseData);
 
-                    $itemNumber = $this->questionItemModel->where('question_id',$rs->id)
+                    $itemNumber = $this->questionItemModel->where('question_id', $rs->id)
                             ->where('content_number', (int)$responseItem['item'])
                             ->first();
             
@@ -107,7 +110,7 @@ class ResponseController extends Controller
                 case 3:
                
                     //문자열을 배열로 변환
-                    $items  = json_decode($responseItem['item'],true);
+                    $items  = json_decode($responseItem['item'], true);
                       
                     foreach($items as $value){
                         $responseData = array(
@@ -135,21 +138,21 @@ class ResponseController extends Controller
         }//end of foreach
 
         //설문 응답시 응답 횟수를 증가 
-        $this->formModel->getData('id',$request->form_id)->increment('respondent_count');
+        $this->formModel->where('id', $data["form_id"])->increment('respondent_count');
 
-        $survey = $this->formModel->getData('id',$request->form_id)->first();
+        $survey = $this->formModel->where('id', $data["form_id"])->first();
         
         //목표 응답수를 달성시 설문마감
         if($survey->respondent_number == $survey->respondent_count){
-            $this->formModel->getData('id',$request->form_id)->update(['is_completed' => 1]);
+            $this->formModel->where('id', $data["form_id"])->update(['is_completed' => 1]);
         }
 
 
         //유저 응답 보상 지급 
         $payload = array( 
             'form_params' => [
-                'user_id'   => $request->user_id,
-                'survey_id' => $request->form_id,
+                'user_id'   =>  $data["user_id"],
+                'survey_id' =>  $data["form_id"],
             ]
         );
         
@@ -157,28 +160,33 @@ class ResponseController extends Controller
          
         //요청 실패
          if($response['status'] != 200){
-            return response()->json(['message'=>'Failure to pay compensation'],401);
+            return response()->json(['message'=>'Failure to pay compensation'], 401);
         }
 
-       return response()->json(['message' => 'true'],200);;
+       return response()->json(['message' => 'true'], 200);
     }//end of response
 
     
     //설문 리스트 
     public function getForm(Request $request){
-        $userId = $request->user_id;
-        $form = $this->userModel->getReplyableForm($userId);
-    
-        return response()->json(['message' => 'true','form' => $form],200);
+        $userId             = $request->user_id;
+        $trappedForms       = $this->userModel->getTrappedForm($userId);
+        $replyableForms     = $this->formModel->getReplyableForm($trappedForms, $userId)->get();
+
+        return response()->json(['message' => 'true','form' => $replyableForms],200);
     }
    
     //설문조사 아이템, 질문 내용 select
     public function selectQuestionItem(Request $request){
 
         $questionItem   = $this->questionModel->selectItems($request->id);
-        
-        return response()->json(['message' => 'true','questionItem' => $questionItem],200);
-    }
+        return response()->json(['message' => 'true', 'questionItem' => $questionItem],200);
 
+    }
+    
+    //사용자가 응답한 form
+    public function getRespondedForm(Reqeust $request){
+
+    }
    
 }

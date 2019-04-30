@@ -32,7 +32,7 @@ class LoginController extends Controller {
         //유저 정보 체크
         if(Auth::attempt($credentials)){
             
-            $jwt = $this->ganerateToken(Auth::user());     //jwt 토큰 발급
+            $jwt = $this->ganerateToken(Auth::user()->id);     //jwt 토큰 발급
 
             return response()->json(['message' => 'true','access_token' => $jwt],200); 
         }else{
@@ -47,8 +47,8 @@ class LoginController extends Controller {
         $key = ConstantEnum::JWT_KEY['key'];
         $token = array(
             "user"  => $user,                           //로그인 유저정보
-            "iss"   => 'inosurvey.com',                 //토큰 발급자
-            "exp"   => time()+ 60*60,                   //토큰 만료시간
+            "iss"   => ConstantEnum::JWT_KEY['iss'],    //토큰 발급자
+            "exp"   => time()+ ( 60 * 60 * 24 ),         //토큰 만료시간 (24시간)
             "iat"   => time()                           //토큰 발급시간     
         );
 

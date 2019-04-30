@@ -32,24 +32,25 @@ Route::get('/test','Helpers\TestController@test');
 
 
 Route::group(['prefix' => 'api'], function () {
-    
+
     //user
     Route::group(['prefix' => 'user'], function () {
         Route::post('/register','Users\RegisterController@register');
         Route::post('/login','Users\LoginController@login');
-        Route::post('/check','Users\UserController@check');
+        Route::post('/check','Users\UserController@check')->middleware('checkToken');
         Route::post('/surveies','Users\UserController@userSurveies');
         Route::post('/wallet','Users\UserController@getWallet');
+        Route::post('/issale','Users\UserController@isSale');
     });
 
     //survey
     Route::group(['prefix' => 'survey'], function () {
+        Route::get('/index','Surveies\SurveyController@index');
+        Route::get('/question-bank','Surveies\QuestionBankController@questionBank');
         Route::post('/create','Surveies\SurveyController@create');
         Route::post('/image-data','Surveies\SurveyController@uploadImage');
         Route::post('/image-delete','Surveies\SurveyController@deleteImage');
-        Route::get('/index','Surveies\SurveyController@index');
-        Route::get('/question-bank','Surveies\QuestionBankController@questionBank');
-
+        Route::post('/abort','Surveies\SurveyController@abort');
     });
     
      //survey-response
@@ -67,8 +68,10 @@ Route::group(['prefix' => 'api'], function () {
     //market
     Route::group(['prefix' => 'market'], function () {
         Route::get('/index','Markets\MarketController@index');
-        Route::post('/show','Markets\MarketController@show');       
-        Route::post('/sellable-forms','Markets\MarketController@sellableForms'); 
+        Route::post('/show','Markets\MarketController@show');
+        Route::post('/create','Markets\MarketController@create');        
+        Route::post('/sellable-forms','Markets\MarketController@sellableForms');
+        Route::post('/sellable-show','Markets\MarketController@sellableShow'); 
     });
 
     //donation
