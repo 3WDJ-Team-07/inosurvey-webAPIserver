@@ -169,6 +169,7 @@ class SurveyController extends Controller {
                 'form_id'               => $formId,
                 'type_id'               => $question['type']
             ]); 
+            
            $this->questionModel->insertMsgs($questionData);
             
             $questionId         = $this->questionModel->getLatest('id')->id;

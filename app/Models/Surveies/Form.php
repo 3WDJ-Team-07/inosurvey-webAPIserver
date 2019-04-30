@@ -71,8 +71,8 @@ class Form extends Model
     }
 
     // 완료(is_sale = false) 설문 리스트
-    public function completedList($userId){
-        return $this->getData('user_id',$userId)->where('is_sale',0)->where('is_completed',1);
+    public function completedList($col,$arg){
+        return $this->where($col,$arg)->where('is_sale',0)->where('is_completed',1);
     }
 
     //설문 폼 정보 (Android)

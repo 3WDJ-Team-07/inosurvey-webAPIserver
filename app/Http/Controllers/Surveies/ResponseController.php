@@ -63,12 +63,11 @@ class ResponseController extends Controller
         
         $respondent = $this->surveyUserModel->create($surveyUserData);
 
-        foreach ( $data["question"] as $responseItem){
+        foreach ($data["question"] as $responseItem){
             $rs = $this->questionModel->where('form_id',  $data["form_id"])
                         ->where('id', $responseItem['question_id'])
                         ->first();
-            // return $rs->type_id;
-
+       
             switch ($rs->type_id) {
                   //해당 질문이 객관식일 경우
                 case 1:
@@ -183,6 +182,4 @@ class ResponseController extends Controller
         
         return response()->json(['message' => 'true','questionItem' => $questionItem],200);
     }
-
-   
 }
