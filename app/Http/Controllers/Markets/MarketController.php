@@ -27,8 +27,8 @@ class MarketController extends Controller
 
     //마켓 설문 정보
     public function show(Request $request){
-    
-        $survey = $this->formModel->saleList()->where('id',$request->id)->first();
+        dd($request->id);
+        $survey = $this->formModel->saleList()->getData('id',$request->id)->first();
 
         return response()->json(['message'=>'true','list'=>$survey],200);
     }

@@ -47,9 +47,9 @@ class LoginController extends Controller {
         $key = ConstantEnum::JWT_KEY['key'];
         $token = array(
             "user"  => $user,                           //로그인 유저정보
-            "iss"   => 'inosurvey.com',                 //토큰 발급자
-            "exp"   => time()+ 60*60,                   //토큰 만료시간
-            "iat"   => time()                           //토큰 발급시간     
+            // "iss"   => 'inosurvey.com',                 //토큰 발급자
+            // "exp"   => time()+ 60*60,                   //토큰 만료시간
+            // "iat"   => time()                           //토큰 발급시간     
         );
 
         $jwt = JWT::encode($token, $key,'HS256');       //토큰 생성

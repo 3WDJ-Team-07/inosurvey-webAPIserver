@@ -32,7 +32,6 @@ Route::get('/test','Helpers\TestController@test');
 
 
 Route::group(['prefix' => 'api'], function () {
-    
     //user
     Route::group(['prefix' => 'user'], function () {
         Route::post('/register','Users\RegisterController@register');
@@ -77,5 +76,4 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/create','Donations\DonationController@create')/*->middleware('donator')*/;
         Route::post('/show','Donations\DonationController@show'); 
     });
-    
 });
