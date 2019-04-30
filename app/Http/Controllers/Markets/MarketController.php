@@ -27,16 +27,37 @@ class MarketController extends Controller
 
     //마켓 설문 정보
     public function show(Request $request){
-        dd($request->id);
+    
         $survey = $this->formModel->saleList()->getData('id',$request->id)->first();
 
         return response()->json(['message'=>'true','list'=>$survey],200);
+        
     }
+
+
+    //판매 등록
+    public function create(Request $request){
+
+        $sellableList = $this->formModel->completedList('id',$request->id)->get();
+        $sellableList->update(['is_sale' => 1]);
+        return response()->json(['message'=>'true'],200);
+
+    }
+
 
     //완료(is_sale = false,is_completed = true) 설문 리스트
     public function sellableForms(Request $request){
-        $sellableList = $this->formModel->completedList($request->id)->get();
-
+        
+        $sellableList = $this->formModel->completedList('user_id',$request->id)->get();
+       
+        return response()->json(['message'=>'true','list'=>$sellableList],200);
+    }
+    
+    //완료(is_sale = false,is_completed = true) 설문 상세
+    public function sellableShow(Request $request){
+        
+        $sellableList = $this->formModel->completedList('id',$request->id)->get();
+       
         return response()->json(['message'=>'true','list'=>$sellableList],200);
     }
 }
