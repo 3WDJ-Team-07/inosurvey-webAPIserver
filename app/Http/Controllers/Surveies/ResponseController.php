@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Surveies;
  *
  * 함수 목록
  * getForm(유저정보)            유저가 응답할 수 있는 설문조사 내용
- * create(응답정보)             설문 응답 시 작성한 정보를 해당 테이블에 저장
+ * response(응답정보)           설문 응답 시 작성한 정보를 해당 테이블에 저장
  * selectQuestionItem(파일)     파일 업로드
  * 
  */
@@ -167,22 +167,6 @@ class ResponseController extends Controller
     }//end of response
 
     
-    //설문 리스트 
-    public function getForm(Request $request){
-        $userId             = $request->user_id;
-        $trappedForms       = $this->userModel->getTrappedForm($userId);
-        $replyableForms     = $this->formModel->getReplyableForm($trappedForms, $userId)->get();
-
-        return response()->json(['message' => 'true','form' => $replyableForms],200);
-    }
-   
-    //설문조사 아이템, 질문 내용 select
-    public function selectQuestionItem(Request $request){
-
-        $questionItem   = $this->questionModel->selectItems($request->id);
-        return response()->json(['message' => 'true', 'questionItem' => $questionItem],200);
-
-    }
     
     //사용자가 응답한 form
     public function getRespondedForm(Reqeust $request){

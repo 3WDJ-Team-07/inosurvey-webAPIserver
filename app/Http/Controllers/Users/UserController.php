@@ -10,7 +10,8 @@ namespace App\Http\Controllers\Users;
  *
  * 함수 목록
  * check(회원정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환  
- *
+ * getWallet(회원 아이디)       회원의 지갑을 조회하는 함수
+ * isSale(설문 아이디)          자신의 설문조사를 판매하는 함수
  */
 
 use Illuminate\Http\Request;

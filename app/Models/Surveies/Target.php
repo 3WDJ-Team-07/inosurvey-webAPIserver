@@ -34,7 +34,7 @@ class Target extends Model
     //나이 추출시 배열 속성 포맷 변환
     public function getAgeAttribute($value)
     {
-        return json_decode($value);
+        return json_decode($value,true);
     }
 
 }

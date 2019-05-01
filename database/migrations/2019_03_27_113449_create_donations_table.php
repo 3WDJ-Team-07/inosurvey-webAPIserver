@@ -20,11 +20,11 @@ class CreateDonationsTable extends Migration
             $table->string('image',255)->nullable();
             $table->integer('target_amount')->default(0);
             $table->integer('current_amount')->default(0);
-            $table->timestamp('started_at');
-            $table->timestamp('closed_at')->nullable();
             $table->boolean('is_achieved')->default(false);
             $table->integer('donator_id')->unsigned();
             $table->foreign('donator_id')->references('id')->on('users');
+            $table->timestamp('started_at');
+            $table->timestamp('closed_at')->nullable();
         });
     }
 

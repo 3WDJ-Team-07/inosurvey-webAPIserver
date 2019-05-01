@@ -42,25 +42,17 @@ class Donation extends Model
         return $this->hasMany('App\Models\Surveies\Form');
     }
 
-    //후원자 정보 조회
-    public function selectSponsors($id){
-        return $this->where('id',$id)->first()->users;
-    }  
 
-    //달성치 계산 (스캐줄링)
-    public function achieveAmount($id){
+    //기부 달성치 계산 
+    public function achieveAmount($id,$ino){
         $donation = $this->where('id',$id)->first();
-        $target_amount  = $donation->target_amount;
-        $current_amount = $donation->current_amount;
-        $achieveAmount  = floor($current_amount/$target_amount*100);
-        return $achieveAmount;
+        $donation->increment('current_amount',$ino);
+
+        if($donation->target_amount == $donation->current_amount){
+            $donation->update(['is_achieved' => 1]);
+        }
     }
     
-    //현재 금액 update
-    public function updateAmount($id,$amount){
-        $this->where('id',$id)->increment('current_amount',$amount);
-    }
-
     //started_at 현재 시간 저장
     public static function boot() {
         parent::boot(); static::creating(function ($model) {

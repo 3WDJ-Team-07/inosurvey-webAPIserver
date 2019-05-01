@@ -16,64 +16,64 @@ class WalletsTableSeed extends Seeder
      
             array(    
                 'user_id' => 1,
-                'public_key' => '0x418b396ffb5737ad30984fa488713ec087dd2a68',
-                'private_key' => 'dd72dfd3c4ffe23c6e1f36280d2317ae340a1fcdc69582a47c4ec9494a88cb38',
+                'public_key' => '0x545f7815Cab8648eeF514C8F4f3c5E7264b8FD72',
+                'private_key' => '22ff8b0809bcc80d8d2dc693cc61f881373e1e496b5c4342e873d7ececaafff6',
         
                 ),
 
             array(
                 'user_id' => 2,
-                'public_key' => '0xb63db2e294815ae8f63617213b6ae91599afc445',
-                'private_key' => '1003407dacad47802488135ff2581bf297dccd3951abfe266f51074772381f95',  
+                'public_key' => '0x607c6Ba436C97742C893E39768f465940Eb87CEA',
+                'private_key' => 'b3597bcc157a480277e7868589d931f12c1ec015f593d0cbdbd6437b7ad67b4b',  
             
                 ),
 
             array(    
                 'user_id' => 3,
-                'public_key' => '0x8a893502903154a5e148c52c8dd5bef9222af7b2',
-                'private_key' => '64cdf4090543e7651997d4f2472c96e8dacd1b0a32091086117bca8dd23f5b23',
+                'public_key' => '0x76F863f2b7519F058E45C48F890451BA657e5070',
+                'private_key' => '84197a6adbdfcb468ebb9876c8bf40c1a1a0dbfc1af221b8a25f1b723c171909',
                 ),
 
             array(    
                 'user_id' => 4,
-                'public_key' => '0xd11b06e3215aaac2f5921cb350dac29515a71673',
-                'private_key' => '08133c54b725347c0f677b42d907394b7a057670ae69b90bb422b23162414f71',
+                'public_key' => '0x1c0831E9DD36E0273c26424232771589d88540Dc',
+                'private_key' => 'a6e74e9c06f2faeb6440de4691fdf07350f1fae6e1c426c0d68046a834180b78',
                 ),
 
             array(
                 'user_id' => 5,
-                'public_key' => '0xf9c987d67c2b3da128ce783e704caafe2c72f42e',
-                'private_key' => '35d12d29c54632f82caa3bbeb2f45c287b8772bac7fd92d505c036b0d6ed12e8',
+                'public_key' => '0xdDf12B9ac4Fc0b886440819E75B9691dD533746e',
+                'private_key' => '8578542f8832b1cde022e1d935cfec33b0774f1804b7459dae1c2912869214b4',
                 ),
 
             array(    
                 'user_id' => 6,
-                'public_key' => '0xb44a41467083c0b01a873a95a63b6e77cacea8cd',
-                'private_key' => 'e0701a62d0ade1f99b7f9bda88b0d9c9e87ea557f96c89a29c5c8dfe1b295680',
+                'public_key' => '0xd8571Ee1CC85090dde9306DE5b2DC5aa044BF593',
+                'private_key' => '834424a728966cddc4426decab7b5b52647f34008ac44b614dd893772c4d0673',
                 ),
 
             array(     
                 'user_id' => 7,
-                'public_key' => '0xb0ba04d75edfe160a8ac3df5028a08cf4013e095',
-                'private_key' => 'b63ffba4e76efe454b38b4564646f673406d49ec094a460208678f68b4e68fe0',
+                'public_key' => '0x12b2B837BfE830044cDb9EdD8177e33B56ebC561',
+                'private_key' => '62238f0b58219356bf4b6494297fe518b69f515711a2af9fb32ebf8ba3e574ee',
                 ),
 
             array(    
                 'user_id' => 8,
-                'public_key' => '0xf0a0eb79979a4691fa944d04c4ec9d32875f6003',
-                'private_key' => 'c8a99185be46ed11888374102f115e733e42832607b406e24d858a9000978036',
+                'public_key' => '0x380e2B4799a5B008dE1995B21f778c05d31dB22d',
+                'private_key' => '9e4334429a2c40c162271dc653d706d54b6cb58aa52e4067df1cad089b405f96',
                 ),
 
             array(    
                 'user_id' => 9,
-                'public_key' => '0xd39f35b8c5f1ca51f0cfc0d9943de849531829b2',
-                'private_key' => '5da3e6a1c4706dc22cd5295dc816cacbd62ab6521c43158243bf98740bd8c8a7',
+                'public_key' => '0xDBfe41A042BfC07753a9Aa222897d2414374199A',
+                'private_key' => '2facff11deb129208b069466994e5f967980513539df6a10a89428b4e02c0c61',
                 ),
 
             array(    
                 'user_id' => 10,
-                'public_key' => '0x1c6cefa2df11d643a687d847733da387fc32d034',
-                'private_key' => '77bef3a74a295e2e8844e4e58ae387e0dc1277992c0e7110f0fd2a15d57ff12c',
+                'public_key' => '0x16C8802088e732B543b36cb4DfFDB7261f089f4e',
+                'private_key' => 'a64e257279dfb0b88e4ccff418d51f2fbbe6758b3e004f90249a965c1537c3c9',
                 ),
         );
         

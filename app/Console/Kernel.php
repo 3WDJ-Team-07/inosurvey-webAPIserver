@@ -26,6 +26,10 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('completed:survey')
                  ->everyFiveMinutes();
+
+        
+        $schedule->command('completed:donation')
+                 ->everyFiveMinutes();
     }
 
     /**
