@@ -63,6 +63,10 @@ class DonationController extends Controller
         return response()->json(['message'=>'true','donations'=>$donations],200);
     }
 
-
+    //기부자 아이디, 기부단체 아이디, ino
+    public function donate(Request $request){
+        return $request;
+        
+    }
 
 }

@@ -55,9 +55,11 @@ class MarketController extends Controller
     
     //완료(is_sale = false,is_completed = true) 설문 상세
     public function sellableShow(Request $request){
+
         
         $sellableList = $this->formModel->completedList('id',$request->id)->with(['target.job'])->get();
+
        
-        return response()->json(['message'=>'true','list'=>$sellableList],200);
+        return response()->json(['message'=>'true',$sellableList],200);
     }
 }
