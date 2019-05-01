@@ -28,7 +28,7 @@ class MarketController extends Controller
     //마켓 설문 정보
     public function show(Request $request){
     
-        $survey = $this->formModel->saleList()->getData('id',$request->id)->first();
+        $survey = $this->formModel->saleList()->where('id',$request->id)->first();
 
         return response()->json(['message'=>'true','list'=>$survey],200);
         
@@ -38,9 +38,9 @@ class MarketController extends Controller
     //판매 등록
     public function create(Request $request){
 
-        $sellableList = $this->formModel->completedList('id',$request->id)->get();
+        $sellableList = $this->formModel->completedList('id',$request->id);
         $sellableList->update(['is_sale' => 1]);
-        return response()->json(['message'=>'true'],200);
+        return response()->json(['message'=>'true','id'=>$request->id],200);
 
     }
 
@@ -55,8 +55,10 @@ class MarketController extends Controller
     
     //완료(is_sale = false,is_completed = true) 설문 상세
     public function sellableShow(Request $request){
-      
-        $sellableList = $this->formModel->completedList('id',$request->id)->get();
+
+        
+        $sellableList = $this->formModel->completedList('id',$request->id)->with(['target.job'])->get();
+
        
         return response()->json(['message'=>'true',$sellableList],200);
     }

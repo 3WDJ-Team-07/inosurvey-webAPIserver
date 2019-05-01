@@ -84,4 +84,15 @@ class Form extends Model
         return $this->with(['respondentUsers']);
     }
 
+    //응답자 필터링&&진행중 forms -> 응답 했던 설문조사 필터링
+    public function getReplyableForm($trappedForms, $userId){
+        $trappedFormsArray      = $trappedForms->pluck('id')->toArray();
+        $respondedFormsArray    = SurveyUser::where('respondent_id','like',$userId)->get()->pluck('survey_id')->toArray();
+
+        if($respondedFormsArray){
+            return $this->whereIn('id',$trappedFormsArray)->whereNotIn('id',$respondedFormsArray)->where('is_completed',0);
+        }else{ 
+            return $this->whereIn('id',$trappedFormsArray)->where('is_completed',0);
+        }
+    }
 }                       

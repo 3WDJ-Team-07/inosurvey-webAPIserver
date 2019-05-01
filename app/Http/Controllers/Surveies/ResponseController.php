@@ -169,17 +169,24 @@ class ResponseController extends Controller
     
     //설문 리스트 
     public function getForm(Request $request){
-        $userId = $request->user_id;
-        $form = $this->userModel->getReplyableForm($userId);
-    
-        return response()->json(['message' => 'true','form' => $form],200);
+        $userId             = $request->user_id;
+        $trappedForms       = $this->userModel->getTrappedForm($userId);
+        $replyableForms     = $this->formModel->getReplyableForm($trappedForms, $userId)->get();
+
+        return response()->json(['message' => 'true','form' => $replyableForms],200);
     }
    
     //설문조사 아이템, 질문 내용 select
     public function selectQuestionItem(Request $request){
 
         $questionItem   = $this->questionModel->selectItems($request->id);
-        
-        return response()->json(['message' => 'true','questionItem' => $questionItem],200);
+        return response()->json(['message' => 'true', 'questionItem' => $questionItem],200);
+
     }
+    
+    //사용자가 응답한 form
+    public function getRespondedForm(Reqeust $request){
+
+    }
+   
 }
