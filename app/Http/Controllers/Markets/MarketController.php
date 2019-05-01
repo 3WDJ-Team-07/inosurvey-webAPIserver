@@ -1,7 +1,16 @@
 <?php
 
 namespace App\Http\Controllers\Markets;
-
+/**
+ * 클래스명:                       MarketController
+ * @package                       App\Http\Controllers\Markets
+ * 클래스 설명:                    설문결과를 구매하고 판매할 수 있는 클래스
+ * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 1701037 김민영
+ * 만든날:                        2019년 4월 18일
+ *
+ * 함수 목록
+ *
+ */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Surveies\Form;
@@ -15,25 +24,6 @@ class MarketController extends Controller
         $this->formModel = new Form();
     }
       
-    public function index(){
-       $saleList =  $this->formModel->saleList()->get();
-
-        if($saleList){
-            return response()->json(['message'=>'true','list' => $saleList],200);
-        }else{
-            return response()->json(['message'=>'Not sale list'],400);
-        }
-    }
-
-    //마켓 설문 정보
-    public function show(Request $request){
-    
-        $survey = $this->formModel->saleList()->where('id',$request->id)->first();
-
-        return response()->json(['message'=>'true','list'=>$survey],200);
-        
-    }
-
 
     //판매 등록
     public function create(Request $request){
@@ -45,21 +35,6 @@ class MarketController extends Controller
     }
 
 
-    //완료(is_sale = false,is_completed = true) 설문 리스트
-    public function sellableForms(Request $request){
-        
-        $sellableList = $this->formModel->completedList('user_id',$request->id)->get();
-       
-        return response()->json(['message'=>'true','list'=>$sellableList],200);
-    }
+
     
-    //완료(is_sale = false,is_completed = true) 설문 상세
-    public function sellableShow(Request $request){
-
-        
-        $sellableList = $this->formModel->completedList('id',$request->id)->with(['target.job'])->get();
-
-       
-        return response()->json(['message'=>'true',$sellableList],200);
-    }
 }

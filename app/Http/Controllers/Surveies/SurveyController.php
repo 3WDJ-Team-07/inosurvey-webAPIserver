@@ -12,7 +12,8 @@ namespace App\Http\Controllers\Surveies;
  * index()                      판매중인 설문조사 내용
  * create(설문정보)             설문 요청 시 작성한 정보를 해당 테이블에 저장
  * uploadImage(파일)            파일 업로드
- * delete(파일)                 파일 삭제
+ * deleteImage(파일)            파일 삭제
+ * abort(설문아이디)            진행중인 설문을 강제 중단시키는 함수
  * 
  */
 
@@ -200,12 +201,6 @@ class SurveyController extends Controller {
     }
 
 
-
-
-    public function index(){
-        $serveies = $this->formModel->getSurveies()->get();
-        return response()->json(['message'=>'true','surveies'=>$serveies],200);
-    }
 
     //이미지 등록
     public function uploadImage(Request $request){

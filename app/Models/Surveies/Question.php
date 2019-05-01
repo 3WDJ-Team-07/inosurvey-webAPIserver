@@ -41,6 +41,9 @@ class Question extends Model
         return $this->hasMany('App\Models\Surveies\QuestionItem');
     } 
 
+
+
+    
     public function selectItems($id){
 
             $questionItem = $this->with(['questionItems' => function ($query){
@@ -51,9 +54,5 @@ class Question extends Model
 
         return $questionItem;    
     }
-    
-    //질문의 객관식 주관식 판단 
-    public function questiontype(){
-        return $this->with(['type']);
-    }
+
 }

@@ -8,12 +8,6 @@ trait ModelScopes{
         return $query->insert($msgs);
     }
 
-    //특정 칼럼으로 레코드 찾기
-    public function scopeGetData($query,$col,$arg){
-        return $query->where($col,$arg);
-
-    }
-
     //최근 생성된 컬럼 선택
     public function scopeGetLatest($query, $arg){
         return $query->select('*')->latest($arg)->first();

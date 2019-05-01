@@ -48,6 +48,7 @@ class ConstantEnum extends Controller
         'wallet'            => '/wallet/amount',
         'payment'           => '/survey/request',
         'reward'            => '/survey/response',
-       
+        'establishment'     => '/foundation/create',
+        'donate'            => '/foundation/donate',
     ];
 }
