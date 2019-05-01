@@ -78,6 +78,7 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'donation'], function () {
         Route::get('/index','Donations\DonationController@index');
         Route::post('/create','Donations\DonationController@create')/*->middleware('donator')*/;
+        Route::post('/donate','Donations\DonationController@donate');
         Route::post('/show','Donations\DonationController@show'); 
     });
     
