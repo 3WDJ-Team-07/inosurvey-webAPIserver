@@ -78,8 +78,6 @@ class SurveyController extends Controller {
         }
         
     
-        
-
         $gender         = $request->target['gender'];
         $countAgeJob    = count($request->input('target.*.*'));
         $existJob       = false;
