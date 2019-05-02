@@ -42,11 +42,15 @@ class ListController extends Controller
     //기부단체 정보
     public function show(Request $request){
         
-        $donations = $this->donationModel->where('id',$request->id)->first();
+        $donations = $this->donationModel->donorList('id',$request->id)->first();
 
         return response()->json(['message'=>'true','donations'=>$donations],200);
     }
 
-
+ 
 
 }
+
+
+
+

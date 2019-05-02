@@ -18,6 +18,8 @@ class CreateDonationUsersTable extends Migration
             $table->foreign('donation_id')->references('id')->on('donations');
             $table->integer('sponsors_id')->unsigned();
             $table->foreign('sponsors_id')->references('id')->on('users');
+            $table->bigInteger('donation_amount')->nullable();
+            $table->timestamps();
         });
     }
 

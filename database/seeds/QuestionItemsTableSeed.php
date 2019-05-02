@@ -11,6 +11,6 @@ class QuestionItemsTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\QuestionItem::class,5)->create();
+        factory(App\Models\Surveies\QuestionItem::class,3)->create();
     }
 }

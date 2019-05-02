@@ -11,6 +11,6 @@ class DonationUserTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Donations\DonationUser::class,5)->create();
+        factory(App\Models\Donations\DonationUser::class,1)->create();
     }
 }
