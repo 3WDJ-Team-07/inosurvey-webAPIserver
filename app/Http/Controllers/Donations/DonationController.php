@@ -72,8 +72,9 @@ class DonationController extends Controller
     public function donate(Request $request){
 
         $donationUserData = array(
-            'donation_id'   => $request->donation_id,
-            'sponsors_id'   => $request->user_id,
+            'donation_id'       => $request->donation_id,
+            'sponsors_id'       => $request->user_id,
+            'donation_amount'   => $request->ino,
         );
 
         $this->donationUserModel->create($donationUserData);

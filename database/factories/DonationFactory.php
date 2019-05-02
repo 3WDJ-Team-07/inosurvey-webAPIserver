@@ -14,7 +14,7 @@ $factory->define(App\Models\Donations\Donation::class, function (Faker $faker) {
         'image' => 'http://inosurvey.s3-ap-northeast-2.amazonaws.com/donations/f964667c-6a86-4f0c-9cef-6bb5b4cf51fd캡처.JPG',
         'target_amount' => 5000000,
         'donator_id' => $faker->numberBetween($user_id_min,$user_id_max),       
-        'current_amount' => rand(23331,412412),
+        'current_amount' => 0,
         'closed_at' => Carbon\Carbon::now(),
 
     ];

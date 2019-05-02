@@ -28,7 +28,9 @@ class Donation extends Model
     //user테이블 donation테이블 N-N
     //기부정보 - 후원자 정보
     public function users(){
-        return $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id');
+        return 
+            $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id')
+            ->withPivot('donation_amount', 'created_at');
     }
 
     //user테이블 donation테이블 1-N
@@ -42,6 +44,15 @@ class Donation extends Model
         return $this->hasMany('App\Models\Surveies\Form');
     }
 
+    
+    //started_at 현재 시간 저장
+    public static function boot() {
+        parent::boot(); static::creating(function ($model) {
+        $model->started_at = $model->freshTimestamp(); 
+        });
+    }
+
+
 
     //기부 달성치 계산 
     public function achieveAmount($id,$ino){
@@ -52,12 +63,13 @@ class Donation extends Model
             $donation->update(['is_achieved' => 1]);
         }
     }
-    
-    //started_at 현재 시간 저장
-    public static function boot() {
-        parent::boot(); static::creating(function ($model) {
-        $model->started_at = $model->freshTimestamp(); 
-        });
+
+
+
+    //기부단체 기부자 리스트
+    public function donorList($col,$arg){
+
+        return $this->where($col,$arg)->with(['users']);
     }
 
 }
