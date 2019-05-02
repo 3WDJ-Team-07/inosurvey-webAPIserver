@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Markets;
  * 클래스명:                       ListController
  * @package                       App\Http\Controllers\Markets
  * 클래스 설명:                    설문 판매 관련 리스트를 조회하는 클래스
- * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근
+ * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 1701037 김민영
  * 만든날:                        2019년 5월 1일
  *
  * 함수 목록

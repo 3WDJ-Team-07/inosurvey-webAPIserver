@@ -64,8 +64,6 @@ class Donation extends Model
         }
     }
 
-
-
     //기부단체 기부자 리스트
     public function donorList($col,$arg){
 

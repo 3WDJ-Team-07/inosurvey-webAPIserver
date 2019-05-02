@@ -69,7 +69,7 @@ class ResponseController extends Controller
                         ->first();
        
             switch ($rs->type_id) {
-                  //해당 질문이 객관식일 경우
+                //해당 질문이 객관식일 경우
                 case 1:
                 case 6:
                   
@@ -166,11 +166,4 @@ class ResponseController extends Controller
        return response()->json(['message' => 'true'], 200);
     }//end of response
 
-    
-    
-    //사용자가 응답한 form
-    public function getRespondedForm(Reqeust $request){
-
-    }
-   
 }
