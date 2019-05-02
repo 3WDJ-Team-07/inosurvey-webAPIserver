@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Models\Surveies\Type;
 class TypesTableSeed extends Seeder
 {
     /**
@@ -11,6 +11,11 @@ class TypesTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\Type::class,6)->create();
+        // factory(App\Models\Surveies\Type::class,6)->create();
+        $type = ['주관식','객관식','확인란','별등급','이미지선택','의견란'];
+        
+        foreach($type as $item){
+            Type::insert($item);
+        }
     }
 }
