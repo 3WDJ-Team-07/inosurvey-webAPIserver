@@ -50,5 +50,6 @@ class ConstantEnum extends Controller
         'reward'            => '/survey/response',
         'establishment'     => '/foundation/create',
         'donate'            => '/foundation/donate',
+        'sales'             => '/market/survey/add',
     ];
 }

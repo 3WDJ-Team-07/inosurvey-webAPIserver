@@ -13,10 +13,15 @@ namespace App\Http\Controllers\Markets;
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\ConstantEnum;
+use App\Http\Controllers\Helpers\Guzzles;
+
 use App\Models\Surveies\Form;
 
 class MarketController extends Controller
 {
+
+    use Guzzles;
 
     private $formModel = null;
 
@@ -27,6 +32,23 @@ class MarketController extends Controller
 
     //판매 등록
     public function create(Request $request){
+      
+        //설문 판매등록
+        $payload = array( 
+            'form_params' => [
+                'user_id'       => $request->user_id,
+                'survey_id'     => $request->id,
+            ]
+        );
+
+
+        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['sales']);
+ 
+        //판매 요청 실패
+        if($response['status'] != 200){
+            return response()->json(['message'=>'Payment failed'],401);
+        }
+
 
         $sellableList = $this->formModel->completedList('id',$request->id);
         $sellableList->update(['is_sale' => 1]);
