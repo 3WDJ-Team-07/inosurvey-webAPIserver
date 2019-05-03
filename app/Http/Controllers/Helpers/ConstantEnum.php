@@ -42,14 +42,17 @@ class ConstantEnum extends Controller
         'private'           => 'private_key',
         'amount'            => 'currAmount',
         'totalAmount'       => 'totalAmount',
+        'survey_price'      => 'sellPrice',
     ];
     
     const NODE_JS =  [
+        'wallet_create'     => '/wallet/create',
         'wallet'            => '/wallet/amount',
         'payment'           => '/survey/request',
         'reward'            => '/survey/response',
         'establishment'     => '/foundation/create',
         'donate'            => '/foundation/donate',
         'sales'             => '/market/survey/add',
+        'price'             => '/survey/',
     ];
 }

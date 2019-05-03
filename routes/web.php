@@ -72,7 +72,8 @@ Route::group(['prefix' => 'api'], function () {
     Route::group(['prefix' => 'market'], function () {
         Route::get('/index','Markets\ListController@index');
         Route::post('/show','Markets\ListController@show');
-        Route::post('/create','Markets\MarketController@create');        
+        Route::post('/sale','Markets\MarketController@salesRegistration');
+        Route::post('/purchase','Markets\MarketController@purchase');        
         Route::post('/sellable-forms','Markets\ListController@sellableForms');
         Route::post('/sellable-show','Markets\ListController@sellableShow'); 
     });

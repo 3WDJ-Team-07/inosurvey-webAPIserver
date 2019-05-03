@@ -30,7 +30,7 @@ class RegisterController extends Controller {
     
         $user = User::create(request()->all());
         
-        $response = $this->getGuzzleRequest('./wallet/create');   //지갑 공개키,개인키 발급
+        $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['wallet_create']);   //지갑 공개키,개인키 발급
     
         $param = array(
             'public_key'    => $response['body'][ConstantEnum::ETHEREUM['public']],

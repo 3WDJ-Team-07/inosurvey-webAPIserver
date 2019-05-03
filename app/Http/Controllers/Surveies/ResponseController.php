@@ -71,6 +71,7 @@ class ResponseController extends Controller
             switch ($rs->type_id) {
                 //해당 질문이 객관식일 경우
                 case 1:
+                case 4:
                 case 6:
                   
                     $responseData = array(
@@ -93,7 +94,6 @@ class ResponseController extends Controller
                     break;
                 //해당 질문이 주관식일 경우
                 case 2:
-                case 4:
                 case 5:
                 
                     //response테이블 데이터
