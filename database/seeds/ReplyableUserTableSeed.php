@@ -11,6 +11,6 @@ class ReplyableUserTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\ReplyableUser::class,3)->create();
+        factory(App\Models\Surveies\ReplyableUser::class,1)->create();
     }
 }

@@ -11,6 +11,6 @@ class QuestionBanksTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\QuestionBank::class,3)->create();
+        factory(App\Models\Surveies\QuestionBank::class,10)->create();
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+
 
 class IsDonator
 {
@@ -16,10 +16,10 @@ class IsDonator
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user()->is_donator == 1){
+        if($request->is_donator == 1){
             return $next($request);
         }else{
-            return response()->json(['message' => 'false'],401);
+            return response()->json(['message' => 'You do not have the right to create a donation organization'],401);
         }
         
     }

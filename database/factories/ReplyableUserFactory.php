@@ -9,7 +9,7 @@ $factory->define(App\Models\Surveies\ReplyableUser::class, function (Faker $fake
     $replyable_id_max = App\Models\Users\User::max('id');
     
     return [
-        'survey_id' => $faker->numberBetween($survey_id_min,$survey_id_max),
-        'replyable_id' => $faker->numberBetween($replyable_id_min,$replyable_id_max),
+        'survey_id' => 1,
+        'replyable_id' => 2,
     ];
 });

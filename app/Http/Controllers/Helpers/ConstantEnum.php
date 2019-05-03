@@ -54,5 +54,6 @@ class ConstantEnum extends Controller
         'donate'            => '/foundation/donate',
         'sales'             => '/market/survey/add',
         'price'             => '/survey/',
+        'buy'               => '/market/survey/buy',
     ];
 }
