@@ -180,7 +180,7 @@ class SurveyController extends Controller {
                     $items = $question['items'];
                     if($question['type'] ==4){
                         $items = array();
-                        for($num=3;$num<6;$num++){
+                        for($num=1;$num<6;$num++){
                             $numArray = array('value' => $num);
                             array_push($items, $numArray);
                         }
