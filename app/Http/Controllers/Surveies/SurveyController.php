@@ -169,15 +169,25 @@ class SurveyController extends Controller {
                 'type_id'               => $question['type']
             ]); 
             
-           $this->questionModel->insertMsgs($questionData);
+            $this->questionModel->insertMsgs($questionData);
             
             $questionId         = $this->questionModel->getLatest('id')->id;
             $questionType       = $this->questionModel->getLatest('id')->type_id;
 
             //question_items테이블 - 들어오는 순서에 맞게 item추가, 저장
-            if($question['items']){
+            if($question['items']||$question['type'] == 4){
+                    //별등급일 경우 5개의 item생성
+                    $items = $question['items'];
+                    if($question['type'] ==4){
+                        $items = array();
+                        for($num=3;$num<6;$num++){
+                            $numArray = array('value' => $num);
+                            array_push($items, $numArray);
+                        }
+                    }
+                    
                     $contentNumber = 1;
-                    foreach ($question['items'] as $item){
+                    foreach ($items as $item){
                         $itemData = array([
                             'content'               => $item['value'],
                             'content_number'        => $contentNumber,
@@ -192,6 +202,7 @@ class SurveyController extends Controller {
                         
                         $contentNumber ++;
                     }
+
             }//end of questionItem
         }//end of question foreach loop
 

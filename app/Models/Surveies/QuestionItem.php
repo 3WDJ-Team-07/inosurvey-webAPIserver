@@ -39,6 +39,11 @@ class QuestionItem extends Model
         return $this->belongsToMany('App\Models\Surveies\Response','item_response','item_id','response_id');
     }  
     
+    //questions테이블 itemResponse테이블 1-N
+    public function itemResponses(){
+        return $this->hasMany('App\Models\Surveies\ItemResponse');
+    }
+
     public function updateImg($itemId, $img){
         return $this->find($itemId)->update(['content_image' => $img]);
     }
