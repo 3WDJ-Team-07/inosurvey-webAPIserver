@@ -11,6 +11,6 @@ class JobTargetTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\JobTarget::class,5)->create();
+        factory(App\Models\Surveies\JobTarget::class,1)->create();
     }
 }

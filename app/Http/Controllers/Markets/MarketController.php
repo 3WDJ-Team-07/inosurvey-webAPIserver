@@ -57,8 +57,34 @@ class MarketController extends Controller
     }
 
     //설문 구매
-    public function purchase(){
-        return 'asd';
+    public function purchase(Request $request){
+    
+        $payload = array( 
+            'form_params' => [
+                'user_id'   =>  $request->user_id,
+                'survey_id' =>  $request->id,
+            ]
+        );
+        
+        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['buy']);
+         
+
+      
+         if($response['status'] != 200){                                            //요청 실패
+            
+            return response()->json(['message'=>'Survey purchase failed'], 401);
+
+        }else if($response['status'] == 401){                                       //이미 구매한 설문
+            
+            
+
+        }
+
+
+
+
+        return response()->json(['message'=>'true'],200);        
+
     }
     
 }

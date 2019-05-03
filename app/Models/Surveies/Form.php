@@ -61,7 +61,7 @@ class Form extends Model
     }
 
     //설문 정보 스코프
-    public function scopeGetSurveies(){
+    public function getSurveies(){
         return $this->with(['user','target.job','question.questionItems']);
     }
 

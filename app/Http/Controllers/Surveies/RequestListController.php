@@ -12,7 +12,7 @@ namespace App\Http\Controllers\Surveies;
  * index() :                     설문 리스트 조회
  */
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Controller; 
 
 use App\Models\Surveies\Form;
 

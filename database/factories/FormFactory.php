@@ -13,8 +13,8 @@ $factory->define(App\Models\Surveies\Form::class, function (Faker $faker) {
         // 'closed_at' => '',  
         // 'is_sale' => '', 
         // 'started_at' => time(), 
-        'respondent_number' => rand(1,200),
+        'respondent_number' => 100,
         'target_id' => $faker->numberBetween($target_id_min,$target_id_max),
-        'user_id' => $faker->numberBetween($user_id_min,$user_id_max),
+        'user_id' => 1,
     ];
 });

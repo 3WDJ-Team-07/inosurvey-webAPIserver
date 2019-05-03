@@ -30,7 +30,7 @@ class Donation extends Model
     public function users(){
         return 
             $this->belongsToMany('App\Models\Users\User','donation_user','donation_id','sponsors_id')
-            ->withPivot('donation_amount', 'created_at');
+            ->withPivot('id','donation_amount', 'created_at');
     }
 
     //user테이블 donation테이블 1-N

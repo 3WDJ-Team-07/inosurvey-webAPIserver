@@ -14,6 +14,7 @@ class CreateDonationUsersTable extends Migration
     public function up()
     {
         Schema::create('donation_user', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('donation_id')->unsigned();
             $table->foreign('donation_id')->references('id')->on('donations');
             $table->integer('sponsors_id')->unsigned();

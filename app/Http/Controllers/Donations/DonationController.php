@@ -46,7 +46,7 @@ class DonationController extends Controller
         Donation::create($param);
 
         $closedAt = new Carbon($request->closed_at);
-
+                                  
         $payload = array( 
             'form_params' => [
                 'user_id'           =>  $request->user_id,
@@ -91,7 +91,7 @@ class DonationController extends Controller
          
         //요청 실패
          if($response['status'] != 200){
-            return response()->json(['message'=>'Failure to pay compensation'], 401);
+            return response()->json(['message'=>'Failed to make donation to the organization'], 401);
         }
 
 

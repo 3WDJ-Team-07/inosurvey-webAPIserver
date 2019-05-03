@@ -12,7 +12,7 @@ $factory->define(App\Models\Surveies\Question::class, function (Faker $faker) {
         'question_title' => $faker->word,
         'question_number' => 1,
         'image' => 'imagesExample',
-        'form_id' => $faker->numberBetween($form_id_min,$form_id_max),
+        'form_id' => 1,
         'type_id' => $faker->numberBetween($type_id_min,$type_id_max),
     ];
 });

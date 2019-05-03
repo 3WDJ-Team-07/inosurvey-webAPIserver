@@ -17,7 +17,7 @@ $factory->define(App\Models\Users\User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'nickname' => $faker->name,       
         'gender' => rand(1,2),
-        'age' => rand(1,50),
+        'age' => rand(1945,2005),
         'job_id' => $faker->numberBetween($job_id_min,$job_id_max),
     ];
 });

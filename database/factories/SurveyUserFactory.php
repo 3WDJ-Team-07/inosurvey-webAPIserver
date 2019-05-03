@@ -10,7 +10,7 @@ $factory->define(App\Models\Surveies\SurveyUser::class, function (Faker $faker) 
     $respondent_id_max = App\Models\Users\User::max('id');
     
     return [
-        'survey_id' => $faker->numberBetween($survey_id_min,$survey_id_max),
-        'respondent_id' => $faker->numberBetween($respondent_id_min,$respondent_id_max),
+        'survey_id' => 1,
+        'respondent_id' => 3,
     ];
 });
