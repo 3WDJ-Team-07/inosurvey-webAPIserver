@@ -29,9 +29,9 @@ class MarketController extends Controller
         $this->formModel = new Form();
     }
       
-
+    
     //판매 등록
-    public function create(Request $request){
+    public function salesRegistration(Request $request){
       
         //설문 판매등록
         $payload = array( 
@@ -56,7 +56,9 @@ class MarketController extends Controller
 
     }
 
-
-
+    //설문 구매
+    public function purchase(){
+        return 'asd';
+    }
     
 }
