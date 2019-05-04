@@ -119,7 +119,7 @@ class User extends Authenticatable
             $ageArray = array();
             //$users = $users->whereIn('age',$target['age']);
             foreach($target['age'] as $age){
-                for($i=0;$i<10;$i++){
+                for($i=-1;$i<9;$i++){//한국나이 기준이므로! 
                     array_push($ageArray, $nowDate-$age-$i);
                 }    
             }
@@ -139,7 +139,7 @@ class User extends Authenticatable
         $users = $this->filterGender($gender);
         if($age != 0){
             $nowDate    = date('Y');
-            $users = $users->whereBetween('age',[$nowDate-$age-9,$nowDate-$age]);
+            $users = $users->whereBetween('age',[$nowDate-$age-8,$nowDate-$age+1]);
         }
         if($job != 0){
             $users  = $users->where('job_id',$job);
