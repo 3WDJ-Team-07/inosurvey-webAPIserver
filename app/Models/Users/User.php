@@ -100,20 +100,49 @@ class User extends Authenticatable
         return $this->where('id',$id)->first()->donations;
     }
 
-    //응답가능 유저 선택
-    public function getReplyableUser($gender, $target, $targetId, $existJob){
+    //age 필터링
+    public function filterGender($gender){
         if($gender !=0){
             $users = $this->where('gender',$gender);
         } else {
             $users = $this->whereIn('gender',[1,2]);
         }
+        return $users;
+    }
+
+    //응답가능 유저 선택(설문요청저장)
+    public function getReplyableUser($gender, $target, $targetId, $existJob){
+        $users = $this->filterGender($gender);
 
         if(count($target['age']) != 0){
-            $users  = $users->whereIn('age',$target['age']);
+            $nowDate    = date('Y');
+            $ageArray = array();
+            //$users = $users->whereIn('age',$target['age']);
+            foreach($target['age'] as $age){
+                for($i=0;$i<10;$i++){
+                    array_push($ageArray, $nowDate-$age-$i);
+                }    
+            }
+            $users  = $users->whereIn('age',$ageArray);
         }
         if($existJob){
             $jobs   = JobTarget::where('target_id',$targetId)->get()->pluck('job_id')->toArray();
             $users  = $users->whereIn('job_id',$jobs);
+        }
+
+        return $users;
+    }
+
+    //필터링 한 유저 선택(설문분석)
+    public function getTrappedUser($gender,$age,$job){
+
+        $users = $this->filterGender($gender);
+        if($age != 0){
+            $nowDate    = date('Y');
+            $users = $users->whereBetween('age',[$nowDate-$age-9,$nowDate-$age]);
+        }
+        if($job != 0){
+            $users  = $users->where('job_id',$job);
         }
 
         return $users;

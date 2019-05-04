@@ -66,6 +66,7 @@ Route::group(['prefix' => 'api'], function () {
      //survey-analysis
      Route::group(['prefix' => 'analysis'], function () {
       Route::post('/index','Surveies\AnalysisController@analysis');
+      Route::post('/target-result','Surveies\AnalysisController@targetAnalysis');
     });  
 
     //market
