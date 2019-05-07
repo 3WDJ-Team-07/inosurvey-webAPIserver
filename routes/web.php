@@ -43,6 +43,7 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/check','Users\UserController@check')->middleware('checkToken');
         Route::post('/surveies','Users\UserController@userSurveies');
         Route::post('/wallet','Users\UserController@getWallet');
+        Route::post('/wallet/receipt/{range}/{method?}', 'Users\UserController@getReceipt');
         Route::post('/issale','Users\UserController@isSale');
     });
 
