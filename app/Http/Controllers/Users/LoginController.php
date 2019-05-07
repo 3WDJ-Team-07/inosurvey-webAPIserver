@@ -48,7 +48,7 @@ class LoginController extends Controller {
         $token = array(
             "user"  => $user,                           //로그인 유저정보
             "iss"   => ConstantEnum::JWT_KEY['iss'],    //토큰 발급자
-            "exp"   => time()+ ( 60 * 60 * 24 ),         //토큰 만료시간 (24시간)
+            "exp"   => time()+ ( 60 * 60 * 24 ),        //토큰 만료시간 (24시간)
             "iat"   => time()                           //토큰 발급시간     
         );
 
