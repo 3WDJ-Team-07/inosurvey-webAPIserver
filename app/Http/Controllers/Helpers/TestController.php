@@ -23,6 +23,17 @@ class TestController extends Controller
  
     public function test(){
 
+        // $a=4.99*10;
+        $a = 6; $b=2;
+        return sprintf("%2.2f" ,$a);
+
+
+
+        $a = 6; $b=2;
+        $c = $a / $b;
+
+        return round($c,2);
+
         return $this->formModel->isCompleted()->get();
 
 

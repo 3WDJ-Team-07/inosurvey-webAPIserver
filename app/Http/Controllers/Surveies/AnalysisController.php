@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Surveies;
  * 클래스명:                      ResponseController
  * @package                      App\Http\Controllers\Surveies
  * 클래스 설명:                   설문조사 분석 작업을 하는 컨트롤러
- * 만든이:                        3-WDJ 7조 ナナイロトリ 1701037 김민영
+ * 만든이:                        3-WDJ 7조 ナナイロトリ 1701037 김민영 1501107 박보근
  * 만든날:                        2019년 5월 01일
  *
  * 함수 목록
@@ -51,9 +51,11 @@ class AnalysisController extends Controller
             $responseArray          = array();
             $responseItemArray      = array();
             $resultArray            = array();
+            $responseCountArray     = array();
             $questionType           = $question->type_id;
             $itemData               = $question->questionItems;
             $allResponsesCount      = $question->responses->count();
+          
 
             array_push($resultArray, $question->toArray());
             
@@ -75,14 +77,22 @@ class AnalysisController extends Controller
                     foreach($itemData as $item){
                         $itemId             = $item->id;
                         $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->count();
-                        array_push($responseItemArray,$itemResponseCount);
-                    }
 
-                    array_push($resultArray, ["itemArray" => $itemValue]);
-                    array_push($resultArray, ["responseArray" => $responseItemArray]);
+                    
+                        $responseCountResult = sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);   //응답 아이템 백분율 결과,소수점 두자리까지 표현 
+                        
+                        array_push($responseCountArray, ['itemTitle' => $item->content ,'percentage'=> $responseCountResult]); 
+                        array_push($responseItemArray,$itemResponseCount);
+                    
+                    
+                    }
+                    
+                    array_push($resultArray, ["itemArray"       => $itemValue]);
+                    array_push($resultArray, ["responseArray"   => $responseItemArray]);
+                    array_push($resultArray, ["responseResult"  => $responseCountArray]);
                     break;
                 }                
-            array_push($resultArray, ["allResponsesCount" => $allResponsesCount]);    
+              
             array_push($questionResponseArray,$resultArray);
         }
         return response()->json(['message' => 'true', 'form' => $formData, 'question' => $questionResponseArray], 200);

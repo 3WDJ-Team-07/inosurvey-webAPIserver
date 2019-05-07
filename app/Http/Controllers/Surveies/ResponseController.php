@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Surveies;
  * 클래스명:                      ResponseController
  * @package                      App\Http\Controllers\Surveies
  * 클래스 설명:                   설문조사 응답 작업을 하는 컨트롤러
- * 만든이:                        3-WDJ 7조 ナナイロトリ 1701037 김민영 1501107 박보근
+ * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 1701037 김민영 
  * 만든날:                        2019년 4월 10일
  *
  * 함수 목록
