@@ -9,10 +9,10 @@ namespace App\Http\Controllers\Users;
  * 만든날:                      2019년 4월 16일
  *
  * 함수 목록
- * check(회원정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환  
- * getWallet(회원 아이디):      회원의 지갑을 조회하는 함수
+ * check(유저정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환  
+ * getWallet(유저 아이디):      유저의 지갑을 조회하는 함수
  * isSale(설문 아이디):         자신의 설문조사를 판매하는 함수
- * getReceipt():
+ * getReceipt(유저 아이디):     서비스 내의 해당유저의 모든 이력정보를 조회하는 함수                
  */
 
 use Illuminate\Http\Request;
@@ -22,7 +22,7 @@ use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
 use \Firebase\JWT\JWT;
 use Carbon\Carbon;
-use Auth;
+
 
 use App\Models\Users\User;
 use App\Models\Surveies\Form;
