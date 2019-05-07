@@ -59,7 +59,7 @@ class SurveyController extends Controller {
 
     //설문 작성
     public function create(Request $request){
-       
+    
         //설문 결제
         $payload = array( 
             'form_params' => [

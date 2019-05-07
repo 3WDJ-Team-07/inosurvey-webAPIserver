@@ -45,15 +45,37 @@ class ConstantEnum extends Controller
         'survey_price'      => 'sellPrice',
     ];
     
+    const RECEIPT_TITLE = [
+        'survey'            => 0,
+        'foundation'        => 1,
+        'product'           => 2,
+    ];
+
+    const RECEIPT_METHOD = [
+        'request'           => 0,
+        'response'          => 1,
+        'donate'            => 2,
+        'buy'               => 3,
+        'sell'              => 4,
+        'reward'            => 5,
+    ];
+
     const NODE_JS =  [
-        'wallet_create'     => '/wallet/create',
-        'wallet'            => '/wallet/amount',
-        'payment'           => '/survey/request',
-        'reward'            => '/survey/response',
-        'establishment'     => '/foundation/create',
-        'donate'            => '/foundation/donate',
-        'sales'             => '/market/survey/add',
-        'price'             => '/survey/',
-        'buy'               => '/market/survey/buy',
+        'wallet_create'             => '/wallet/create',
+        'wallet'                    => '/wallet/amount',
+        'all_receipt'               => '/wallet/receipt/all',
+        'survey_request_receipt'    => '/wallet/receipt/survey/request',
+        'survey_response_receipt'   => '/wallet/receipt/survey/response',
+        'survey_buy_receipt'        => '/wallet/receipt/survey/buy',
+        'survey_sell_receipt'       => '/wallet/receipt/survey/sell',
+        'donation_request_receipt'  => '/wallet/receipt/donation/request',
+        'donation_donate_receipt'   => '/wallet/receipt/donation/donate',
+        'payment'                   => '/survey/request',
+        'reward'                    => '/survey/response',
+        'establishment'             => '/foundation/create',
+        'donate'                    => '/foundation/donate',
+        'sales'                     => '/market/survey/add',
+        'price'                     => '/survey/',
+        'buy'                       => '/market/survey/buy',
     ];
 }
