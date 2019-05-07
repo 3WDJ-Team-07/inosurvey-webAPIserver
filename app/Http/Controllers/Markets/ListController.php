@@ -11,8 +11,8 @@ namespace App\Http\Controllers\Markets;
  * 함수 목록
  * index() :                      설문 판매 리스트 조회
  * show(설문아이디) :              특정 설문 판매 정보 조회
- * sellableForms() :
- * sellableShow()  :
+ * sellableForms(유저아이디) :     유저가 판매할 수 있는 설문 리스트 조희           
+ * sellableShow(설문아이디)  :     설문 상세 정보
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
