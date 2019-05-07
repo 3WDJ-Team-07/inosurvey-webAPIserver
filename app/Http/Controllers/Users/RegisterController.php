@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Users;
  * 만든날:                        2019년 3월 26일
  *
  * 함수 목록
- * register(회원정보) :           회원정보 요청을 받아 유저 지갑 생성 및 회원등록
+ * register(유저정보) :           유저정보 요청을 받아 유저 지갑 생성 및 회원등록
  *
  */
 use Illuminate\Http\Request;

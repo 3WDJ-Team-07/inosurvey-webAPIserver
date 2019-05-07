@@ -9,6 +9,8 @@ namespace App\Http\Controllers\Markets;
  * 만든날:                        2019년 4월 18일
  *
  * 함수 목록
+ * salesRegistration(판매자,설문) : 설문 판매 등록
+ * purchase(구매자,설문) :          설문 구매 
  *
  */
 use Illuminate\Http\Request;

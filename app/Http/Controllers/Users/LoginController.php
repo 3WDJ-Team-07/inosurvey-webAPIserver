@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Users;
 /**
  * 클래스명:                     LoginController
  * @package                     App\Http\Controllers\Users
- * 클래스 설명:                 유저 로그인 기능을 담당하는 컨트롤러
+ * 클래스 설명:                 회원 로그인 기능을 담당하는 컨트롤러
  * 만든이:                      3-WDJ 7조 ナナイロトリ 1501107 박보근
  * 만든날:                      2019년 3월 26일
  *
  * 함수 목록
- * login(회원정보):             회원정보를 받아 인증하고 권한부여
- * ganerateToken(회원정보)      JWT토큰을 생성하는 함수
- * username()     :            유저 로그인 형식을 지정하는 함수    
+ * login(유저정보):             유저정보를 받아 인증하고 권한부여
+ * ganerateToken(유저정보)      JWT토큰을 생성하는 함수
+ * username()     :            회원 로그인 형식을 지정하는 함수    
  *
  */
 use Illuminate\Http\Request;

@@ -16,7 +16,6 @@ use App\Models\Donations\Donation;
 */
 
 //Test
-
 Route::get('/', function () {
     // return 'asd';
     // return Carbon::call()->parse('2019-05-05 00:00:00')->unix();
@@ -33,7 +32,7 @@ Route::get('/test','Helpers\TestController@test');
 //////////////////////////////////////////////////////////////////
 
 
-
+//web-api
 Route::group(['prefix' => 'api'], function () {
 
     //user
@@ -47,13 +46,13 @@ Route::group(['prefix' => 'api'], function () {
         Route::post('/issale', 'Users\UserController@isSale');
     });
 
-    //survey
+    //survey-request
     Route::group(['prefix' => 'survey'], function () {
         Route::get('/index', 'Surveies\RequestListController@index');
         Route::get('/question-bank', 'Surveies\QuestionBankController@questionBank');
-        Route::post('/create', 'Surveies\SurveyController@create');
-        Route::post('/image-data', 'Surveies\SurveyController@uploadImage');
-        Route::post('/image-delete', 'Surveies\SurveyController@deleteImage');
+        Route::post('/create', 'Surveies\RequestController@create');
+        Route::post('/image-data', 'Surveies\RequestController@uploadImage');
+        Route::post('/image-delete', 'Surveies\RequestController@deleteImage');
         Route::post('/abort', 'Surveies\SurveyController@abort');
     });
     
@@ -70,7 +69,7 @@ Route::group(['prefix' => 'api'], function () {
       Route::post('/target-result', 'Surveies\AnalysisController@targetAnalysis');
     });  
 
-    //market
+    //survey-market
     Route::group(['prefix' => 'market'], function () {
         Route::get('/index', 'Markets\ListController@index');
         Route::post('/show', 'Markets\ListController@show');

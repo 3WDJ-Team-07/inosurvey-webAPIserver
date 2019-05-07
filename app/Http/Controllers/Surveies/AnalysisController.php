@@ -40,12 +40,16 @@ class AnalysisController extends Controller
     }
 
     public function analysis(Request $request){
+   
         $questionResponseArray  = array();
         $formId                 = $request->form_id;
         $formQuestion           = $this->questionModel->where('form_id',$formId);
         $questions              = $formQuestion->get();
         $formData               = $this->formModel->where('id',$formId)->with('target.job')->get();
+        $allResponseRate        = sprintf("%2.2f",($formData->pluck('respondent_count')->first() / $formData->pluck('respondent_number')->first())* 100);  //설문 응답률
 
+        
+        
         //한 질문 당 응답자 수와 아이템당 응답자 수 count
         foreach($questions as $question){
             $responseArray          = array();
@@ -59,6 +63,9 @@ class AnalysisController extends Controller
 
             array_push($resultArray, $question->toArray());
             
+            
+
+
             switch ($questionType){
                 case 2:
                 case 5:
@@ -81,27 +88,38 @@ class AnalysisController extends Controller
                     
                         $responseCountResult = sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);   //응답 아이템 백분율 결과,소수점 두자리까지 표현 
                         
-                        array_push($responseCountArray, ['itemTitle' => $item->content ,'percentage'=> $responseCountResult]); 
+                        array_push($responseCountArray, [
+                                'itemTitle' => $item->content ,
+                                'percentage'=> $responseCountResult,
+                            ]); 
+
                         array_push($responseItemArray,$itemResponseCount);
                     
                     
                     }
                     
-                    array_push($resultArray, ["itemArray"       => $itemValue]);
+                    array_push($resultArray, ["itemArray" => $itemValue]);
                     array_push($resultArray, ["responseArray"   => $responseItemArray]);
                     array_push($resultArray, ["responseResult"  => $responseCountArray]);
+
                     break;
                 }                
-              
+
             array_push($questionResponseArray,$resultArray);
+            // array_push($questionResponseArray,$allResponseRate);
         }
-        return response()->json(['message' => 'true', 'form' => $formData, 'question' => $questionResponseArray], 200);
-    }
+        return response()->json([
+            'message' => 'true',
+            'form' => $formData,
+            'question' => $questionResponseArray],
+             200);
+    }//end of analysis()
 
     public function targetAnalysis(Request $request){
         $itemArray          = array();
         $responseArray      = array();
         $responseItemArray  = array();
+        $responseCountArray = array();
 
         $questionId         = $request->question_id;
         $gender             = $request->input('target.gender',0);
@@ -112,7 +130,10 @@ class AnalysisController extends Controller
         //필터링 된 유저
         //유저가 있는 responses의 array를 구함
         $userArray          = $this->userModel->getTrappedUser($gender,$age,$job)->pluck('id')->toArray();
-        $responseIdArray    = $this->responseModel->where('question_id',$questionId)->whereIn('response_id',$userArray)->pluck('id')->toArray();
+        $responseIdArray    = $this->responseModel->where('question_id',$questionId)
+                                                  ->whereIn('response_id',$userArray)
+                                                  ->pluck('id')
+                                                  ->toArray();
 
         $questionType       = $question->type_id;
         $itemData           = $question->questionItems;
@@ -126,16 +147,32 @@ class AnalysisController extends Controller
             //객관식 - 아이템당 응답자 수를 array로 전달
             foreach($itemData as $item){
                 $itemId             = $item->id;
-                $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->whereIn('response_id',$responseIdArray)->count();
+                $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)
+                                                              ->whereIn('response_id',$responseIdArray)
+                                                              ->count();
+
+                $responseCountResult = sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);
+                
+                array_push($responseCountArray, [
+                    'itemTitle' => $item->content,
+                    'percentage'=> $responseCountResult
+                    ]);
+
                 array_push($responseItemArray,$itemResponseCount);
             }
-            array_push($responseArray,$responseItemArray);
+            array_push($responseArray,[$responseItemArray]);
+            array_push($responseArray,$responseCountArray);
         }else{
             //주관식 - 아이템당 응답자 수를 array로 전달
             array_push($responseArray,$responseValue);
         }
     
             
-        return response()->json(['message' => 'true', 'responseArray' => $responseArray, 'itemArray' => $itemArray, 'allResponsesCount' => $allResponsesCount], 200);
-    }
+        return response()->json([
+            'message' => 'true', 
+            'responseArray' => $responseArray, 
+            'itemArray' => $itemArray,
+            'allResponsesCount' => $allResponsesCount],
+             200);
+    }//end of targetAnalysis()
 }

@@ -1,7 +1,17 @@
 <?php
 
 namespace App\Http\Controllers\Donations;
-
+/**
+ * 클래스명:                       DonationController
+ * @package                       App\Http\Controllers\Donations
+ * 클래스 설명:                    기부단체 생성 및 기부기능을 담당하는 클래스
+ * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근
+ * 만든날:                        2019년 4월 10일
+ *
+ * 함수 목록
+ * create(단체정보)  :              기부 단체 생성
+ * donate(기부자,기부단체,이노)  :   특정 기부단체에 기부하기
+ */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\Guzzles;
