@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Surveies;
  *
  * 함수 목록
  * getForm() :                     응답 가능설문 리스트 조회
- * selectQuestionItem() : 
+ * selectQuestionItem(질문아이디) : 설문조사 질문 아이템 조희         
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
