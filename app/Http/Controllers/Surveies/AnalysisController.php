@@ -46,9 +46,8 @@ class AnalysisController extends Controller
         $formQuestion           = $this->questionModel->where('form_id',$formId);
         $questions              = $formQuestion->get();
         $formData               = $this->formModel->where('id',$formId)->with('target.job')->get();
-        $allResponseRate        = sprintf("%2.2f",($formData->pluck('respondent_count')->first() / $formData->pluck('respondent_number')->first())* 100);  //설문 응답률
+        // $allResponseRate        = sprintf("%2.2f",($formData->pluck('respondent_count')->first() / $formData->pluck('respondent_number')->first())* 100);  //설문 응답률
 
-        
         
         //한 질문 당 응답자 수와 아이템당 응답자 수 count
         foreach($questions as $question){
@@ -64,8 +63,6 @@ class AnalysisController extends Controller
             array_push($resultArray, $question->toArray());
             
             
-
-
             switch ($questionType){
                 case 2:
                 case 5:
