@@ -100,7 +100,7 @@ class User extends Authenticatable
         return $this->where('id',$id)->first()->donations;
     }
 
-    //age 필터링
+    //gender 필터링
     public function filterGender($gender){
         if($gender !=0){
             $users = $this->where('gender',$gender);

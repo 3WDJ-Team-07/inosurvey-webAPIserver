@@ -46,19 +46,21 @@ class AnalysisController extends Controller
         $questions              = $formQuestion->get();
         $formData               = $this->formModel->where('id',$formId)->with('target.job')->get();
 
+        //한 질문 당 응답자 수와 아이템당 응답자 수 count
         foreach($questions as $question){
             $responseArray          = array();
             $responseItemArray      = array();
             $resultArray            = array();
             $questionType           = $question->type_id;
             $itemData               = $question->questionItems;
-        
-            array_push($resultArray, $question->toArray());
+            $allResponsesCount      = $question->responses->count();
 
+            array_push($resultArray, $question->toArray());
+            
             switch ($questionType){
                 case 2:
                 case 5:
-                //주관식
+                //주관식 - 답한 내용을 array로 전달
                     $responseValue = $question->responses->pluck('question_text');
                     array_push($resultArray, ["responseArray" => $responseValue]);
                     break;
@@ -66,7 +68,7 @@ class AnalysisController extends Controller
                 case 3:
                 case 4: 
                 case 6: 
-                //객관식
+                //객관식 - 아이템당 응답자 수를 array로 전달
                     $itemValue  = $question->questionItems->pluck('content')->toArray();
                     if($questionType == 6) $itemValue = $question->questionItems->pluck('content_number')->toArray();
                     
@@ -80,7 +82,7 @@ class AnalysisController extends Controller
                     array_push($resultArray, ["responseArray" => $responseItemArray]);
                     break;
                 }                
-                
+            array_push($resultArray, ["allResponsesCount" => $allResponsesCount]);    
             array_push($questionResponseArray,$resultArray);
         }
         return response()->json(['message' => 'true', 'form' => $formData, 'question' => $questionResponseArray], 200);
@@ -96,7 +98,7 @@ class AnalysisController extends Controller
         $age                = $request->input('target.age',0);
         $job                = $request->input('target.job',0);
         $question           = $this->questionModel->where('id',$questionId)->with('questionItems')->first();
-
+        
         //필터링 된 유저
         //유저가 있는 responses의 array를 구함
         $userArray          = $this->userModel->getTrappedUser($gender,$age,$job)->pluck('id')->toArray();
@@ -106,11 +108,12 @@ class AnalysisController extends Controller
         $itemData           = $question->questionItems;
         $itemArray          = $question->questionItems->pluck('content')->toArray();
         $responseValue      = $question->responses->whereIn('response_id',$userArray)->pluck('question_text');
-
+        $allResponsesCount  = $question->responses->count();
+        
         if($questionType == 6) $itemArray = $question->questionItems->toArray();
 
         if($questionType!=2 && $questionType!=4){
-            //객관식
+            //객관식 - 아이템당 응답자 수를 array로 전달
             foreach($itemData as $item){
                 $itemId             = $item->id;
                 $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->whereIn('response_id',$responseIdArray)->count();
@@ -118,10 +121,11 @@ class AnalysisController extends Controller
             }
             array_push($responseArray,$responseItemArray);
         }else{
-            //주관식
+            //주관식 - 아이템당 응답자 수를 array로 전달
             array_push($responseArray,$responseValue);
         }
+    
             
-        return response()->json(['message' => 'true', 'responseArray' => $responseArray, 'itemArray' => $itemArray], 200);
+        return response()->json(['message' => 'true', 'responseArray' => $responseArray, 'itemArray' => $itemArray, 'allResponsesCount' => $allResponsesCount], 200);
     }
 }
