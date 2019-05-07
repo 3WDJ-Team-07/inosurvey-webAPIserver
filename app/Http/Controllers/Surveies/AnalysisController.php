@@ -40,35 +40,50 @@ class AnalysisController extends Controller
     }
 
     public function analysis(Request $request){
-        $itemArray      = array();
-        $responseArray  = array();
-
-        $formId         = $request->form_id;
-        $formQuestion   = $this->questionModel->where('form_id',$formId);
-        $questions      = $formQuestion->get();
-        $formData       = $this->formModel->where('id',$formId)->with('target.job')->get();
+        $questionResponseArray  = array();
+        $formId                 = $request->form_id;
+        $formQuestion           = $this->questionModel->where('form_id',$formId);
+        $questions              = $formQuestion->get();
+        $formData               = $this->formModel->where('id',$formId)->with('target.job')->get();
 
         foreach($questions as $question){
-            $questionType       = $question->type_id;
-            $itemData           = $question->questionItems;
-            $itemValue          = $question->questionItems->pluck('content')->toArray();
-            $responseValue      = $question->responses->pluck('question_text');
-            $responseItemArray  = array();
-            if($questionType!=2 && $questionType!=6){
-                //객관식
-                foreach($itemData as $item){
-                    $itemId             = $item->id;
-                    $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->count();
-                    array_push($responseItemArray,$itemResponseCount);
-                }
-                array_push($responseArray,$responseItemArray);
-            }else{
-                array_push($responseArray,$responseValue);
-            }
-            array_push($itemArray,$itemValue);
-        }
+            $responseArray          = array();
+            $responseItemArray      = array();
+            $resultArray            = array();
+            $questionType           = $question->type_id;
+            $itemData               = $question->questionItems;
+        
+            array_push($resultArray, $question->toArray());
 
-        return response()->json(['message' => 'true', 'form' => $formData, 'question' => $formQuestion->get(), 'responseArray' => $responseArray, 'itemArray' => $itemArray], 200);
+            switch ($questionType){
+                case 2:
+                case 5:
+                //주관식
+                    $responseValue = $question->responses->pluck('question_text');
+                    array_push($resultArray, ["responseArray" => $responseValue]);
+                    break;
+                case 1:
+                case 3:
+                case 4: 
+                case 6: 
+                //객관식
+                    $itemValue  = $question->questionItems->pluck('content')->toArray();
+                    if($questionType == 6) $itemValue = $question->questionItems->pluck('content_number')->toArray();
+                    
+                    foreach($itemData as $item){
+                        $itemId             = $item->id;
+                        $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->count();
+                        array_push($responseItemArray,$itemResponseCount);
+                    }
+
+                    array_push($resultArray, ["itemArray" => $itemValue]);
+                    array_push($resultArray, ["responseArray" => $responseItemArray]);
+                    break;
+                }                
+                
+            array_push($questionResponseArray,$resultArray);
+        }
+        return response()->json(['message' => 'true', 'form' => $formData, 'question' => $questionResponseArray], 200);
     }
 
     public function targetAnalysis(Request $request){
@@ -80,11 +95,10 @@ class AnalysisController extends Controller
         $gender             = $request->input('target.gender',0);
         $age                = $request->input('target.age',0);
         $job                = $request->input('target.job',0);
-///이부분 절대 안돼 안 돼 시바 ㅍ ㅇ란미 아 ㅓㄹ// 이제 된다 !! ^^
-         $question          = $this->questionModel->where('id',$questionId)->with('questionItems')->first();
+        $question           = $this->questionModel->where('id',$questionId)->with('questionItems')->first();
 
         //필터링 된 유저
-        //유저가 있는 responses의 array를 구해야함
+        //유저가 있는 responses의 array를 구함
         $userArray          = $this->userModel->getTrappedUser($gender,$age,$job)->pluck('id')->toArray();
         $responseIdArray    = $this->responseModel->where('question_id',$questionId)->whereIn('response_id',$userArray)->pluck('id')->toArray();
 
@@ -92,9 +106,10 @@ class AnalysisController extends Controller
         $itemData           = $question->questionItems;
         $itemArray          = $question->questionItems->pluck('content')->toArray();
         $responseValue      = $question->responses->whereIn('response_id',$userArray)->pluck('question_text');
-        
 
-        if($questionType!=2 && $questionType!=6){
+        if($questionType == 6) $itemArray = $question->questionItems->toArray();
+
+        if($questionType!=2 && $questionType!=4){
             //객관식
             foreach($itemData as $item){
                 $itemId             = $item->id;
