@@ -85,13 +85,10 @@ class UserController extends Controller
 
         $current = $response['body'][ConstantEnum::ETHEREUM['amount']];
         
-        // $total = $result[ConstantEnum::ETHEREUM['totalAmount']];
-        $total = "12213125152";   
-
+       
         return response()->json([
             'message'       => 'true',
             'current_ino'   => $current,
-            'total_ino'     => $total,
         ],200);
     }
     

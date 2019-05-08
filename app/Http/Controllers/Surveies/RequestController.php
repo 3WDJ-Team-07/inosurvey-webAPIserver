@@ -174,7 +174,7 @@ class RequestController extends Controller
             $questionType       = $this->questionModel->getLatest('id')->type_id;
 
             //question_items테이블 - 들어오는 순서에 맞게 item추가, 저장
-            if($question['items']||$question['type'] == 4){
+            if($question['items'] || $question['type'] == 4){
                     //별등급일 경우 5개의 item생성
                     $items = $question['items'];
                     if($question['type'] ==4){

@@ -82,9 +82,6 @@ class MarketController extends Controller
 
         }
 
-
-
-
         return response()->json(['message'=>'true'],200);        
 
     }
