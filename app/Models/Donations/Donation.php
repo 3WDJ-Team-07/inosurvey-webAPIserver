@@ -53,13 +53,12 @@ class Donation extends Model
     }
 
 
-
     //기부 달성치 계산 
     public function achieveAmount($id,$ino){
         $donation = $this->where('id',$id)->first();
         $donation->increment('current_amount',$ino);
 
-        if($donation->target_amount >= $donation->current_amount){
+        if($donation->target_amount <= $donation->current_amount){
             $donation->update(['is_achieved' => 1]);
         }
     }

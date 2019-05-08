@@ -17,18 +17,12 @@ use App\Models\Donations\Donation;
 
 //Test
 Route::get('/', function () {
-    // return 'asd';
-    // return 'asd';
-    // return Carbon::call()->parse('2019-05-05 00:00:00')->unix();
-    // return time('2019-05-05 00:00:00');
-    $now = Carbon::now()->format('Y-m-d H:i:s');
-    // return $now;
-    return $now;
+    return view('test');
     
 });
 
 
-Route::get('/test','Helpers\TestController@test');
+Route::get('/test','Helpers\TestController@exports');
 
 //////////////////////////////////////////////////////////////////
 

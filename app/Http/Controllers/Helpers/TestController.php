@@ -10,6 +10,13 @@ use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Models\Users\User;
 use Webpatser\Uuid\Uuid;
 use App\Models\Surveies\Form;
+
+
+
+use App\Exports\TestExport;
+use Maatwebsite\Excel\Facades\Excel;
+
+
 class TestController extends Controller
 {
 
@@ -20,6 +27,14 @@ class TestController extends Controller
 
 
     use Guzzles;
+
+
+
+    public function exports(){
+        return Excel::download(new TestExport(),'users.xlsx');
+    }
+
+
  
     public function test(){
 
@@ -35,15 +50,6 @@ class TestController extends Controller
         return round($c,2);
 
         return $this->formModel->isCompleted()->get();
-
-
-
-
-
-
-
-
-
 
         $host = config('constants.ethereum_host');
         $port = config('constants.ethereum_port');
@@ -81,4 +87,7 @@ class TestController extends Controller
         return $uuid;
         // return config('filesystems.disks.s3.url').'/'.ConstantEnum::S3['donations'].'/'.'umr.jpg';
     }
+
+
+
 }

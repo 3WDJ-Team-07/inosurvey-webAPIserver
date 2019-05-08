@@ -88,7 +88,7 @@ class DonationController extends Controller
         $now = Carbon::now()->format('Y-m-d H:i:s');    //현재시간
         $closedAt = $donation->closed_at;               //기부 마감시간
 
-        if($donation->current_amount >= $donation->target_amount && strtotime($now) >= strtotime($closedAt)){
+        if($donation->current_amount >= $donation->target_amount || strtotime($now) >= strtotime($closedAt)){
             return response()->json(['message'=>'This is a closed donation organization.'], 202);
         }
 
