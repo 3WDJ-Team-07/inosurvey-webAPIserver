@@ -59,7 +59,7 @@ class Donation extends Model
         $donation = $this->where('id',$id)->first();
         $donation->increment('current_amount',$ino);
 
-        if($donation->target_amount == $donation->current_amount){
+        if($donation->target_amount >= $donation->current_amount){
             $donation->update(['is_achieved' => 1]);
         }
     }

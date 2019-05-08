@@ -81,6 +81,23 @@ class DonationController extends Controller
     //기부단체 기부하기
     public function donate(Request $request){
 
+
+        $donation = $this->donationModel->where('id',$request->donation_id)->first();
+
+        //기부 완료 및 기부 마감 검증
+        $now = Carbon::now()->format('Y-m-d H:i:s');
+        $closedAt = $donation->closed_at;
+
+        if($donation->current_amount >= $donation->target_amount && strtotime($now) >= strtotime($closedAt)){
+            return response()->json(['message'=>'This is a closed donation organization.'], 202);
+        }
+
+        //목표 금액에 달성 되어있지 않은 경우
+        if($donation->current_amount < $donation->target_amount){
+            $this->donationModel->achieveAmount($request->donation_id,$request->ino);
+        }
+
+
         $donationUserData = array(
             'donation_id'       => $request->donation_id,
             'sponsors_id'       => $request->user_id,
@@ -102,14 +119,6 @@ class DonationController extends Controller
         //요청 실패
          if($response['status'] != 200){
             return response()->json(['message'=>'Failed to make donation to the organization'], 401);
-        }
-
-
-        $donation = $this->donationModel->where('id',$request->donation_id)->first();
-
-        //목표 금액에 달성 되어있지 않은 경우
-        if($donation->current_amount < $donation->target_amount){
-            $this->donationModel->achieveAmount($request->donation_id,$request->ino);
         }
         
         return response()->json(['message'=>'true'],200);
