@@ -9,7 +9,9 @@ namespace App\Http\Controllers\Users;
  * 만든날:                      2019년 4월 16일
  *
  * 함수 목록
- * check(유저정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환  
+ * check(유저정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환 
+ * userSurveies(유저아이디):    유저가 만든 설문 리스트 조회
+ * userSurvey(설문아이디):      유저가 만든 설문 상세 조회
  * getWallet(유저 아이디):      유저의 지갑을 조회하는 함수
  * isSale(설문 아이디):         자신의 설문조사를 판매하는 함수
  * getReceipt(유저 아이디):     서비스 내의 해당유저의 모든 이력정보를 조회하는 함수                
@@ -62,7 +64,7 @@ class UserController extends Controller
     }//end of check
 
 
-    //내가 만든 설문조사
+    //나의 설문조사 리스트
     public function userSurveies(Request $request){
         
         $serveies = $this->formModel->getSurveies()->where('user_id',$request->id)->get();
@@ -70,6 +72,23 @@ class UserController extends Controller
         return response()->json(['message'=>'true','serveies'=>$serveies],200);
     }
 
+
+    //나의 설문조사 상세보기
+    public function userSurvey(Request $request){
+        
+        $survey = $this->formModel->getSurveies()->where('id',$request->form_id)->first();
+
+        $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$request->form_id);
+         
+        $price = $response['body'][ConstantEnum::ETHEREUM['survey_price']];
+
+
+        return response()->json([
+            'message'=>'true',
+            'survey'=>$survey,
+            'price' => $price],
+            200);
+    }
 
     //유저 지갑 조회
     public function getWallet(Request $request){

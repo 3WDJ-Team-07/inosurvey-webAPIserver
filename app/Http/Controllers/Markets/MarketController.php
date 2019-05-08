@@ -61,6 +61,11 @@ class MarketController extends Controller
     //설문 구매
     public function purchase(Request $request){
     
+        //자신의 설문인지 검증 
+        if($this->formModel->purchaseVerification($request)){
+            return response()->json(['message'=>'You cannot purchase your own questionnaire'], 202);
+        }
+
         $payload = array( 
             'form_params' => [
                 'user_id'   =>  $request->user_id,
@@ -72,14 +77,14 @@ class MarketController extends Controller
          
 
       
-         if($response['status'] != 200){                                            //요청 실패
+        if($response['status'] != 200){                                            //요청 실패
             
             return response()->json(['message'=>'Survey purchase failed'], 401);
 
-        }else if($response['status'] == 401){                                       //이미 구매한 설문
+        }else if($response['status'] == 401){                                       
             
-            
-
+            //이미 구매한 설문을 재구매 할 수 없다.
+        
         }
 
         return response()->json(['message'=>'true'],200);        

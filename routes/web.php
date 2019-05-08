@@ -35,13 +35,13 @@ Route::get('/test','Helpers\TestController@test');
 
 //web-api
 Route::group(['prefix' => 'api'], function () {
-
     //user
     Route::group(['prefix' => 'user'], function () {
         Route::post('/register', 'Users\RegisterController@register');
         Route::post('/login', 'Users\LoginController@login');
         Route::post('/check', 'Users\UserController@check')->middleware('checkToken');
         Route::post('/surveies', 'Users\UserController@userSurveies');
+        Route::post('/survey', 'Users\UserController@userSurvey');
         Route::post('/wallet', 'Users\UserController@getWallet');
         Route::post('/wallet/receipt/{range}/{method?}', 'Users\UserController@getReceipt');
         Route::post('/issale', 'Users\UserController@isSale');

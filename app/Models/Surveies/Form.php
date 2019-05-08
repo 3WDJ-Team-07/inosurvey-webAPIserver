@@ -75,6 +75,16 @@ class Form extends Model
         return $this->where($col,$arg)->where('is_sale',0)->where('is_completed',1);
     }
 
+    //자신의 요청한 설문은 구매 할 수 없다.
+    public function purchaseVerification($request){
+        $mySurvey = $this->where('id',$request->id)->first();
+        
+        if($mySurvey->user_id == $request->user_id ){
+            return true;
+        }
+        
+    }
+
     //설문 폼 정보 (Android)
     public function getSurveiesForm(){
         return $this->with(['user','target.job'])->get();

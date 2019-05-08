@@ -85,8 +85,8 @@ class DonationController extends Controller
         $donation = $this->donationModel->where('id',$request->donation_id)->first();
 
         //기부 완료 및 기부 마감 검증
-        $now = Carbon::now()->format('Y-m-d H:i:s');
-        $closedAt = $donation->closed_at;
+        $now = Carbon::now()->format('Y-m-d H:i:s');    //현재시간
+        $closedAt = $donation->closed_at;               //기부 마감시간
 
         if($donation->current_amount >= $donation->target_amount && strtotime($now) >= strtotime($closedAt)){
             return response()->json(['message'=>'This is a closed donation organization.'], 202);
@@ -104,7 +104,8 @@ class DonationController extends Controller
             'donation_amount'   => $request->ino,
         );
 
-        $this->donationUserModel->create($donationUserData);
+      
+        $this->donationUserModel->create($donationUserData);          //기부자 리스트 추가
 
         $payload = array( 
             'form_params' => [
@@ -114,13 +115,14 @@ class DonationController extends Controller
             ]
         );
         
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['donate']);
+        
+        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['donate']);     //기부 금액 결제     
          
         //요청 실패
          if($response['status'] != 200){
             return response()->json(['message'=>'Failed to make donation to the organization'], 401);
         }
-        
+
         return response()->json(['message'=>'true'],200);
     }
 

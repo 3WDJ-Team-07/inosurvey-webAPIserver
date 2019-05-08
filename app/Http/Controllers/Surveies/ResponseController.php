@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
+use Carbon\Carbon;
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -56,12 +57,26 @@ class ResponseController extends Controller
       
         $data = json_decode($request->data, true);
 
+
+        $survey = $this->formModel->where('id', $data["form_id"])->first();
+
+
+        //설문 완료 및 설문 마감 검증
+        $now = Carbon::now()->format('Y-m-d H:i:s');    //현재시간
+        $closedAt = $survey->closed_at;                 //설문 마감시간
+
+
+        //설문 완료 여부 검증 
+        if($survey->respondent_count >= $survey->respondent_number && strtotime($now) >= strtotime($closedAt)){
+            return response()->json(['message'=>'This is a closed survey.'], 202);
+        }
+
         $surveyUserData = array(
             'survey_id'         =>  $data["form_id"],
             'respondent_id'     =>  $data["user_id"],
         );
         
-        $respondent = $this->surveyUserModel->create($surveyUserData);
+        $respondent = $this->surveyUserModel->create($surveyUserData);      //설문 응답자 리스트에 추가
 
         foreach ($data["question"] as $responseItem){
             $rs = $this->questionModel->where('form_id',  $data["form_id"])
@@ -140,7 +155,7 @@ class ResponseController extends Controller
         //설문 응답시 응답 횟수를 증가 
         $this->formModel->where('id', $data["form_id"])->increment('respondent_count');
 
-        $survey = $this->formModel->where('id', $data["form_id"])->first();
+        // $survey = $this->formModel->where('id', $data["form_id"])->first();
         
         //목표 응답수를 달성시 설문마감
         if($survey->respondent_number == $survey->respondent_count){
