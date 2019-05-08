@@ -45,10 +45,61 @@ class AnalysisController extends Controller
         $formId                 = $request->form_id;
         $formQuestion           = $this->questionModel->where('form_id',$formId);
         $questions              = $formQuestion->get();
-        $formData               = $this->formModel->where('id',$formId)->with('target.job')->get();
+        $formData               = $this->formModel->where('id',$formId)->with('target.job')->first();
         // $allResponseRate        = sprintf("%2.2f",($formData->pluck('respondent_count')->first() / $formData->pluck('respondent_number')->first())* 100);  //설문 응답률
 
+        $targetPercentageArray  = array();
+        $targetArray            = array("age","gender","job");
+        $responseData           = $this->formModel->where('id',$formId)->first()->respondentUsers;
+        $allResponsesCount      = $responseData->count();
+        if($allResponsesCount == 0) $allResponsesCount = 1;
+
+        foreach($targetArray as $key){
+            $insertableArray        = array();
+            switch($key){
+                case "age": 
+                    $ageArray   = array();
+                    for($age=10; $age<=100; $age=$age+10){
+                        $ageCount   = $responseData->where('age',$age)->count();
+                        if($ageCount > 0){
+                            $ageCount   = sprintf("%2.2f",($ageCount / $allResponsesCount) * 100);
+                            array_push($ageArray,[
+                                "age"           => $age,
+                                "percentage"    => $ageCount
+                                ]);
+                        }
+                    }
+                    array_push($insertableArray,$ageArray);
+                    break;
+                case "gender":  
+                    $maleCount      = $responseData->where('gender',1)->count();
+                    $femaleCount    = $responseData->where('gender',2)->count();
+                    $maleCount      = sprintf("%2.2f",($maleCount / $allResponsesCount) * 100);
+                    $femaleCount    = sprintf("%2.2f",($femaleCount / $allResponsesCount) * 100);
+                    array_push($insertableArray,$maleCount,$femaleCount);
+                    break;
+                case "job":
+                    $jobArray   = array();
+                    for($job=1; $job<10; $job++){
+                        $jobCount   = $responseData->where('job_id',$job)->count();
+                        if($jobCount > 0){
+                            $jobCount   = sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
+                            array_push($jobArray,[
+                                "job"           => $job,
+                                "percentage"    => $jobCount]);
+                        }
+                    }
+                    array_push($insertableArray,$jobArray);
+                    break;
+                default;
+            };
+            if($key != "id") array_push($targetPercentageArray,[$key => $insertableArray]);
+        }
+        $formDataArray = array();
+        array_push($formDataArray, ["formData"=>$formData]);
+        array_push($formDataArray, ["percentage" => $targetPercentageArray]);
         
+
         //한 질문 당 응답자 수와 아이템당 응답자 수 count
         foreach($questions as $question){
             $responseArray          = array();
@@ -58,8 +109,8 @@ class AnalysisController extends Controller
             $questionType           = $question->type_id;
             $itemData               = $question->questionItems;
             $allResponsesCount      = $question->responses->count();
-          
 
+            if($allResponsesCount == 0) $allResponsesCount = 1;
             array_push($resultArray, $question->toArray());
             
             
@@ -82,7 +133,6 @@ class AnalysisController extends Controller
                         $itemId             = $item->id;
                         $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->count();
 
-                    
                         $responseCountResult = sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);   //응답 아이템 백분율 결과,소수점 두자리까지 표현 
                         
                         array_push($responseCountArray, [
@@ -92,10 +142,9 @@ class AnalysisController extends Controller
 
                         array_push($responseItemArray,$itemResponseCount);
                     
-                    
                     }
                     
-                    array_push($resultArray, ["itemArray" => $itemValue]);
+                    array_push($resultArray, ["itemArray"       => $itemValue]);
                     array_push($resultArray, ["responseArray"   => $responseItemArray]);
                     array_push($resultArray, ["responseResult"  => $responseCountArray]);
 
@@ -107,7 +156,7 @@ class AnalysisController extends Controller
         }
         return response()->json([
             'message' => 'true',
-            'form' => $formData,
+            'form' => $formDataArray,
             'question' => $questionResponseArray],
              200);
     }//end of analysis()
