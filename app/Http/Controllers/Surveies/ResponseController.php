@@ -67,7 +67,7 @@ class ResponseController extends Controller
 
 
         //설문 완료 여부 검증 
-        if($survey->respondent_count >= $survey->respondent_number && strtotime($now) >= strtotime($closedAt)){
+        if($survey->respondent_count >= $survey->respondent_number || strtotime($now) >= strtotime($closedAt)){
             return response()->json(['message'=>'This is a closed survey.'], 202);
         }
 
