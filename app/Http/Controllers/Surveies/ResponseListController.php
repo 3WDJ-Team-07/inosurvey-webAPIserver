@@ -49,8 +49,4 @@ class ResponseListController extends Controller
 
     }
      
-    //사용자가 응답한 form
-    public function getRespondedForm(Reqeust $request){
-
-    }
 }

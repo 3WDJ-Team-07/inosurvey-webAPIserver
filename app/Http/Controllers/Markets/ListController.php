@@ -34,17 +34,18 @@ class ListController extends Controller
 
 
     public function index(){
+        
         $saleList =  $this->formModel->saleList()->get();
           
-        // foreach($saleList as $item){
+        foreach($saleList as $item){
            
-        //    $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$item->id);
+           $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$item->id);
          
-        //    $price = $response['body'][ConstantEnum::ETHEREUM['survey_price']];
+           $price = $response['body'][ConstantEnum::ETHEREUM['survey_price']];
            
-        //    $item->price = $price;
+           $item->price = $price;
 
-        // };
+        };
 
          if($saleList){
              return response()->json(['message'=>'true','list' => $saleList],200);
@@ -58,11 +59,11 @@ class ListController extends Controller
         
          $survey = $this->formModel->saleList()->where('id',$request->id)->first();
         
-        //  $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$request->id);
+         $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$request->id);
          
-        //  $price = $response['body'][ConstantEnum::ETHEREUM['survey_price']];
+         $price = $response['body'][ConstantEnum::ETHEREUM['survey_price']];
 
-     return response()->json(['message'=>'true','list' => $survey/*,'price' => $price*/],200);
+     return response()->json(['message'=>'true','list' => $survey,'price' => $price],200);
          
      }
  

@@ -43,7 +43,6 @@ class ConstantEnum extends Controller
         'public'            => 'public_key',
         'private'           => 'private_key',
         'amount'            => 'currAmount',
-        'totalAmount'       => 'totalAmount',
         'survey_price'      => 'sellPrice',
     ];
     

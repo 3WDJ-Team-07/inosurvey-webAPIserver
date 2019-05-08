@@ -46,9 +46,6 @@ class ListController extends Controller
 
         return response()->json(['message'=>'true','donations'=>$donations],200);
     }
-
- 
-
 }
 
 
