@@ -215,7 +215,7 @@ class UserController extends Controller
                 'form_id'   => $form_id,
                 'content'   => $content,
                 'sign'      => $sign,
-                'price'     => $value
+                'price'     => (int)$value
             ]);
         }
         // 정렬

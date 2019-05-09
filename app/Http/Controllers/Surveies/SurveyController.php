@@ -16,9 +16,19 @@ namespace App\Http\Controllers\Surveies;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Surveies\Form;
+
 class SurveyController extends Controller {
     
-   
+    
+    private $formModel          = null;
+
+    public function __construct() {
+        $this->formModel            = new Form();
+      
+    }
+
+
     //설문 중단
     public function abort(Request $request){
         

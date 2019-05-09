@@ -23,7 +23,7 @@ class CreateDonationsTable extends Migration
             $table->boolean('is_achieved')->default(false);
             $table->integer('donator_id')->unsigned();
             $table->foreign('donator_id')->references('id')->on('users');
-            $table->timestamp('started_at');
+            $table->timestamps();
             $table->timestamp('closed_at')->nullable();
         });
     }

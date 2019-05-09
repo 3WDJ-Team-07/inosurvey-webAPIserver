@@ -10,7 +10,6 @@ class Donation extends Model
 {
     use ModelScopes;
 
-    public $timestamps = false;
     protected $fillable = [
 
         'title',
@@ -18,7 +17,6 @@ class Donation extends Model
         'image',
         'target_amount',
         'current_amount',
-        'started_at',
         'closed_at',
         'is_achieved',
         'donator_id',
@@ -43,15 +41,6 @@ class Donation extends Model
     public function form(){
         return $this->hasMany('App\Models\Surveies\Form');
     }
-
-    
-    //started_at 현재 시간 저장
-    public static function boot() {
-        parent::boot(); static::creating(function ($model) {
-        $model->started_at = $model->freshTimestamp(); 
-        });
-    }
-
 
     //기부 달성치 계산 
     public function achieveAmount($id,$ino){

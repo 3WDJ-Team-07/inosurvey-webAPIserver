@@ -11,14 +11,21 @@ class TypesTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\Type::class,6)->create();
-        // $type = ['주관식','객관식','확인란','별등급','이미지선택','의견란'];
+        // factory(App\Models\Surveies\Type::class,6)->create();
+        $type = array(
         
-        // for($i = 0 ; $i < count($type) ; $i++) {
-        //     Type::create($type[$i]);
-        // } 
-        // // foreach($type as $item){
-        // //     Type::insert($item);
-        // // }
+            array('type' => '객관식'),
+            array('type' => '주관식'),
+            array('type' => '확인란'),
+            array('type' => '별등급'),
+            array('type' => '의견란'),
+            array('type' => '이미지선택'),
+        
+        );
+        
+        foreach($type as $rs){ 
+            Type::insert($rs);
+         } 
+        
     }
 }
