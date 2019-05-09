@@ -53,7 +53,7 @@ class DonationController extends Controller
             'donator_id'    =>  $request->user_id,
         );
 
-        Donation::create($param);
+        $this->donationModel->create($param);
 
         $closedAt = new Carbon($request->closed_at);
                                   

@@ -90,7 +90,7 @@ class RequestController extends Controller
         } 
         
         //forms테이블 - create
-        $formData = array([
+        $formData = array(
             'title'                 => $request->survey_title,
             'description'           => $request->survey_description,
             'respondent_number'     => $request->target['responseNumber'],
@@ -99,9 +99,9 @@ class RequestController extends Controller
             'closed_at'             => $request->closed_at,
             'user_id'               => $request->user_id,
             'is_sale'               => $request->is_sale
-        ]);
+        );
 
-        $this->formModel->insertMsgs($formData);
+        $this->formModel->create($formData);
         $formId = $this->formModel->getLatest('id')->id;
 
 
