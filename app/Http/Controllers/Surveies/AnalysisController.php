@@ -18,6 +18,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Models\Users\User;
+use App\Models\Users\Job;
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
 use App\Models\Surveies\ItemResponse;
@@ -26,6 +27,7 @@ use App\Models\Surveies\Response;
 class AnalysisController extends Controller
 {
     private $userModel          = null;
+    private $jobModel           = null;
     private $formModel          = null;
     private $questionModel      = null;
     private $itemResponseModel  = null;
@@ -33,6 +35,7 @@ class AnalysisController extends Controller
 
     public function __construct() {
         $this->userModel            = new User();
+        $this->jobModel             = new Job();
         $this->formModel            = new Form();
         $this->questionModel        = new Question();
         $this->itemResponseModel    = new ItemResponse();
@@ -83,10 +86,14 @@ class AnalysisController extends Controller
                     for($job=1; $job<10; $job++){
                         $jobCount   = $responseData->where('job_id',$job)->count();
                         if($jobCount > 0){
+                            $jobName        = $this->jobModel->where('id',$job)->pluck('name')->first();
                             $jobCount   = sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
                             array_push($jobArray,[
-                                "job"           => $job,
-                                "percentage"    => $jobCount]);
+                                "job_id"            => $job,
+                                "job_name"          => $jobName,
+                                "percentage"        => $jobCount
+                                
+                                ]);
                         }
                     }
                     array_push($insertableArray,$jobArray);
