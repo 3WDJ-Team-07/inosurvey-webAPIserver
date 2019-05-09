@@ -12,8 +12,8 @@ $factory->define(App\Models\Users\User::class, function (Faker $faker) {
 
     return [
         // 'user_id' => $user_id[$num] . $num,
-        'user_id' => 'pyc5836'.rand(0,100),
-        'password' => 'zxc12345', 
+        'user_id' => 'ino'.rand(0,50),
+        'password' => '123456', 
         'email' => $faker->unique()->safeEmail,
         'nickname' => $faker->name,       
         'gender' => rand(1,2),
