@@ -21,10 +21,10 @@ use App\Models\Surveies\Form;
 class SurveyController extends Controller {
     
     
-    private $formModel          = null;
+    private $formModel = null;
 
     public function __construct() {
-        $this->formModel            = new Form();
+        $this->formModel = new Form();
       
     }
 

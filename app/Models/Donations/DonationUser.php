@@ -13,6 +13,7 @@ class DonationUser extends Model
         'donation_id',
         'sponsors_id',
         'donation_amount',
+        
     ];
 
 }

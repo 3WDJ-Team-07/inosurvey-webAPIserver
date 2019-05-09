@@ -12,7 +12,7 @@ $factory->define(App\Models\Surveies\Form::class, function (Faker $faker) {
         'description' => $faker->text, 
         // 'closed_at' => '',  
         // 'is_sale' => '', 
-        // 'started_at' => time(), 
+        'closed_at' => \Carbon\Carbon::now()->addWeek(1), 
         'respondent_number' => 100,
         'target_id' => $faker->numberBetween($target_id_min,$target_id_max),
         'user_id' => 1,

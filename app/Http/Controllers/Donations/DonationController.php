@@ -49,7 +49,6 @@ class DonationController extends Controller
             'content'       =>  $request->content,
             'image'         =>  $file,
             'target_amount' =>  $request->target_amount,
-            // 'started_at'    => Carbon::now()->format('Y-m-d H:i:s'),
             'closed_at'     =>  $request->closed_at,
             'donator_id'    =>  $request->user_id,
         );
