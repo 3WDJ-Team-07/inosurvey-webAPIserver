@@ -9,7 +9,6 @@ class Form extends Model
 {
     use ModelScopes;
     
-    public $timestamps = false;
     protected $fillable = [
         
         'title',
@@ -19,9 +18,7 @@ class Form extends Model
         'is_completed',
         'is_sale',
         'target_id',
-        'started_at',
         'closed_at',
-        'started_at',
         'targer_isactive',
         'bgcolor',
         'user_id'
@@ -53,13 +50,7 @@ class Form extends Model
         return $this->belongsToMany('App\Models\Users\User','replyable_user','survey_id','replyable_id');
     }
 
-    //started_at칼럼 현재 시간 저장
-    public static function boot() {
-         parent::boot(); static::creating(function ($model) {
-        $model->started_at = $model->freshTimestamp(); 
-       });
-    }
-
+   
     //설문 정보 스코프
     public function getSurveies(){
         return $this->with(['user','target.job','question.questionItems']);

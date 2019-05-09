@@ -22,6 +22,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\StoreImage;
 use App\Http\Controllers\Helpers\Guzzles;
+use Carbon\Carbon;
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -95,6 +96,7 @@ class RequestController extends Controller
             'respondent_number'     => $request->target['responseNumber'],
             'target_isactive'       => $targetIsActive,
             'bgcolor'               => $request->bgcolor,
+            // 'started_at'            => Carbon::now()->format('Y-m-d H:i:s'),
             'closed_at'             => $request->closed_at,
             'user_id'               => $request->user_id,
             'is_sale'               => $request->is_sale

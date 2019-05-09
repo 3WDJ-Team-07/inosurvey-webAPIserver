@@ -1,8 +1,5 @@
 <?php
-// use Carbon\Carbon;
-use Illuminate\Support\Carbon;
-use App\Models\Surveies\Type;
-use App\Models\Donations\Donation;
+
 /*
 |--------------------------------------------------------------------------
 | REST API 설계 규칙
@@ -29,6 +26,7 @@ Route::get('/test','Helpers\TestController@exports');
 
 //web-api
 Route::group(['prefix' => 'api'], function () {
+    
     //user
     Route::group(['prefix' => 'user'], function () {
         Route::post('/register', 'Users\RegisterController@register');
