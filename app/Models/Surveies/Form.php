@@ -50,7 +50,8 @@ class Form extends Model
         return $this->belongsToMany('App\Models\Users\User','replyable_user','survey_id','replyable_id');
     }
 
-   
+
+
     //설문 정보 스코프
     public function getSurveies(){
         return $this->with(['user','target.job','question.questionItems']);
