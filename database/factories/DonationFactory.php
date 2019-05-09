@@ -15,7 +15,7 @@ $factory->define(App\Models\Donations\Donation::class, function (Faker $faker) {
         'target_amount' => 500000,
         'donator_id' => 1,       
         'current_amount' => 0,
-        'closed_at' => Carbon\Carbon::now(),
+        'closed_at' => \Carbon\Carbon::now()->addWeek(1),
 
     ];
 });
