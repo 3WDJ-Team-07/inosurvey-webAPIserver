@@ -20,6 +20,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Users\User;
 use App\Models\Users\Job;
 use App\Models\Surveies\Form;
+use App\Models\Surveies\SurveyUser;
 use App\Models\Surveies\Question;
 use App\Models\Surveies\ItemResponse;
 use App\Models\Surveies\Response;
@@ -32,10 +33,12 @@ class AnalysisController extends Controller
     private $questionModel      = null;
     private $itemResponseModel  = null;
     private $responseModel      = null;
+    private $surveyUserModel    = null;
 
     public function __construct() {
         $this->userModel            = new User();
         $this->jobModel             = new Job();
+        $this->surveyUserModel      = new SurveyUser();
         $this->formModel            = new Form();
         $this->questionModel        = new Question();
         $this->itemResponseModel    = new ItemResponse();
@@ -182,12 +185,13 @@ class AnalysisController extends Controller
         
         //필터링 된 유저
         //유저가 있는 responses의 array를 구함
-        $userArray          = $this->userModel->getTrappedUser($gender,$age,$job)->pluck('id')->toArray();
+        $userArray          = $this->userModel->getTrappedUser($gender,$age,$job)->pluck('id')->toArray(); 
+        $responsesArray     = $this->surveyUserModel->whereIn('respondent_id',$userArray)->pluck('id')->toArray();
         $responseIdArray    = $this->responseModel->where('question_id',$questionId)
-                                                  ->whereIn('response_id',$userArray)
+                                                  ->whereIn('response_id',$responsesArray)
                                                   ->pluck('id')
                                                   ->toArray();
-
+                                                  
         $questionType       = $question->type_id;
         $itemData           = $question->questionItems;
         $itemArray          = $question->questionItems->pluck('content')->toArray();
