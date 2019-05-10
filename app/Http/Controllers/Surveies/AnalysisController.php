@@ -66,7 +66,7 @@ class AnalysisController extends Controller
                 case "age": 
                     for($age=10; $age<=100; $age=$age+10){
                         $ageCount   = $responseData->where('age',$age)->count();
-                        $ageCount   = sprintf("%2.2f",($ageCount / $allResponsesCount) * 100);
+                        $ageCount   = (double)sprintf("%2.2f",($ageCount / $allResponsesCount) * 100);
                         array_push($insertableArray,[
                             "age"           => $age,
                             "percentage"    => $ageCount
@@ -76,15 +76,15 @@ class AnalysisController extends Controller
                 case "gender":  
                     $maleCount      = $responseData->where('gender',1)->count();
                     $femaleCount    = $responseData->where('gender',2)->count();
-                    $maleCount      = sprintf("%2.2f",($maleCount / $allResponsesCount) * 100);
-                    $femaleCount    = sprintf("%2.2f",($femaleCount / $allResponsesCount) * 100);
+                    $maleCount      = (double)sprintf("%2.2f",($maleCount / $allResponsesCount) * 100);
+                    $femaleCount    = (double)sprintf("%2.2f",($femaleCount / $allResponsesCount) * 100);
                     array_push($insertableArray,$maleCount,$femaleCount);
                     break;
                 case "job":
                     for($job=1; $job<10; $job++){
                         $jobCount   = $responseData->where('job_id',$job)->count();
                         $jobName    = $this->jobModel->where('id',$job)->pluck('name')->first();
-                        $jobCount   = sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
+                        $jobCount   = (double)sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
                         array_push($insertableArray,[
                             "job_id"            => $job,
                             "job_name"          => $jobName,
@@ -134,7 +134,7 @@ class AnalysisController extends Controller
                         $itemId             = $item->id;
                         $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)->count();
 
-                        $responseCountResult = sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);   //응답 아이템 백분율 결과,소수점 두자리까지 표현 
+                        $responseCountResult = (double)sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);   //응답 아이템 백분율 결과,소수점 두자리까지 표현 
                         
                         array_push($responseCountArray, [
                                 'itemTitle' => $item->content ,
@@ -199,7 +199,7 @@ class AnalysisController extends Controller
                                                               ->whereIn('response_id',$responseIdArray)
                                                               ->count();
 
-                $responseCountResult = sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);
+                $responseCountResult = (double)sprintf("%2.2f",($itemResponseCount / $allResponsesCount) * 100);
                 
                 array_push($responseCountArray, [
                     'itemTitle' => $item->content,
