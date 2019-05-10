@@ -28,7 +28,7 @@ use Carbon\Carbon;
 
 use App\Models\Users\User;
 use App\Models\Surveies\Form;
-use App\models\Donations\Donation;
+use App\Models\Donations\Donation;
 
 class UserController extends Controller
 {

@@ -123,11 +123,11 @@ class User extends Authenticatable
                     array_push($ageArray, $nowDate-$age-$i);
                 }    
             }
-            $users  = $users->whereIn('age',$ageArray);
+            $users  = $users->whereIn('age', $ageArray);
         }
         if($existJob){
-            $jobs   = JobTarget::where('target_id',$targetId)->get()->pluck('job_id')->toArray();
-            $users  = $users->whereIn('job_id',$jobs);
+            $jobs   = JobTarget::where('target_id', $targetId)->get()->pluck('job_id')->toArray();
+            $users  = $users->whereIn('job_id', $jobs);
         }
 
         return $users;
