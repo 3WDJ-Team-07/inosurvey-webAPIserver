@@ -67,10 +67,7 @@ class AnalysisController extends Controller
                     for($age=10; $age<=100; $age=$age+10){
                         $ageCount   = $responseData->where('age',$age)->count();
                         $ageCount   = (double)sprintf("%2.2f",($ageCount / $allResponsesCount) * 100);
-                        array_push($insertableArray,[
-                            "age"           => $age,
-                            "percentage"    => $ageCount
-                            ]);
+                        array_push($insertableArray,$ageCount);
                     }
                     break;
                 case "gender":  
@@ -85,11 +82,7 @@ class AnalysisController extends Controller
                         $jobCount   = $responseData->where('job_id',$job)->count();
                         $jobName    = $this->jobModel->where('id',$job)->pluck('name')->first();
                         $jobCount   = (double)sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
-                        array_push($insertableArray,[
-                            "job_id"            => $job,
-                            "job_name"          => $jobName,
-                            "percentage"        => $jobCount        
-                            ]);
+                        array_push($insertableArray,$jobCount);
                     }
                     break;
                 default;
