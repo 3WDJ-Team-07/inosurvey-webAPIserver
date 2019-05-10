@@ -99,10 +99,14 @@ class UserController extends Controller
                         ]
                     );
                     
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['wallet']);
+        $getWalletRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['wallet']);
         
+         //요청 실패
+         if($getWalletRes['status'] != 200){
+            return response()->json(['message'=>'Failed to check users wallet'], 401);
+        }
 
-        $current = $response['body'][ConstantEnum::ETHEREUM['amount']];
+        $current = $getWalletRes['body'][ConstantEnum::ETHEREUM['amount']];
         
        
         return response()->json([

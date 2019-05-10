@@ -171,10 +171,10 @@ class ResponseController extends Controller
             ]
         );
         
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['reward']);
+        $rewardRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['reward']);
          
         //요청 실패
-         if($response['status'] != 200){
+         if($rewardRes['status'] != 200){
             return response()->json(['message'=>'Failure to pay compensation'], 401);
         }
 

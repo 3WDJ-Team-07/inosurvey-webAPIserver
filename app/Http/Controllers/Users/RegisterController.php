@@ -30,15 +30,27 @@ class RegisterController extends Controller {
     
         $user = User::create(request()->all());
         
-        $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['wallet_create']);   //지갑 공개키,개인키 발급
-    
+        $walletCreateRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['wallet_create']);   //지갑 공개키,개인키 발급
+         
+        //요청 실패
+         if($walletCreateRes['status'] != 200){
+            return response()->json(['message'=>'Failed to create wallet'], 401);
+        }
+
         $param = array(
-            'public_key'    => $response['body'][ConstantEnum::ETHEREUM['public']],
-            'private_key'   => $response['body'][ConstantEnum::ETHEREUM['private']],
+            'public_key'    => $walletCreateRes['body'][ConstantEnum::ETHEREUM['public']],
+            'private_key'   => $walletCreateRes['body'][ConstantEnum::ETHEREUM['private']],
             'user_id'       => $user->id,
             );
-        
+            
         Wallet::create($param);
+
+        $faucetRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['faucet'] . '?user_id=' . $user->id . '&amount=' . '1000');
+        
+         //요청 실패
+         if($faucetRes['status'] != 200){
+            return response()->json(['message'=>'Ino Payment Failure'], 401);
+        }
 
         return response()->json(['message'=>'true'],200);
     }
