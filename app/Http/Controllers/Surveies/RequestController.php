@@ -89,6 +89,7 @@ class RequestController extends Controller
             $targetIsActive = true;
         } 
         
+        
         //forms테이블 - create
         $formData = array(
             'title'                 => $request->survey_title,
@@ -134,7 +135,7 @@ class RequestController extends Controller
 
             //replyable_user테이블 - 응답가능유저 저장
             $target = $request->target;
-            $users  = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob)->get();
+            $users  = $this->userModel->getReplyableUser($gender, $target, $targetId, $existJob)->get();
 
             foreach($users as $user){
                 $replyableUserData = array(
@@ -147,7 +148,6 @@ class RequestController extends Controller
         }else{
             //target이 없는 경우 
             //replyable_user테이블 모든 회원 추가
-            $users = $this->userModel->get();
             foreach($users as $user){
                 $replyableUserData = array(
                     'replyable_id'      => $user->id,
