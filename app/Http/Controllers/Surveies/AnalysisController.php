@@ -64,18 +64,14 @@ class AnalysisController extends Controller
             $insertableArray        = array();
             switch($key){
                 case "age": 
-                    $ageArray   = array();
                     for($age=10; $age<=100; $age=$age+10){
                         $ageCount   = $responseData->where('age',$age)->count();
-                        if($ageCount > 0){
-                            $ageCount   = sprintf("%2.2f",($ageCount / $allResponsesCount) * 100);
-                            array_push($ageArray,[
-                                "age"           => $age,
-                                "percentage"    => $ageCount
-                                ]);
-                        }
+                        $ageCount   = sprintf("%2.2f",($ageCount / $allResponsesCount) * 100);
+                        array_push($insertableArray,[
+                            "age"           => $age,
+                            "percentage"    => $ageCount
+                            ]);
                     }
-                    array_push($insertableArray,$ageArray);
                     break;
                 case "gender":  
                     $maleCount      = $responseData->where('gender',1)->count();
@@ -85,25 +81,20 @@ class AnalysisController extends Controller
                     array_push($insertableArray,$maleCount,$femaleCount);
                     break;
                 case "job":
-                    $jobArray   = array();
                     for($job=1; $job<10; $job++){
                         $jobCount   = $responseData->where('job_id',$job)->count();
-                        if($jobCount > 0){
-                            $jobName        = $this->jobModel->where('id',$job)->pluck('name')->first();
-                            $jobCount   = sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
-                            array_push($jobArray,[
-                                "job_id"            => $job,
-                                "job_name"          => $jobName,
-                                "percentage"        => $jobCount
-                                
-                                ]);
-                        }
+                        $jobName    = $this->jobModel->where('id',$job)->pluck('name')->first();
+                        $jobCount   = sprintf("%2.2f",($jobCount / $allResponsesCount) * 100);
+                        array_push($insertableArray,[
+                            "job_id"            => $job,
+                            "job_name"          => $jobName,
+                            "percentage"        => $jobCount        
+                            ]);
                     }
-                    array_push($insertableArray,$jobArray);
                     break;
                 default;
             };
-            if($key != "id") array_push($targetPercentageArray,[$key => $insertableArray]);
+            array_push($targetPercentageArray,[$key => $insertableArray]);
         }
         $formDataArray = array();
         array_push($formDataArray, ["formData"=>$formData]);
@@ -191,7 +182,7 @@ class AnalysisController extends Controller
                                                   ->whereIn('response_id',$responsesArray)
                                                   ->pluck('id')
                                                   ->toArray();
-                                                  
+
         $questionType       = $question->type_id;
         $itemData           = $question->questionItems;
         $itemArray          = $question->questionItems->pluck('content')->toArray();
