@@ -121,11 +121,11 @@ class RequestController extends Controller
                 foreach ($request->target['job'] as $job){
 
                     //job_target테이블(피봇테이블) - 생성
-                    $jobTargetData = array([
+                    $jobTargetData = array(
                         'job_id'            => $job,
                         'target_id'         => $targetId
-                    ]);
-                    $this->jobTargetModel->insertMsgs($jobTargetData);
+                    );
+                    $this->jobTargetModel->create($jobTargetData);
                 }
             }
 
@@ -137,11 +137,11 @@ class RequestController extends Controller
             $users  = $this->userModel->getReplyableUser($gender, $request->target, $targetId, $existJob)->get();
 
             foreach($users as $user){
-                $replyableUserData = array([
+                $replyableUserData = array(
                     'replyable_id'      => $user->id,
                     'survey_id'         => $formId
-                ]);
-                $this->replyableUserModel->insertMsgs($replyableUserData);
+                );
+                $this->replyableUserModel->create($replyableUserData);
             }
 
         }else{
@@ -149,11 +149,11 @@ class RequestController extends Controller
             //replyable_user테이블 모든 회원 추가
             $users = $this->userModel->get();
             foreach($users as $user){
-                $replyableUserData = array([
+                $replyableUserData = array(
                     'replyable_id'      => $user->id,
                     'survey_id'         => $formId
-                ]);
-                $this->replyableUserModel->insertMsgs($replyableUserData);
+                );
+                $this->replyableUserModel->create($replyableUserData);
             }
         }//end of insert targets & update form
 
@@ -161,15 +161,15 @@ class RequestController extends Controller
         //questions테이블 - create
         foreach ($request->list as $question){    
                
-            $questionData = array([
+            $questionData = array(
                 'question_number'       => $question['index'],
                 'question_title'        => $question['question_title'],
                 'image'                 => $question['question_image'],
                 'form_id'               => $formId,
                 'type_id'               => $question['type']
-            ]); 
+            ); 
             
-            $this->questionModel->insertMsgs($questionData);
+            $this->questionModel->create($questionData);
             
             $questionId         = $this->questionModel->getLatest('id')->id;
             $questionType       = $this->questionModel->getLatest('id')->type_id;
@@ -188,12 +188,13 @@ class RequestController extends Controller
                     
                     $contentNumber = 1;
                     foreach ($items as $item){
-                        $itemData = array([
+                        $itemData = array(
                             'content'               => $item['value'],
                             'content_number'        => $contentNumber,
                             'question_id'           => $questionId
-                        ]);
-                        $this->questionItemModel->insertMsgs($itemData);
+                        );
+                        
+                        $this->questionItemModel->create($itemData);
 
                         $itemId = $this->questionItemModel->getLatest('id')->id;
 
