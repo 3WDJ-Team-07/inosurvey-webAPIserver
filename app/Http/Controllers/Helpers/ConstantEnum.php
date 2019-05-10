@@ -64,6 +64,7 @@ class ConstantEnum extends Controller
     const NODE_JS =  [
         'wallet_create'             => '/wallet/create',
         'wallet'                    => '/wallet/amount',
+        'faucet'                    => '/admin/faucet',
         'all_receipt'               => '/wallet/receipt/all',
         'survey_request_receipt'    => '/wallet/receipt/survey/request',
         'survey_response_receipt'   => '/wallet/receipt/survey/response',

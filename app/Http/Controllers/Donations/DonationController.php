@@ -65,10 +65,10 @@ class DonationController extends Controller
             ]
         );
         
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['establishment']);
+        $createDonationRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['establishment']);
          
         //요청 실패
-         if($response['status'] != 200){
+         if($createDonationRes['status'] != 200){
             return response()->json(['message'=>'Donor group registration failed'], 401);
         }
 
@@ -116,10 +116,10 @@ class DonationController extends Controller
         );
         
         
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['donate']);     //기부 금액 결제     
+        $donationRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['donate']);     //기부 금액 결제     
          
         //요청 실패
-         if($response['status'] != 200){
+         if($donationRes['status'] != 200){
             return response()->json(['message'=>'Failed to make donation to the organization'], 401);
         }
 

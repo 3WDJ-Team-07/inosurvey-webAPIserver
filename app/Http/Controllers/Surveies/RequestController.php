@@ -70,10 +70,10 @@ class RequestController extends Controller
             ]
         );
         
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['payment']);
+        $paymentRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['payment']);
        
          //설문 요청 실패
-        if($response['status'] != 200){
+        if($paymentRes['status'] != 200){
             return response()->json(['message'=>'Payment failed'],401);
         }
         
@@ -148,6 +148,7 @@ class RequestController extends Controller
         }else{
             //target이 없는 경우 
             //replyable_user테이블 모든 회원 추가
+            $users = $this->userModel->all();
             foreach($users as $user){
                 $replyableUserData = array(
                     'replyable_id'      => $user->id,
@@ -193,7 +194,7 @@ class RequestController extends Controller
                             'content_number'        => $contentNumber,
                             'question_id'           => $questionId
                         );
-                        
+
                         $this->questionItemModel->create($itemData);
 
                         $itemId = $this->questionItemModel->getLatest('id')->id;

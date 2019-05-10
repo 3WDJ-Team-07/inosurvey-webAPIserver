@@ -44,10 +44,10 @@ class MarketController extends Controller
         );
 
 
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['sales']);
+        $saleRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['sales']);
  
         //판매 요청 실패
-        if($response['status'] != 200){
+        if($saleRes['status'] != 200){
             return response()->json(['message'=>'Payment failed'],401);
         }
 
@@ -73,15 +73,15 @@ class MarketController extends Controller
             ]
         );
         
-        $response = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['buy']);
+        $buyRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['buy']);
          
 
       
-        if($response['status'] != 200){                                            //요청 실패
+        if($buyRes['status'] != 200){                                            //요청 실패
             
             return response()->json(['message'=>'Survey purchase failed'], 401);
 
-        }else if($response['status'] == 401){                                       
+        }else if($buyRes['status'] == 401){                                       
             
             //이미 구매한 설문을 재구매 할 수 없다.
         
