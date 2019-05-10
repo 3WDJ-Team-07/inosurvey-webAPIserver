@@ -30,7 +30,7 @@ use App\Models\Surveies\QuestionItem;
 use App\Models\Surveies\ReplyableUser;
 use App\Models\Surveies\JobTarget;
 use App\Models\Surveies\Target;
-use App\Models\Users\job;
+use App\Models\Users\Job;
 use App\Models\Users\User;
 
 class RequestController extends Controller
