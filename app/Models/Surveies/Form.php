@@ -63,9 +63,9 @@ class Form extends Model
     }
 
     // 완료(is_sale = false) 설문 리스트
-    public function completedList($col,$arg){
-        return $this->where($col,$arg)->where('is_sale',0)->where('is_completed',1);
-    }
+    // public function completedList($col,$arg){
+    //     return $this->where($col,$arg)->where('is_sale',0)->where('is_completed',1);
+    // }
 
     //자신의 요청한 설문은 구매 할 수 없다.
     public function purchaseVerification($request){

@@ -51,9 +51,28 @@ class AnalysisController extends Controller
         $formId                 = $request->form_id;
         $formQuestion           = $this->questionModel->where('form_id',$formId);
         $questions              = $formQuestion->get();
-        $formData               = $this->formModel->where('id',$formId)->with('target.job')->first();
-        // $allResponseRate        = sprintf("%2.2f",($formData->pluck('respondent_count')->first() / $formData->pluck('respondent_number')->first())* 100);  //설문 응답률
+        $formData               = collect($this->formModel->where('id',$formId)->with('target.job')->first());
+         
 
+        //타겟이 없을 경우
+        if($formData['target'] == null){
+
+            $jobArray      = $this->jobModel->all();
+            $gender        = 0;
+            $ageArray      = array(10,20,30,40,50,60,70,80,90,100);
+
+            $allTarget = array(
+
+                'job'       => $jobArray,
+                'gender'    =>$gender,
+                'age'       =>$ageArray
+            
+            );
+          
+            $formData->put('target', $allTarget);
+           
+        };
+                
         $targetPercentageArray  = array();
         $targetArray            = array("age","gender","job");
         $responseData           = $this->formModel->where('id',$formId)->first()->respondentUsers;
@@ -146,7 +165,7 @@ class AnalysisController extends Controller
                 }                
 
             array_push($questionResponseArray,$resultArray);
-            // array_push($questionResponseArray,$allResponseRate);
+    
         }
         return response()->json([
             'message' => 'true',
