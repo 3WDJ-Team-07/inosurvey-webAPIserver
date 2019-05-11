@@ -79,18 +79,17 @@ class ListController extends Controller
      }
  
  
-     //완료(is_sale = false,is_completed = true) 설문 리스트
      public function sellableForms(Request $request){
          
-         $sellableList = $this->formModel->completedList('user_id',$request->id)->get();
+         $sellableList = $this->formModel->where('user_id',$request->id)->where('is_completed',0)->get();
         
          return response()->json(['message'=>'true','list'=>$sellableList],200);
      }
      
-     //완료(is_sale = false,is_completed = true) 설문 상세
+  
      public function sellableShow(Request $request){
  
-         $sellableList = $this->formModel->completedList('id',$request->id)->with(['target.job'])->first();
+         $sellableList = $this->formModel->where('id',$request->id)->with(['target.job'])->first();
                 
          return response()->json(['message'=>'true','list'=>$sellableList],200);
      }

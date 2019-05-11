@@ -52,8 +52,10 @@ class MarketController extends Controller
         }
 
 
-        $sellableList = $this->formModel->completedList('id',$request->id);
-        $sellableList->update(['is_sale' => 1]);
+        $sellableList = $this->formModel->where('id',$request->id);
+
+        $sellableList->update(['is_completed' => 1,'is_sale' => 1]);
+        
         return response()->json(['message'=>'true','id'=>$request->id],200);
 
     }
