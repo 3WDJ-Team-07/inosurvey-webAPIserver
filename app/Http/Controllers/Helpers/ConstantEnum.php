@@ -39,6 +39,7 @@ class ConstantEnum extends Controller
         'surveies'          => 'surveies', 
     ];
 
+
     const ETHEREUM =  [
         'public'            => 'public_key',
         'private'           => 'private_key',

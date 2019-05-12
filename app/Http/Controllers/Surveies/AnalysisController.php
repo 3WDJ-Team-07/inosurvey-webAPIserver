@@ -13,6 +13,7 @@ namespace App\Http\Controllers\Surveies;
  * targetAnalysis(질문 정보)      응답자 필터링 한 설문조사 분석 질문 결과
  * 
  */ 
+use Illuminate\Database\Eloquent\Builder;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,27 +52,101 @@ class AnalysisController extends Controller
         $formId                 = $request->form_id;
         $formQuestion           = $this->questionModel->where('form_id',$formId);
         $questions              = $formQuestion->get();
-        $formData               = collect($this->formModel->where('id',$formId)->with('target.job')->first());
-         
+        $formData               = $this->formModel->where('id',$formId)->with('target.job')->first();
+        
+        // if($formData->target['job']->isEmpty()) {
+        //     $jobList = $this->jobModel->all();
+        //     $formData->target['job'] =  collect($jobList)->toArray();
+        //     return  $formData;
+        // }
+        // // $formData = collect($formData);
+        // return dd($formData);
+        // if($formData['target']['job'] == null){
+            
+           
+
+        //     $allTarget = array(
+        //         $jobArray,
+        //     );
+        //     // return dd($formData['target']['job']);
+        //     // array_push($formData['target']['job'],$jobArray);
+
+        //     // return $formData; 
+        //     // $formData->put('target', $allTarget);
+        //     return dd($formData);
+        // }
+
+
 
         //타겟이 없을 경우
+        // if($formData['target'] == null){
+
+        //     $jobArray      = $this->jobModel->all();
+        //     $gender        = 0;
+        //     $ageArray      = array(10,20,30,40,50,60,70,80,90,100);
+
+        //     $allTarget = array(
+
+        //         'job'       => $jobArray,
+        //         'gender'    => $gender,
+        //         'age'       => $ageArray
+            
+        //     );
+          
+        //     $formData->put('target', $allTarget);
+           
+        // }else if($formData['target']['job'] == null){
+        //     $jobArray      = $this->jobModel->all();
+           
+
+        //     $allTarget = array(
+        //         'job'       => $jobArray,
+        //     );
+           
+        //     $formData->put('target', $allTarget);
+
+        // }else if($formData['target']['gender'] == null){
+        //     $gender        = 0;
+
+        //     $allTarget = array(
+                
+        //         'gender'    => $gender,
+        //     );
+
+        //     $formData->put('target', $allTarget);
+
+        // }else if($formData['target']['age'] == null){
+        //     $ageArray      = array(10,20,30,40,50,60,70,80,90,100);
+            
+        //     $allTarget = array(
+        //         'age'       => $ageArray,
+        //     );
+
+        //     $formData->put('target', $allTarget);
+        // };
+
+
+
         if($formData['target'] == null){
 
-            $jobArray      = $this->jobModel->all();
-            $gender        = 0;
-            $ageArray      = array(10,20,30,40,50,60,70,80,90,100);
+                $jobArray      = $this->jobModel->all();
+                $gender        = 0;
+                $ageArray      = array(10,20,30,40,50,60,70,80,90,100);
+    
+                $allTarget = array(
+    
+                    'job'       => $jobArray,
+                    'gender'    => $gender,
+                    'age'       => $ageArray
+                
+                );
+              
+                $formData->put('target', $allTarget);
+               
+            }
 
-            $allTarget = array(
 
-                'job'       => $jobArray,
-                'gender'    =>$gender,
-                'age'       =>$ageArray
-            
-            );
-          
-            $formData->put('target', $allTarget);
-           
-        };
+
                 
         $targetPercentageArray  = array();
         $targetArray            = array("age","gender","job");

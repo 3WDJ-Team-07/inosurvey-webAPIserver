@@ -84,12 +84,24 @@ class DonationController extends Controller
 
         $donation = $this->donationModel->where('id',$request->donation_id)->first();
 
+        //기부금 초과 체크
+        if($request->ino > $donation->target_amount || $request->ino + $donation->current_amount > $donation->target_amount){
+            return response()->json([
+                'message'=>'You cannot donate more than the target amount.',
+                'status' => 'excess'
+            ], 202);
+        }
+
+
         //기부 완료 및 기부 마감 검증
         $now = Carbon::now()->format('Y-m-d H:i:s');    //현재시간
         $closedAt = $donation->closed_at;               //기부 마감시간
 
         if($donation->current_amount >= $donation->target_amount || strtotime($now) >= strtotime($closedAt)){
-            return response()->json(['message'=>'This is a closed donation organization.'], 202);
+            return response()->json([
+                'message'=>'This is a closed donation organization.',
+                'status' => 'end'
+            ], 202);
         }
 
         //목표 금액에 달성 되어있지 않은 경우
