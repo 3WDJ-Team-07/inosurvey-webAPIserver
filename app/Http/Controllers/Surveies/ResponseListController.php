@@ -14,6 +14,8 @@ namespace App\Http\Controllers\Surveies;
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Helpers\Guzzles;
+use App\Http\Controllers\Helpers\ConstantEnum;
 
 use App\Models\Surveies\Form;
 use App\Models\Surveies\Question;
@@ -22,6 +24,8 @@ use App\Models\Users\User;
 class ResponseListController extends Controller
 {
     
+    use Guzzles;
+
     private $formModel          = null;
     private $questionModel      = null;
     private $userModel          = null;
@@ -38,6 +42,20 @@ class ResponseListController extends Controller
         $userId             = $request->user_id;
         $trappedForms       = $this->userModel->getTrappedForm($userId);
         $replyableForms     = $this->formModel->getReplyableForm($trappedForms, $userId)->get();
+
+     
+        foreach($replyableForms as $form){
+            
+            $getPriceRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$form->id);
+             
+                //요청 실패
+            if($getPriceRes['status'] != 200){
+                return response()->json(['message'=>'Failed to look up survey fee information'], 401);
+            }
+            
+            $form->reword = $getPriceRes['body']['rewardPrice'];
+            
+        }
 
         return response()->json(['message' => 'true','form' => $replyableForms],200);
     }

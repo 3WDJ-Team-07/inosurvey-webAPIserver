@@ -25,7 +25,6 @@ use App\Http\Controllers\Helpers\Guzzles;
 use \Firebase\JWT\JWT;
 use Carbon\Carbon;
 
-
 use App\Models\Users\User;
 use App\Models\Surveies\Form;
 use App\Models\Donations\Donation;
@@ -78,16 +77,21 @@ class UserController extends Controller
         
         $survey = $this->formModel->getSurveies()->where('id',$request->form_id)->first();
 
-        $response = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$request->form_id);
-         
-        $price = $response['body'][ConstantEnum::ETHEREUM['survey_price']];
+        $getPriceRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$request->form_id);
+    
+         //요청 실패
+         if($getPriceRes['status'] != 200){
+            return response()->json(['message'=>'Failed to look up survey fee information'], 401);
+        }
 
+        $price   = $getPriceRes['body'][ConstantEnum::ETHEREUM['survey_price']];
+        $reward  = $getPriceRes['body']['rewardPrice'];
 
         return response()->json([
-            'message'=>'true',
-            'survey'=>$survey,
-            'price' => $price],
-            200);
+            'message' =>'true',
+            'survey' => $survey,            'price' => $price,
+            'reward'=> $reward
+        ], 200);
     }
 
     //유저 지갑 조회

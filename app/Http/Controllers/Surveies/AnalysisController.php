@@ -53,7 +53,7 @@ class AnalysisController extends Controller
         $questions              = $formQuestion->get();
         $formData               = $this->formModel->where('id',$formId)->with('target.job')->first();
         
-
+        
         if($formData->target == null){                                                      //타겟이 없을 경우 
 
             $jobArray      = $this->jobModel->all();
@@ -76,9 +76,13 @@ class AnalysisController extends Controller
     
             $jobList = $this->jobModel->all();
 
-            $formData->target['job']->push($jobList);
+            foreach($jobList as $item){
+                
+                $formData->target['job']->push($item);
+            
+            }
           
-        }else if($formData->target != null &&$formData->target['age'] == 0){                 //나이 타겟이 없을 경우
+        }else if($formData->target != null &&$formData->target['age'] == null){                 //나이 타겟이 없을 경우
             
             $ageArray = array(10,20,30,40,50,60,70,80,90,100);
             
