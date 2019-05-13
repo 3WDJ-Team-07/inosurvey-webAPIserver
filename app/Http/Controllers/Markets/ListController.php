@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Markets;
  * 만든날:                        2019년 5월 1일
  *
  * 함수 목록
- * index() :                      설문 판매 리스트 조회
- * show(설문아이디) :              특정 설문 판매 정보 조회
+ * index()                  :      설문 판매 리스트 조회
+ * show(설문아이디)          :      특정 설문 판매 정보 조회
  * sellableForms(유저아이디) :     유저가 판매할 수 있는 설문 리스트 조희           
  * sellableShow(설문아이디)  :     설문 상세 정보
  */
@@ -33,19 +33,42 @@ class ListController extends Controller
     }
 
 
-    public function index(){
+    public function index(Request $request){
         
         $saleList =  $this->formModel->saleList()->get();
           
         foreach($saleList as $item){
-           
-           $priceRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$item->id);
-         
-            //요청 실패
-            if($priceRes['status'] != 200){
-                return response()->json(['message'=>'Market list lookup failed'], 401);
+           //유저 응답 보상 지급 
+            $payload = array( 
+                'form_params' => [
+                    'user_id'   =>  $request->id,
+                    'survey_id' =>  $item->id,
+                ]
+            );
+            
+            $priceRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$item->id);
+            
+            $isBuy    = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['is_buy']); //이미 구매한 설문 표시
+            
+            if($isBuy['body']['isBuy'] == 'true'){
+                $item->isBuy = true;     
+            }else{
+                $item->isBuy = false;
             }
 
+            //요청 실패
+            if($priceRes['status'] != 200){
+                return response()->json([
+                    'message'   => 'Market list lookup failed',
+                    'status'    => 'List failure',
+                ], 202);
+            }
+            // else if($isBuy['status'] != 200){
+            //     return response()->json([
+            //         'message'   => 'User failed to display purchase survey mark',
+            //         'status'    => 'mark failure',
+            //     ], 202);
+            // }
 
            $price = $priceRes['body'][ConstantEnum::ETHEREUM['survey_price']];
            

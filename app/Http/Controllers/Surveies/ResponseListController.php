@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Surveies;
  * 만든날:                        2019년 5월 1일
  *
  * 함수 목록
- * getForm() :                     응답 가능설문 리스트 조회
+ * getForm()                     : 응답 가능설문 리스트 조회
  * selectQuestionItem(질문아이디) : 설문조사 질문 아이템 조희         
  */
 use Illuminate\Http\Request;
@@ -53,7 +53,7 @@ class ResponseListController extends Controller
                 return response()->json(['message'=>'Failed to look up survey fee information'], 401);
             }
             
-            $form->reword = $getPriceRes['body']['rewardPrice'];
+            $form->reward = $getPriceRes['body'][ConstantEnum::ETHEREUM['reward']];
             
         }
 

@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Markets;
  * 만든날:                        2019년 4월 18일
  *
  * 함수 목록
- * salesRegistration(판매자,설문) : 설문 판매 등록
- * purchase(구매자,설문) :          설문 구매 
+ * salesRegistration(판매자,설문)   : 설문 판매
+ * purchase(구매자,설문)            : 설문 구매 
  *
  */
 use Illuminate\Http\Request;
@@ -43,14 +43,12 @@ class MarketController extends Controller
             ]
         );
 
-
         $saleRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['sales']);
  
         //판매 요청 실패
         if($saleRes['status'] != 200){
             return response()->json(['message'=>'Payment failed'],401);
         }
-
 
         $sellableList = $this->formModel->where('id',$request->id);
 
@@ -65,27 +63,35 @@ class MarketController extends Controller
     
         //자신의 설문인지 검증 
         if($this->formModel->purchaseVerification($request)){
-            return response()->json(['message'=>'You cannot purchase your own questionnaire'], 202);
+            return response()->json([
+                'message'   => 'You cannot purchase your own questionnaire',
+                'status'    => 'mysurvey'
+        ], 202);
         }
 
         $payload = array( 
             'form_params' => [
                 'user_id'   =>  $request->user_id,
                 'survey_id' =>  $request->id,
+                //'price'     =>  $request->price
             ]
         );
         
         $buyRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['buy']);
          
-
-      
-        if($buyRes['status'] != 200){                                            //요청 실패
+        if($buyRes['status'] == 402){                                               //요청 실패
             
-            return response()->json(['message'=>'Survey purchase failed'], 401);
+            return response()->json([
+                'message'   => 'Survey purchase failed',
+                'status'    => 'request failure',
+            ], 202);
 
-        }else if($buyRes['status'] == 401){                                       
+        }else if($buyRes['status'] == 401){                                         //구매한 설문 재구매 불가                              
             
-            //이미 구매한 설문을 재구매 할 수 없다.
+            return response()->json([
+                'message'=>'This survey has already been purchased.',
+                'status'=>'duplicated'
+            ],202);
         
         }
 

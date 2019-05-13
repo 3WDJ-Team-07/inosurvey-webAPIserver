@@ -9,9 +9,9 @@ namespace App\Http\Controllers\Users;
  * 만든날:                      2019년 3월 26일
  *
  * 함수 목록
- * login(유저정보):             유저정보를 받아 인증하고 권한부여
- * ganerateToken(유저정보)      JWT토큰을 생성하는 함수
- * username()     :            회원 로그인 형식을 지정하는 함수    
+ * login(유저정보)          :   유저정보를 받아 인증하고 권한부여
+ * ganerateToken(유저정보)  :   JWT토큰을 생성하는 함수
+ * username()               :  회원 로그인 형식을 지정하는 함수    
  *
  */
 use Illuminate\Http\Request;

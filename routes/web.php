@@ -13,12 +13,11 @@
 */
 
 //Test
-Route::get('/', function () {
-    return view('test');
-    
-});
+// Route::get('/{path}', function() {
+//     return view('index');
+// });
 
-
+Route::view('/{any}', 'index')->where('any', '.*');
 Route::get('/test','Helpers\TestController@exports');
 
 //////////////////////////////////////////////////////////////////

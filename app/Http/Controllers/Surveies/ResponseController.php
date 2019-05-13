@@ -9,9 +9,9 @@ namespace App\Http\Controllers\Surveies;
  * 만든날:                        2019년 4월 10일
  *
  * 함수 목록
- * getForm(유저정보)            유저가 응답할 수 있는 설문조사 내용
- * response(응답정보)           설문 응답 시 작성한 정보를 해당 테이블에 저장
- * selectQuestionItem(파일)     파일 업로드
+ * getForm(유저정보)            :    유저가 응답할 수 있는 설문조사 내용
+ * response(응답정보)           :    설문 응답 시 작성한 정보를 해당 테이블에 저장
+ * selectQuestionItem(파일)     :    파일 업로드
  * 
  */
 use Illuminate\Support\Facades\Log;
