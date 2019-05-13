@@ -40,6 +40,7 @@ class MarketController extends Controller
             'form_params' => [
                 'user_id'       => $request->user_id,
                 'survey_id'     => $request->id,
+                'price'         => $request->price
             ]
         );
 
@@ -47,7 +48,7 @@ class MarketController extends Controller
  
         //판매 요청 실패
         if($saleRes['status'] != 200){
-            return response()->json(['message'=>'Payment failed'],401);
+            return response()->json(['message'=>'sale failed'],401);
         }
 
         $sellableList = $this->formModel->where('id',$request->id);
@@ -73,7 +74,6 @@ class MarketController extends Controller
             'form_params' => [
                 'user_id'   =>  $request->user_id,
                 'survey_id' =>  $request->id,
-                'price'     =>  $request->price
             ]
         );
         
