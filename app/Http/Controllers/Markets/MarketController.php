@@ -73,7 +73,7 @@ class MarketController extends Controller
             'form_params' => [
                 'user_id'   =>  $request->user_id,
                 'survey_id' =>  $request->id,
-                //'price'     =>  $request->price
+                'price'     =>  $request->price
             ]
         );
         

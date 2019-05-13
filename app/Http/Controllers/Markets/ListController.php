@@ -63,12 +63,12 @@ class ListController extends Controller
                     'status'    => 'List failure',
                 ], 202);
             }
-            // else if($isBuy['status'] != 200){
-            //     return response()->json([
-            //         'message'   => 'User failed to display purchase survey mark',
-            //         'status'    => 'mark failure',
-            //     ], 202);
-            // }
+            else if($isBuy['status'] != 200){
+                return response()->json([
+                    'message'   => 'User failed to display purchase survey mark',
+                    'status'    => 'mark failure',
+                ], 202);
+            }
 
            $price = $priceRes['body'][ConstantEnum::ETHEREUM['survey_price']];
            
