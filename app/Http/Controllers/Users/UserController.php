@@ -9,12 +9,12 @@ namespace App\Http\Controllers\Users;
  * 만든날:                      2019년 4월 16일
  *
  * 함수 목록
- * check(유저정보):             유저의 토큰값을 검증하고 DB의 유저정보를 반환 
- * userSurveies(유저아이디):    유저가 만든 설문 리스트 조회
- * userSurvey(설문아이디):      유저가 만든 설문 상세 조회
- * getWallet(유저 아이디):      유저의 지갑을 조회하는 함수
- * isSale(설문 아이디):         자신의 설문조사를 판매하는 함수
- * getReceipt(유저 아이디):     서비스 내의 해당유저의 모든 이력정보를 조회하는 함수                
+ * check(유저정보)          :    유저의 토큰값을 검증하고 DB의 유저정보를 반환 
+ * userSurveies(유저아이디) :    유저가 만든 설문 리스트 조회
+ * userSurvey(설문아이디)   :    유저가 만든 설문 상세 조회
+ * getWallet(유저 아이디)   :    유저의 지갑을 조회하는 함수
+ * isSale(설문 아이디)      :    자신의 설문조사를 판매하는 함수
+ * getReceipt(유저 아이디)  :    서비스 내의 해당유저의 모든 이력정보를 조회하는 함수                
  */
 
 use Illuminate\Http\Request;
@@ -68,7 +68,10 @@ class UserController extends Controller
         
         $serveies = $this->formModel->getSurveies()->where('user_id',$request->id)->get();
 
-        return response()->json(['message'=>'true','serveies'=>$serveies],200);
+        return response()->json([
+            'message'=>'true',
+            'serveies'=>$serveies
+        ],200);
     }
 
 
@@ -85,12 +88,15 @@ class UserController extends Controller
         }
 
         $price   = $getPriceRes['body'][ConstantEnum::ETHEREUM['survey_price']];
-        $reward  = $getPriceRes['body']['rewardPrice'];
+        $reward  = $getPriceRes['body'][ConstantEnum::ETHEREUM['reward']];
 
         return response()->json([
-            'message' =>'true',
-            'survey' => $survey,            'price' => $price,
-            'reward'=> $reward
+
+            'message'   =>'true',
+            'survey'    => $survey,
+            'price'     => $price,
+            'reward'    => $reward
+        
         ], 200);
     }
 
@@ -170,46 +176,53 @@ class UserController extends Controller
         $result = collect();
         
         foreach ($response['body'] as $item) {
-            $date = Carbon::createFromTimestamp($item['date'])->format('Y-m-d H:i:s');
-            $title = "";
-            $method = "";
-            $form_id = $item['obj_id'];
-            $content = "";
-            $sign = "";
-            $value = $item['value'];
+            $date       = Carbon::createFromTimestamp($item['date'])->format('Y-m-d H:i:s');
+            $title      = "";
+            $method     = "";
+            $form_id    = $item['obj_id'];
+            $content    = "";
+            $sign       = "";
+            $value      = $item['value'];
+            $detail;
 
             if($item['title'] == ConstantEnum::RECEIPT_TITLE['survey']) {
-                $form = $this->formModel->where('id', $item['obj_id'])->first();
-                $title = "설문조사";
-                $content = $form['title'];
+                $form       = $this->formModel->where('id', $item['obj_id'])->first();
+                $title      = "설문조사";
+                $content    = $form['title'];
+                if($form) {
+                    $detail = $form->toArray();
+                }
                 if($item['method'] == ConstantEnum::RECEIPT_METHOD['request']) {
                     $method = "요청";
-                    $sign = "-";
+                    $sign   = "-";
                 }else if($item['method'] == ConstantEnum::RECEIPT_METHOD['response']) {
                     $method = '응답';
-                    $sign = "+";
+                    $sign   = "+";
                 }else if($item['method'] == ConstantEnum::RECEIPT_METHOD['buy']) {
                     $method = '구매';
-                    $sign = "-";
+                    $sign   = "-";
                 }else if($item['method'] == ConstantEnum::RECEIPT_METHOD['sell']) {
                     $method = '판매';
-                    $sign = "+";
+                    $sign   = "+";
                 }else if($item['method'] == ConstantEnum::RECEIPT_METHOD['reward']) {
                     $method = '응답 보상';
-                    $sign = "+";
+                    $sign   = "+";
                 }else {
                     return response()->json(['message'=>'false'], 401);
                 }
             }else if($item['title']  == ConstantEnum::RECEIPT_TITLE['foundation']) {
-                $donation = $this->donationModel->where('id', $item['obj_id'])->first();
-                $title = "기부단체";
-                $content = $donation['title'];
+                $donation   = $this->donationModel->where('id', $item['obj_id'])->first();
+                $title      = "기부단체";
+                $content    = $donation['title'];
+                if($donation) {
+                    $detail = $donation->toArray();
+                }
                 if($item['method'] == ConstantEnum::RECEIPT_METHOD['request']) {
-                    $method = '생성';
-                    $sign = "x";
+                    $method     = '생성';
+                    $sign       = "x";
                 }else if($item['method'] == ConstantEnum::RECEIPT_METHOD['donate']) {
                     $method = '기부';
-                    $sign = "-";
+                    $sign   = "-";
                 }else {
                     return response()->json(['message'=>'false'], 401);
                 }
@@ -223,8 +236,9 @@ class UserController extends Controller
                 'form_id'   => $form_id,
                 'content'   => $content,
                 'sign'      => $sign,
-                'price'     => (int)$value
-            ]);
+                'price'     => (int)$value,
+                'detail'    => $detail, 
+                ]);
         }
         // 정렬
         $sortedResult = $result->sortByDesc(function ($list, $key) {

@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Surveies;
  * 만든날:                        2019년 5월 01일
  *
  * 함수 목록
- * analysis(설문조사 정보)        설문조사의 질문 당 응답 결과 분석
- * targetAnalysis(질문 정보)      응답자 필터링 한 설문조사 분석 질문 결과
+ * analysis(설문조사 정보)      :   설문조사의 질문 당 응답 결과 분석
+ * targetAnalysis(질문 정보)    :   응답자 필터링 한 설문조사 분석 질문 결과
  * 
  */ 
 
@@ -53,7 +53,7 @@ class AnalysisController extends Controller
         $questions              = $formQuestion->get();
         $formData               = $this->formModel->where('id',$formId)->with('target.job')->first();
         
-        
+
         if($formData->target == null){                                                      //타겟이 없을 경우 
 
             $jobArray      = $this->jobModel->all();
@@ -95,7 +95,10 @@ class AnalysisController extends Controller
         $targetArray            = array("age","gender","job");
         $responseData           = $this->formModel->where('id',$formId)->first()->respondentUsers;
         $allResponsesCount      = $responseData->count();
-        if($allResponsesCount == 0) $allResponsesCount = 1;
+
+        if($allResponsesCount == 0){
+            $allResponsesCount = 1;
+        } 
 
         foreach($targetArray as $key){
             $insertableArray        = array();
@@ -141,7 +144,10 @@ class AnalysisController extends Controller
             $itemData               = $question->questionItems;
             $allResponsesCount      = $question->responses->count();
 
-            if($allResponsesCount == 0) $allResponsesCount = 1;
+            if($allResponsesCount == 0){
+                $allResponsesCount = 1;
+            } 
+
             array_push($resultArray, $question->toArray());
             
             
@@ -158,7 +164,12 @@ class AnalysisController extends Controller
                 case 6: 
                 //객관식 - 아이템당 응답자 수를 array로 전달
                     $itemValue  = $question->questionItems->pluck('content')->toArray();
-                    if($questionType == 6) $itemValue = $question->questionItems->pluck('content_number')->toArray();
+
+                    if($questionType == 6){
+
+                        $itemValue = $question->questionItems->pluck('content_number')->toArray();
+                    
+                    } 
                     
                     foreach($itemData as $item){
                         $itemId             = $item->id;
@@ -214,15 +225,26 @@ class AnalysisController extends Controller
                                                   ->toArray();
 
         $questionType       = $question->type_id;
-        $itemData           = $question->questionItems;
-        $itemArray          = $question->questionItems->pluck('content')->toArray();
-        $responseValue      = $question->responses->whereIn('response_id',$userArray)->pluck('question_text');
-        $allResponsesCount  = $question->responses->count();
         
-        if($questionType == 6) $itemArray = $question->questionItems->toArray();
+        $responseValue      = $this->responseModel->whereIn('id',$responseIdArray)->pluck('question_text');
+        $allResponsesCount  = $question->responses->count();
 
-        if($questionType!=2 && $questionType!=4){
+        if($allResponsesCount == 0){
+
+            $allResponsesCount = 1;
+        
+        } 
+        
+
+        if($questionType!=2 && $questionType!=5){
             //객관식 - 아이템당 응답자 수를 array로 전달
+            $itemData           = $question->questionItems;
+            
+            if($questionType == 6){
+                $itemArray = $question->questionItems->toArray();
+            }else{
+                $itemArray  = $question->questionItems->pluck('content')->toArray();
+            } 
             foreach($itemData as $item){
                 $itemId             = $item->id;
                 $itemResponseCount  = $this->itemResponseModel->where('item_id',$itemId)
@@ -247,9 +269,9 @@ class AnalysisController extends Controller
     
             
         return response()->json([
-            'message' => 'true', 
-            'responseArray' => $responseArray, 
-            'itemArray' => $itemArray,
+            'message'           => 'true', 
+            'responseArray'     => $responseArray, 
+            'itemArray'         => $itemArray,
             'allResponsesCount' => $allResponsesCount],
              200);
     }//end of targetAnalysis()

@@ -10,10 +10,10 @@ namespace App\Http\Controllers\Surveies;
  * 만든날:                        2019년 5월 7일
  *
  * 함수 목록
- * index()                      판매중인 설문조사 내용
- * create(설문정보)             설문 요청 시 작성한 정보를 해당 테이블에 저장
- * uploadImage(파일)            파일 업로드
- * deleteImage(파일)            파일 삭제
+ * index()              :        판매중인 설문조사 내용
+ * create(설문정보)      :        설문 요청 시 작성한 정보를 해당 테이블에 저장
+ * uploadImage(파일)    :         파일 업로드
+ * deleteImage(파일)    :         파일 삭제
  * 
  */
 

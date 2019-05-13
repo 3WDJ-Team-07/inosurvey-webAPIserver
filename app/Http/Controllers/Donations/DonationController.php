@@ -85,7 +85,7 @@ class DonationController extends Controller
         $donation = $this->donationModel->where('id',$request->donation_id)->first();
 
         //기부금 초과 체크
-        if($request->ino > $donation->target_amount || $request->ino + $donation->current_amount > $donation->target_amount){
+        if($request->ino > $donation->target_amount || ($request->ino + $donation->current_amount) > $donation->target_amount){
             return response()->json([
                 'message'=>'You cannot donate more than the target amount.',
                 'status' => 'excess'

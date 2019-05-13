@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Helpers;
  * 만든날:                        2019년 4월 7일
  *
  * 함수 목록
- * getGuzzleRequest(HTTP,URL) : nodeJs 서버로부터 데이터를 GET방식으로 요청하고 데이터를 받아 필요 컨트롤러에 응답
- * postGuzzleRequest(payload,URL) : nodeJs 서버로부터 데이터를 POST방식으로 요청하고 데이터를 받아 필요 컨트롤러에 응답
+ * getGuzzleRequest(HTTP,URL)      : nodeJs 서버로부터 데이터를 GET방식으로 요청하고 데이터를 받아 필요 컨트롤러에 응답
+ * postGuzzleRequest(payload,URL)  : nodeJs 서버로부터 데이터를 POST방식으로 요청하고 데이터를 받아 필요 컨트롤러에 응답
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

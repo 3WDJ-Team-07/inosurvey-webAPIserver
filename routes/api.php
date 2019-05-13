@@ -13,11 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
    //user
    Route::group(['prefix' => 'user'], function () {
         
@@ -64,7 +59,7 @@ use Illuminate\Http\Request;
     //survey-market
     Route::group(['prefix' => 'market'], function () {
     
-        Route::get('/index', 'Markets\ListController@index');
+        Route::post('/index', 'Markets\ListController@index');
         Route::post('/show', 'Markets\ListController@show');
         Route::post('/sale', 'Markets\MarketController@salesRegistration');
         Route::post('/purchase', 'Markets\MarketController@purchase');        

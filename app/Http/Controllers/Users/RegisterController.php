@@ -30,7 +30,7 @@ class RegisterController extends Controller {
     
         $user = User::create(request()->all());
         
-        $walletCreateRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['wallet_create']);   //지갑 공개키,개인키 발급
+        $walletCreateRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['wallet_create']);     //지갑 공개키,개인키 발급
          
         //요청 실패
          if($walletCreateRes['status'] != 200){
@@ -45,7 +45,7 @@ class RegisterController extends Controller {
             
         Wallet::create($param);
 
-        $faucetRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['faucet'] . '?user_id=' . $user->id . '&amount=' . '1000');
+        $faucetRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['faucet'] . '?user_id=' . $user->id . '&amount=' . '1000');  //첫 회원 가입시 1000ino 발급
         
          //요청 실패
          if($faucetRes['status'] != 200){

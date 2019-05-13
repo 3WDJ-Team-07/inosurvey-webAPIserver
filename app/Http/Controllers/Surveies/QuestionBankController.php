@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Surveies;
  * 만든날:                        2019년 4월 6일
  *
  * 함수 목록
- * questionBank() :                 DB에 질문데이터를 가져오고 프론트엔드에 응답
+ * questionBank() :               DB에 질문데이터를 가져오고 프론트엔드에 응답
  *
  */
 use Illuminate\Http\Request;

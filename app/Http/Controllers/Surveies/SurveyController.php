@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Surveies;
  * 만든날:                        2019년 4월 10일
  *
  * 함수 목록
- * abort(설문아이디)            진행중인 설문을 강제 중단시키는 함수
+ * abort(설문아이디) :            진행중인 설문을 강제 중단시키는 함수
  * 
  */
 

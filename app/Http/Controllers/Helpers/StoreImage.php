@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Helpers;
  * 만든날:                        2019년 4월 11일
  *
  * 함수 목록
- * fileUpload(파일,저장소명) :    파일 이미지를 검증하고  AWS S3 저장소에 파일을 저장한다.
- * fileDelete(파일)         :    선택 취소된 파일을 S3저장소에서 삭제한다.
+ * fileUpload(파일,저장소명)    :    파일 이미지를 검증하고  AWS S3 저장소에 파일을 저장한다.
+ * fileDelete(파일)             :   선택 취소된 파일을 S3저장소에서 삭제한다.
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;

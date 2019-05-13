@@ -45,6 +45,8 @@ class ConstantEnum extends Controller
         'private'           => 'private_key',
         'amount'            => 'currAmount',
         'survey_price'      => 'sellPrice',
+        'reward'            => 'rewardPrice',
+        'is_buy'            => 'isBuy',
     ];
     
     const RECEIPT_TITLE = [
@@ -80,5 +82,6 @@ class ConstantEnum extends Controller
         'sales'                     => '/market/survey/add',
         'price'                     => '/survey/',
         'buy'                       => '/market/survey/buy',
+        'is_buy'                    => '/market/survey/buyable',
     ];
 }
