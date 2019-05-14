@@ -13,10 +13,10 @@
     <link href=https://use.fontawesome.com/releases/v5.0.13/css/all.css rel=stylesheet>
     <link href=/css/vuetify.min.css rel=stylesheet>
     <link href=/css/app.3cf6326a.css rel=preload as=style>
-    <link href=/css/chunk-vendors.000759ea.css rel=preload as=style>
-    <link href=/js/app.e9660176.js rel=preload as=script>
-    <link href=/js/chunk-vendors.0edad9a7.js rel=preload as=script>
-    <link href=/css/chunk-vendors.000759ea.css rel=stylesheet>
+    <link href=/css/chunk-vendors.1fa394ca.css rel=preload as=style>
+    <link href=/js/app.2b801348.js rel=preload as=script>
+    <link href=/js/chunk-vendors.18a726a4.js rel=preload as=script>
+    <link href=/css/chunk-vendors.1fa394ca.css rel=stylesheet>
     <link href=/css/app.3cf6326a.css rel=stylesheet>
 </head>
 
@@ -25,7 +25,7 @@
         <strong>We're sorry but inosurvey doesn't work properly without JavaScript enabled. Please enable it tocontinue.</strong>
     </noscript>
     <div id=app></div>
-    <script src=/js/chunk-vendors.0edad9a7.js></script>
-    <script src=/js/app.e9660176.js></script>
- </body>
- </html>
+    <script src=/js/chunk-vendors.18a726a4.js></script>
+    <script src=/js/app.2b801348.js></script>
+</body>
+</html>
