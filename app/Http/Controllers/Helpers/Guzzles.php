@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Helpers;
 /**
  * 클래스명:                      Guzzles
  * @package                      App\Http\Controllers\Helpers
- * 클래스 설명:                   유저 회원가입 기능을 담당하는 컨트롤러
+ * 클래스 설명:                   외부 서버와 API 통신 기능을 담당하는 트레이트
  * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 
  * 만든날:                        2019년 4월 7일
  *
