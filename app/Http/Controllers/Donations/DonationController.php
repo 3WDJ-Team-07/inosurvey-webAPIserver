@@ -135,7 +135,10 @@ class DonationController extends Controller
             return response()->json(['message'=>'Failed to make donation to the organization'], 401);
         }
 
-        return response()->json(['message'=>'true'],200);
+        return response()->json([
+            'message'=>'true',
+            'status' => 'success',
+        ],200);
     }
 
 }

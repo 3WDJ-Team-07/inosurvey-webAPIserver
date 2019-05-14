@@ -3,8 +3,8 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Models\Users\User::class, function (Faker $faker) {
-    $user_id = ['bogeun2012','pyc4411','pyc211','pyc2238','pyc3358'];
-    $num = $faker->numberBetween(0,4);
+    $name = ['박보근','추호진','정준우','김민영','류정은','김현성','김은광','김승연','윤건희','이상진','류정훈','곽민수'];
+    $num = $faker->numberBetween(0,11);
     
     $job_id_min = App\Models\Users\Job::min('id');
     $job_id_max = App\Models\Users\Job::max('id');
@@ -12,12 +12,12 @@ $factory->define(App\Models\Users\User::class, function (Faker $faker) {
 
     return [
         // 'user_id' => $user_id[$num] . $num,
-        'user_id' => 'ino'.rand(0,50),
-        'password' => '123456', 
-        'email' => $faker->unique()->safeEmail,
-        'nickname' => $faker->name,       
-        'gender' => rand(1,2),
-        'age' => rand(1945,2005),
-        'job_id' => $faker->numberBetween($job_id_min,$job_id_max),
+        'user_id'   => 'ino'.rand(0,50),
+        'password'  => '123456', 
+        'email'     => $faker->unique()->safeEmail,
+        'nickname'  => $name[$num],       
+        'gender'    => rand(1,2),
+        'age'       => rand(1945,2005),
+        'job_id'    => $faker->numberBetween($job_id_min,$job_id_max),
     ];
 });
