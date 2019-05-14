@@ -38,7 +38,8 @@ class ListController extends Controller
         $saleList =  $this->formModel->saleList()->get();
           
         foreach($saleList as $item){
-           //유저 응답 보상 지급 
+           
+            //조회 요청 데이터 
             $payload = array( 
                 'form_params' => [
                     'user_id'   =>  $request->id,
