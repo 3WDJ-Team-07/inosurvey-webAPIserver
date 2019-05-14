@@ -18,6 +18,21 @@ class QuestionBanksTableSeed extends Seeder
         $data = array(
 
             $questions = array(
+                'survey_title' => "()는 귀하의 질병을 치료할 때에 얼마나 도움이 됩니까?",
+                    'values' =>array( 
+                        '귀하의 의료 제공자',
+                        '직접입력',
+                        ),
+                    'items' =>array(
+                        array('value' => '매우 도움이 된다.'),
+                        array('value' => '도움이 된다.'),
+                        array('value' => '도움이 되지 않는다.'),
+                        array('value' => '매우 도움이 되지 않는다.'),
+                        ),
+                    ),
+
+                    
+            $questions = array(
                 'survey_title' => "지난 12개월 동안 의료와 관계된 질문으로 정상 진료 시간 이후에 ()에게 전화하신적이 있습니까?",
                     'values' =>array( 
                         '귀하의 의료 제공자',
@@ -120,21 +135,6 @@ class QuestionBanksTableSeed extends Seeder
                         array('value' => '경청했다.'),
                         array('value' => '경청하지 않았다.'),
                         array('value' => '매우 경청하지 않았다.'),
-                        ),
-                    ),
-
-                    
-            $questions = array(
-                'survey_title' => "()는 귀하의 질병을 치료할 때에 얼마나 도움이 됩니까?",
-                    'values' =>array( 
-                        '귀하의 의료 제공자',
-                        '직접입력',
-                        ),
-                    'items' =>array(
-                        array('value' => '매우 도움이 된다.'),
-                        array('value' => '도움이 된다.'),
-                        array('value' => '도움이 되지 않는다.'),
-                        array('value' => '매우 도움이 되지 않는다.'),
                         ),
                     ),
 
