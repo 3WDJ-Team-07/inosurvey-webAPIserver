@@ -12,12 +12,12 @@
            integrity=sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr crossorigin=anonymous>
     <link href=https://use.fontawesome.com/releases/v5.0.13/css/all.css rel=stylesheet>
     <link href=/css/vuetify.min.css rel=stylesheet>
-    <link href=/css/app.3cf6326a.css rel=preload as=style>
+    <link href=/css/app.6e650852.css rel=preload as=style>
     <link href=/css/chunk-vendors.1fa394ca.css rel=preload as=style>
-    <link href=/js/app.2b801348.js rel=preload as=script>
+    <link href=/js/app.8752c25d.js rel=preload as=script>
     <link href=/js/chunk-vendors.18a726a4.js rel=preload as=script>
     <link href=/css/chunk-vendors.1fa394ca.css rel=stylesheet>
-    <link href=/css/app.3cf6326a.css rel=stylesheet>
+    <link href=/css/app.6e650852.css rel=stylesheet>
 </head>
 
 <body>
@@ -26,6 +26,6 @@
     </noscript>
     <div id=app></div>
     <script src=/js/chunk-vendors.18a726a4.js></script>
-    <script src=/js/app.2b801348.js></script>
+    <script src=/js/app.8752c25d.js></script>
 </body>
 </html>
