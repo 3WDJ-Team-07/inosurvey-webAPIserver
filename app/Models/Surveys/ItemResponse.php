@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Surveies;
+namespace App\Models\Surveys;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class ItemResponse extends Model
     
     //questions테이블 itemResponse테이블 1-N
     public function questionItem(){
-        return $this->belongsTo('App\Models\Surveies\QuestionItem');
+        return $this->belongsTo('App\Models\Surveys\QuestionItem');
     }
 }

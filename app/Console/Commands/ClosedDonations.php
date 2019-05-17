@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-
+use App\Models\Surveys\Form;
 class ClosedDonations extends Command
 {
     /**
@@ -27,6 +27,7 @@ class ClosedDonations extends Command
      */
     public function __construct()
     {
+        $this->formModel = new Form();
         parent::__construct();
     }
 

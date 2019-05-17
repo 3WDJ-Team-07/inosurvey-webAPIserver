@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Surveies;
+namespace App\Http\Controllers\Surveys;
 /**
  * 클래스명:                       SurveyController
- * @package                       App\Http\Controllers\Surveies
+ * @package                       App\Http\Controllers\Surveys
  * 클래스 설명:                    설문 부가기능을 담당하는 클래스
  * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근
  * 만든날:                        2019년 4월 10일
@@ -16,7 +16,7 @@ namespace App\Http\Controllers\Surveies;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Models\Surveies\Form;
+use App\Models\Surveys\Form;
 
 class SurveyController extends Controller {
     

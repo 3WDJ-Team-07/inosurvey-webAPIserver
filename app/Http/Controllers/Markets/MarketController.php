@@ -18,7 +18,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
 
-use App\Models\Surveies\Form;
+use App\Models\Surveys\Form;
 
 class MarketController extends Controller
 {
@@ -34,7 +34,7 @@ class MarketController extends Controller
     
     //판매 등록
     public function salesRegistration(Request $request){
-      
+
         //설문 판매등록
         $payload = array( 
             'form_params' => [

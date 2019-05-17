@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Surveies;
+namespace App\Http\Controllers\Surveys;
 
 /**
  * 클래스명:                       RequestController
- * @package                       App\Http\Controllers\Surveies
+ * @package                       App\Http\Controllers\Surveys
  * 클래스 설명:                    설문조사 요청 작업을 하는 컨트롤러
  * 만든이:                        3-WDJ 7조 ナナイロトリ 1701037 김민영 1501107 박보근
  * 만든날:                        2019년 5월 7일
@@ -24,12 +24,12 @@ use App\Http\Controllers\Helpers\StoreImage;
 use App\Http\Controllers\Helpers\Guzzles;
 use Carbon\Carbon;
 
-use App\Models\Surveies\Form;
-use App\Models\Surveies\Question;
-use App\Models\Surveies\QuestionItem;
-use App\Models\Surveies\ReplyableUser;
-use App\Models\Surveies\JobTarget;
-use App\Models\Surveies\Target;
+use App\Models\Surveys\Form;
+use App\Models\Surveys\Question;
+use App\Models\Surveys\QuestionItem;
+use App\Models\Surveys\ReplyableUser;
+use App\Models\Surveys\JobTarget;
+use App\Models\Surveys\Target;
 use App\Models\Users\Job;
 use App\Models\Users\User;
 
@@ -216,7 +216,7 @@ class RequestController extends Controller
     //이미지 등록
     public function uploadImage(Request $request){
 
-        $file = $this->fileUpload($request,ConstantEnum::S3['surveies']);
+        $file = $this->fileUpload($request,ConstantEnum::S3['surveys']);
         
         if($file == false){
             return response()->json(['message'=>'false'],400);

@@ -39,7 +39,12 @@ class Donation extends Model
 
     //donation테이블 form테이블 1-N
     public function form(){
-        return $this->hasMany('App\Models\Surveies\Form');
+        return $this->hasMany('App\Models\Surveys\Form');
+    }
+
+    //donations테이블 categories테이블 N-N (중간테이블 category_donation)
+    public function category(){
+        return $this->belongsToMany('App\Models\Donations\Category','category_donation');
     }
 
     //기부 달성치 계산 
@@ -52,10 +57,16 @@ class Donation extends Model
         }
     }
 
+
+    //기부단체 리스트 
+    public function donationList(){
+        return $this->with('category');
+    }
+
     //기부단체 기부자 리스트
     public function donorList($col,$arg){
 
-        return $this->where($col,$arg)->with(['users']);
+        return $this->where($col,$arg)->with(['users','category']);
     }
 
 }

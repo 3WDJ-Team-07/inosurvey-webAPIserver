@@ -11,6 +11,6 @@ class FormsTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\Form::class,1)->create();
+        factory(App\Models\Surveys\Form::class,1)->create();
     }
 }

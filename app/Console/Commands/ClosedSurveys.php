@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\Surveies\Form;
+use App\Models\Surveys\Form;
 
 class ClosedSurveys extends Command
 {

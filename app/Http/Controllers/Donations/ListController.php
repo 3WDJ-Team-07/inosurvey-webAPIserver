@@ -9,8 +9,8 @@ namespace App\Http\Controllers\Donations;
  * 만든날:                        2019년 5월 1일
  *
  * 함수 목록
- * index() :                       기부 리스트 조회
- * show(기부아이디)  :              특정 기부단체 정보 조회
+ * index()          :             기부 리스트 조회
+ * show(기부아이디)  :             특정 기부단체 정보 조회
  */
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -31,8 +31,11 @@ class ListController extends Controller
 
     //기부단체 리스트
     public function index(){
-        if(Donation::all()) {
-            return response()->json(['message'=>'true','donation'=>Donation::all()],200);
+        if(Donation::get()) {
+
+            $donations = $this->donationModel->donationList()->get();
+
+            return response()->json(['message'=>'true', 'donation'=>$donations],200);
         }else {
             return response()->json(['message'=>'false'],400);
         }

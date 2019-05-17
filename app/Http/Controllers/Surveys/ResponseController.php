@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Surveies;
+namespace App\Http\Controllers\Surveys;
 /**
  * 클래스명:                      ResponseController
- * @package                      App\Http\Controllers\Surveies
+ * @package                      App\Http\Controllers\Surveys
  * 클래스 설명:                   설문조사 응답 작업을 하는 컨트롤러
  * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 1701037 김민영 
  * 만든날:                        2019년 4월 10일
@@ -21,12 +21,12 @@ use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
 use Carbon\Carbon;
 
-use App\Models\Surveies\Form;
-use App\Models\Surveies\Question;
-use App\Models\Surveies\QuestionItem;
-use App\Models\Surveies\ItemResponse;
-use App\Models\Surveies\SurveyUser;
-use App\Models\Surveies\Response;
+use App\Models\Surveys\Form;
+use App\Models\Surveys\Question;
+use App\Models\Surveys\QuestionItem;
+use App\Models\Surveys\ItemResponse;
+use App\Models\Surveys\SurveyUser;
+use App\Models\Surveys\Response;
 use App\Models\Users\User;
 
 class ResponseController extends Controller

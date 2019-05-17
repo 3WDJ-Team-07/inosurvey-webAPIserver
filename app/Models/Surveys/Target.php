@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Surveies;
+namespace App\Models\Surveys;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelScopes;
@@ -22,7 +22,7 @@ class Target extends Model
     
     //forms테이블 targets테이블 1-1
     public function form(){
-        return $this->hasOne('App\Models\Surveies\Form');
+        return $this->hasOne('App\Models\Surveys\Form');
     }
 
     

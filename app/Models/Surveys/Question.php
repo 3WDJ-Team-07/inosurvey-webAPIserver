@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Surveies;
+namespace App\Models\Surveys;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelScopes;
@@ -23,22 +23,22 @@ class Question extends Model
 
      //types테이블 questions테이블 1-N
      public function type(){
-        return $this->belongsTo('App\Models\Surveies\Type');
+        return $this->belongsTo('App\Models\Surveys\Type');
     }
 
       //forms테이블 questions테이블 1-N
       public function form(){
-        return $this->belongsTo('App\Models\Surveies\Form');
+        return $this->belongsTo('App\Models\Surveys\Form');
     }
 
     //questions테이블 reponses테이블 1-N
     public function responses(){
-        return $this->hasMany('App\Models\Surveies\Response');
+        return $this->hasMany('App\Models\Surveys\Response');
     } 
     
     //questions테이블 questionItems테이블 1-N
     public function questionItems(){
-        return $this->hasMany('App\Models\Surveies\QuestionItem');
+        return $this->hasMany('App\Models\Surveys\QuestionItem');
     } 
 
 

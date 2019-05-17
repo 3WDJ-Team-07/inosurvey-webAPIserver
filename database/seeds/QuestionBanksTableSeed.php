@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Surveies\QuestionBank;
+use App\Models\Surveys\QuestionBank;
 
 class QuestionBanksTableSeed extends Seeder
 {

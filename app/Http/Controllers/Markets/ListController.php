@@ -19,7 +19,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Http\Controllers\Helpers\Guzzles;
 
-use App\Models\Surveies\Form;
+use App\Models\Surveys\Form;
 
 class ListController extends Controller
 {
