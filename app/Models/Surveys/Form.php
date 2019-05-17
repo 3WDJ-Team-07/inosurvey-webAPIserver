@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Surveies;
+namespace App\Models\Surveys;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Traits\ModelScopes;
@@ -28,12 +28,12 @@ class Form extends Model
   
     //forms테이블 targets테이블 1-1
     public function target(){
-        return $this->belongsTo('App\Models\Surveies\Target');
+        return $this->belongsTo('App\Models\Surveys\Target');
     }
   
     //forms테이블 questions테이블 1-N
      public function question(){
-        return $this->hasMany('App\Models\Surveies\Question');
+        return $this->hasMany('App\Models\Surveys\Question');
     }
 
     //user테이블 form테이블 1-N
@@ -53,13 +53,13 @@ class Form extends Model
 
 
     //설문 정보 스코프
-    public function getSurveies(){
+    public function getSurveys(){
         return $this->with(['user','target.job','question.questionItems']);
     }
 
     // 판매 설문 리스트
     public function saleList(){
-        return $this->getSurveies()->where('is_sale',1)->where('is_completed',1);
+        return $this->getSurveys()->where('is_sale',1)->where('is_completed',1);
     }
 
     // 완료(is_sale = false) 설문 리스트

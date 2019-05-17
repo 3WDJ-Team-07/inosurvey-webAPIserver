@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Users;
  *
  * 함수 목록
  * check(유저정보)          :    유저의 토큰값을 검증하고 DB의 유저정보를 반환 
- * userSurveies(유저아이디) :    유저가 만든 설문 리스트 조회
+ * userSurveys(유저아이디)  :    유저가 만든 설문 리스트 조회
  * userSurvey(설문아이디)   :    유저가 만든 설문 상세 조회
  * getWallet(유저 아이디)   :    유저의 지갑을 조회하는 함수
  * isSale(설문 아이디)      :    자신의 설문조사를 판매하는 함수
@@ -26,7 +26,7 @@ use \Firebase\JWT\JWT;
 use Carbon\Carbon;
 
 use App\Models\Users\User;
-use App\Models\Surveies\Form;
+use App\Models\Surveys\Form;
 use App\Models\Donations\Donation;
 
 class UserController extends Controller
@@ -64,9 +64,9 @@ class UserController extends Controller
 
 
     //나의 설문조사 리스트
-    public function userSurveies(Request $request){
+    public function userSurveys(Request $request){
         
-        $serveies = $this->formModel->getSurveies()->where('user_id',$request->id)->get();
+        $serveies = $this->formModel->getSurveys()->where('user_id',$request->id)->get();
 
         return response()->json([
             'message'=>'true',
@@ -78,7 +78,7 @@ class UserController extends Controller
     //나의 설문조사 상세보기
     public function userSurvey(Request $request){
         
-        $survey = $this->formModel->getSurveies()->where('id',$request->form_id)->first();
+        $survey = $this->formModel->getSurveys()->where('id',$request->form_id)->first();
 
         $getPriceRes = $this->getGuzzleRequest(ConstantEnum::NODE_JS['price'].$request->form_id);
     

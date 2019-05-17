@@ -21,17 +21,20 @@ use Carbon\Carbon;
 
 use App\Models\Donations\Donation;
 use App\Models\Donations\DonationUser;
+use App\Models\Donations\CategoryDonation;
 
 class DonationController extends Controller
 {
     use StoreImage, Guzzles;
 
-    private $donationModel = null;
-    private $donationUserModel = null;
+    private $donationModel          = null;
+    private $donationUserModel      = null;
+    private $categoryDonationModel  = null;
 
     function __construct(){
-        $this->donationModel        = new Donation();
-        $this->donationUserModel    = new DonationUser();
+        $this->donationModel            = new Donation();
+        $this->donationUserModel        = new DonationUser();
+        $this->categoryDonationModel    = new CategoryDonation;
     }
 
    
@@ -53,7 +56,15 @@ class DonationController extends Controller
             'donator_id'    =>  $request->user_id,
         );
 
-        $this->donationModel->create($param);
+
+        $donation = $this->donationModel->create($param);
+
+        $categoryParam = array(
+            'donation_id'       =>  $donation->id,
+            'category_id'       =>  $request->category,
+        );
+
+        $this->categoryDonationModel->create($categoryParam);   //카테고리 추가
 
         $closedAt = new Carbon($request->closed_at);
                                   

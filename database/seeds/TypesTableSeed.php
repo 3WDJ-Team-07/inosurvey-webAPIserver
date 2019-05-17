@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Models\Surveies\Type;
+use App\Models\Surveys\Type;
 class TypesTableSeed extends Seeder
 {
     /**

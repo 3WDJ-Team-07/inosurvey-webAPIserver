@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ReplyableUserTableSeed extends Seeder
+class CategoryDonationTableSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +11,6 @@ class ReplyableUserTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveys\ReplyableUser::class,1)->create();
+        factory(App\Models\Donations\CategoryDonation::class,1)->create();
     }
 }

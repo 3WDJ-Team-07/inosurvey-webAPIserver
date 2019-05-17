@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Surveies;
+namespace App\Http\Controllers\Surveys;
 /**
  * 클래스명:                       RequestListController
- * @package                       App\Http\Controllers\Surveies
+ * @package                       App\Http\Controllers\Surveys
  * 클래스 설명:                    기부 관련 리스트를 조회하는 클래스
  * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 1701037 김민영
  * 만든날:                        2019년 5월 1일
@@ -14,7 +14,7 @@ namespace App\Http\Controllers\Surveies;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 
-use App\Models\Surveies\Form;
+use App\Models\Surveys\Form;
 
 class RequestListController extends Controller
 {
@@ -27,8 +27,8 @@ class RequestListController extends Controller
     }
 
     public function index(){
-        $serveies = $this->formModel->getSurveies()->get();
-        return response()->json(['message'=>'true','surveies'=>$serveies],200);
+        $surveys = $this->formModel->getSurveys()->get();
+        return response()->json(['message'=>'true','surveys'=>$surveys],200);
     }
 
 

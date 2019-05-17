@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
         Route::post('/register', 'Users\RegisterController@register');
         Route::post('/login', 'Users\LoginController@login');
         Route::post('/check', 'Users\UserController@check')->middleware('checkToken');
-        Route::post('/surveies', 'Users\UserController@userSurveies');
+        Route::post('/surveys', 'Users\UserController@userSurveys');
         Route::post('/survey', 'Users\UserController@userSurvey');
         Route::post('/wallet', 'Users\UserController@getWallet');
         Route::post('/wallet/receipt/{range}/{method?}', 'Users\UserController@getReceipt');
@@ -30,29 +30,29 @@ use Illuminate\Http\Request;
     //survey-request
     Route::group(['prefix' => 'survey'], function () {
         
-        Route::get('/index', 'Surveies\RequestListController@index');
-        Route::get('/question-bank', 'Surveies\QuestionBankController@questionBank');
-        Route::post('/create', 'Surveies\RequestController@create');
-        Route::post('/image-data', 'Surveies\RequestController@uploadImage');
-        Route::post('/image-delete', 'Surveies\RequestController@deleteImage');
-        Route::post('/abort', 'Surveies\SurveyController@abort');
+        Route::get('/index', 'Surveys\RequestListController@index');
+        Route::get('/question-bank', 'Surveys\QuestionBankController@questionBank');
+        Route::post('/create', 'Surveys\RequestController@create');
+        Route::post('/image-data', 'Surveys\RequestController@uploadImage');
+        Route::post('/image-delete', 'Surveys\RequestController@deleteImage');
+        Route::post('/abort', 'Surveys\SurveyController@abort');
     
     });
 
     //survey-response
     Route::group(['prefix' => 'response'], function () {
     
-        Route::post('/index', 'Surveies\ResponseListController@getForm');
-        Route::post('/questions', 'Surveies\ResponseListController@selectQuestionItem');
-        Route::post('/create', 'Surveies\ResponseController@response');
+        Route::post('/index', 'Surveys\ResponseListController@getForm');
+        Route::post('/questions', 'Surveys\ResponseListController@selectQuestionItem');
+        Route::post('/create', 'Surveys\ResponseController@response');
     
     });
 
     //survey-analysis
     Route::group(['prefix' => 'analysis'], function () {
        
-        Route::post('/index', 'Surveies\AnalysisController@analysis');
-        Route::post('/target-result', 'Surveies\AnalysisController@targetAnalysis');
+        Route::post('/index', 'Surveys\AnalysisController@analysis');
+        Route::post('/target-result', 'Surveys\AnalysisController@targetAnalysis');
     
     });  
 
@@ -72,7 +72,7 @@ use Illuminate\Http\Request;
     Route::group(['prefix' => 'donation'], function () {
 
         Route::get('/index', 'Donations\ListController@index');
-        Route::post('/create', 'Donations\DonationController@create')->middleware('donator');
+        Route::post('/create', 'Donations\DonationController@create')/*->middleware('donator')*/;
         Route::post('/donate', 'Donations\DonationController@donate');
         Route::post('/show', 'Donations\ListController@show');
     

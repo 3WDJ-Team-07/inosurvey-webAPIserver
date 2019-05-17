@@ -11,7 +11,7 @@ class SurveyUsersTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\SurveyUser::class,1)->create();
+        factory(App\Models\Surveys\SurveyUser::class,1)->create();
 
     }
 }

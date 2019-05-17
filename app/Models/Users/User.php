@@ -8,8 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Hash;
 use App\Traits\ModelScopes;
 
-use App\Models\Surveies\SurveyUser;
-use App\Models\Surveies\JobTarget;
+use App\Models\Surveys\SurveyUser;
+use App\Models\Surveys\JobTarget;
 class User extends Authenticatable
 {
     use Notifiable,ModelScopes;
@@ -68,17 +68,17 @@ class User extends Authenticatable
 
     //user테이블 form테이블 1-N
     public function form(){
-        return $this->hasMany('App\Models\Surveies\Form');
+        return $this->hasMany('App\Models\Surveys\Form');
     }
 
     //user테이블 form테이블 N-N(중간테이블-survey_user)
     public function respondentForms(){
-        return $this->belongsToMany('App\Models\Surveies\Form','survey_user','respondent_id','survey_id');
+        return $this->belongsToMany('App\Models\Surveys\Form','survey_user','respondent_id','survey_id');
     }
 
     //user테이블 form테이블 N-N(중간테이블-replyable_user)
     public function replyableForms(){
-        return $this->belongsToMany('App\Models\Surveies\Form','replyable_user','replyable_id','survey_id');
+        return $this->belongsToMany('App\Models\Surveys\Form','replyable_user','replyable_id','survey_id');
     }
 
     //패스워드 저장시 Hash속성으로 변환

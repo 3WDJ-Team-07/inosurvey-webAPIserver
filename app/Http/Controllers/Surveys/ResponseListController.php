@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Surveies;
+namespace App\Http\Controllers\Surveys;
 /**
  * 클래스명:                       ResponseListController
- * @package                       App\Http\Controllers\Surveies
+ * @package                       App\Http\Controllers\Surveys
  * 클래스 설명:                    기부 관련 리스트를 조회하는 클래스
  * 만든이:                        3-WDJ 7조 ナナイロトリ 1501107 박보근 1701037 김민영
  * 만든날:                        2019년 5월 1일
@@ -17,8 +17,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Helpers\Guzzles;
 use App\Http\Controllers\Helpers\ConstantEnum;
 
-use App\Models\Surveies\Form;
-use App\Models\Surveies\Question;
+use App\Models\Surveys\Form;
+use App\Models\Surveys\Question;
 use App\Models\Users\User;
 
 class ResponseListController extends Controller

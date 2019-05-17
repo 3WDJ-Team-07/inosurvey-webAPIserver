@@ -11,6 +11,6 @@ class ResponsesTableSeed extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Surveies\Response::class,1)->create();
+        factory(App\Models\Surveys\Response::class,1)->create();
     }
 }

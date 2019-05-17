@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Surveies;
+namespace App\Models\Surveys;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,6 +13,6 @@ class SurveyUser extends Model
 
      //survey_user테이블 response테이블 1-N(외래키 response_id)
      public function response(){
-        return $this->hasMany('App\Models\Surveies\Response','response_id');
+        return $this->hasMany('App\Models\Surveys\Response','response_id');
     }
 }
