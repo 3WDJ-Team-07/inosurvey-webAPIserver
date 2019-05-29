@@ -22,6 +22,11 @@ class Donation extends Model
         'donator_id',
 
     ];
+    protected $hidden = [
+        'category_pivot',
+       
+    ];
+
 
     //user테이블 donation테이블 N-N
     //기부정보 - 후원자 정보
@@ -44,7 +49,7 @@ class Donation extends Model
 
     //donations테이블 categories테이블 N-N (중간테이블 category_donation)
     public function category(){
-        return $this->belongsToMany('App\Models\Donations\Category','category_donation');
+        return $this->belongsToMany('App\Models\Donations\Category','category_donation')->as('category_pivot');
     }
 
     //기부 달성치 계산 
@@ -60,7 +65,7 @@ class Donation extends Model
 
     //기부단체 리스트 
     public function donationList(){
-        return $this->with('category');
+        return $this->with('category:id');
     }
 
     //기부단체 기부자 리스트

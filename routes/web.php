@@ -18,7 +18,7 @@
 // });
 
 Route::view('/{any}', 'index')->where('any', '.*');
-Route::get('/test','Helpers\TestController@exports');
+Route::get('/test','Helpers\TestController@export');
 
 //////////////////////////////////////////////////////////////////
 
