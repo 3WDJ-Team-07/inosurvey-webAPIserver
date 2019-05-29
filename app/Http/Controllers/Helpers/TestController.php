@@ -30,8 +30,10 @@ class TestController extends Controller
 
 
 
-    public function exports(){
-        return Excel::download(new TestExport(),'users.xlsx');
+    public function export(){
+        return 'asd';
+        return view('test');
+        // return Excel::download(new TestExport(),'users.xlsx');
     }
 
 

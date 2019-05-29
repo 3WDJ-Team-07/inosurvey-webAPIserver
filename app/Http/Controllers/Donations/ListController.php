@@ -32,7 +32,7 @@ class ListController extends Controller
     //기부단체 리스트
     public function index(){
         if(Donation::get()) {
-
+        
             $donations = $this->donationModel->donationList()->get();
 
             return response()->json(['message'=>'true', 'donation'=>$donations],200);
