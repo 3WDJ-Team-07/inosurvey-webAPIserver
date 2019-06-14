@@ -20,6 +20,7 @@ class TypesTableSeed extends Seeder
             array('type' => '별등급'),
             array('type' => '의견란'),
             array('type' => '이미지선택'),
+            array('type' => '사전질문'),
         
         );
         

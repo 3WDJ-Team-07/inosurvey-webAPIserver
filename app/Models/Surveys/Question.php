@@ -41,9 +41,11 @@ class Question extends Model
         return $this->hasMany('App\Models\Surveys\QuestionItem');
     } 
 
+    //questions테이블 filtering_items테이블 1-1
+    public function filteringItem(){
+        return $this->belongsTo('App\Models\Surveys\FilteringItem');
+    }
 
-
-    
     public function selectItems($id){
 
             $questionItem = $this->with(['questionItems' => function ($query){

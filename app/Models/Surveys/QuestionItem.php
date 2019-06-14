@@ -33,7 +33,6 @@ class QuestionItem extends Model
         return $this->belongsTo('App\Models\Surveys\Question');
     } 
 
-
     //response테이블 questionItems테이블 N-N(중간 테이블 item_response)
     public function responses(){
         return $this->belongsToMany('App\Models\Surveys\Response','item_response','item_id','response_id');
@@ -42,6 +41,11 @@ class QuestionItem extends Model
     //questions테이블 itemResponse테이블 1-N
     public function itemResponses(){
         return $this->hasMany('App\Models\Surveys\ItemResponse');
+    }
+
+    //filtering_items테이블 question_items테이블 1-1
+    public function filteringItem(){
+        return $this->hasOne('App\Models\Surveys\FilteringItem','item_id');
     }
 
     public function updateImg($itemId, $img){
