@@ -30,6 +30,7 @@ use App\Models\Surveys\QuestionItem;
 use App\Models\Surveys\ReplyableUser;
 use App\Models\Surveys\JobTarget;
 use App\Models\Surveys\Target;
+use App\Models\Surveys\FilteringItem;
 use App\Models\Users\Job;
 use App\Models\Users\User;
 
@@ -45,6 +46,7 @@ class RequestController extends Controller
     private $jobTargetModel     = null;
     private $replyableUserModel = null;
     private $userModel          = null;
+    private $filteringItemModel = null;
 
     public function __construct() {
         $this->formModel            = new Form();
@@ -55,11 +57,14 @@ class RequestController extends Controller
         $this->jobTargetModel       = new JobTarget();
         $this->replyableUserModel   = new ReplyableUser();
         $this->userModel            = new User();
+        $this->filteringItemModel   = new FilteringItem();
     }
 
     //설문 작성
     public function create(Request $request){
     
+    
+
         //설문 결제
         $payload = array( 
             'form_params' => [
@@ -170,11 +175,13 @@ class RequestController extends Controller
                 'type_id'               => $question['type']
             ); 
             
+            
             $this->questionModel->create($questionData);
             
             $questionId         = $this->questionModel->getLatest('id')->id;
             $questionType       = $this->questionModel->getLatest('id')->type_id;
 
+            
             //question_items테이블 - 들어오는 순서에 맞게 item추가, 저장
             if($question['items'] || $question['type'] == 4){
                     //별등급일 경우 5개의 item생성
@@ -204,7 +211,15 @@ class RequestController extends Controller
                         
                         $contentNumber ++;
                     }
-
+                    
+                    if($question['type']==7){
+                        $filteringItemsData = array(
+                            'question_id'       => $questionId,
+                            'item_id'           => (int)$request->answer
+                        );
+                        $this->filteringItemModel->create($filteringItemsData);
+                    }
+        
             }//end of questionItem
         }//end of question foreach loop
 
