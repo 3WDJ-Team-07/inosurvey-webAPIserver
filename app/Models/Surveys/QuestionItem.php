@@ -45,7 +45,7 @@ class QuestionItem extends Model
 
     //filtering_items테이블 question_items테이블 1-1
     public function filteringItem(){
-        return $this->hasOne('App\Models\Surveys\FilteringItem','item_id');
+        return $this->belongsTo('App\Models\Surveys\FilteringItem','item_id');
     }
 
     public function updateImg($itemId, $img){

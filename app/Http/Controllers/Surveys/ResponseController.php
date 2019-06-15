@@ -77,6 +77,11 @@ class ResponseController extends Controller
         
         $respondent = $this->surveyUserModel->create($surveyUserData);      //설문 응답자 리스트에 추가
 
+        //전부 응답 된 데이터인지 확인
+        if($data["responsive_bol"]==false){
+            return response()->json(['message'=>'You can` not response this survey.']);
+        }
+
         foreach ($data["question"] as $responseItem){
             $rs = $this->questionModel->where('form_id',  $data["form_id"])
                         ->where('id', $responseItem['question_id'])

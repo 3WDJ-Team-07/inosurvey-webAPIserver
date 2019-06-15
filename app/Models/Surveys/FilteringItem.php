@@ -9,7 +9,10 @@ class FilteringItem extends Model
     public $timestamps  = false;
     protected $fillable = ['question_id','item_id'];
     protected $table    = 'filtering_items';
-
+    protected $hidden = [
+        'question_id',
+    ];
+    
 
     //filtering_items테이블 questions테이블 1-1
     public function question(){
@@ -18,6 +21,6 @@ class FilteringItem extends Model
 
     //filtering_items테이블 question_items테이블 1-1
     public function questionItem(){
-        return $this->belongsTo('App\Models\Surveys\QuestionItem');
+        return $this->hasOne('App\Models\Surveys\QuestionItem');
     }
 }

@@ -63,8 +63,6 @@ class RequestController extends Controller
     //설문 작성
     public function create(Request $request){
     
-    
-
         //설문 결제
         $payload = array( 
             'form_params' => [
@@ -73,11 +71,11 @@ class RequestController extends Controller
                 'questionCount' => count($request->list),
                 'startedAt'     => time(),
             ]
-        );
+        ); 
         
         $paymentRes = $this->postGuzzleRequest($payload,ConstantEnum::NODE_JS['payment']);
        
-         //설문 요청 실패
+        //설문 요청 실패
         if($paymentRes['status'] != 200){
             return response()->json(['message'=>'Payment failed'],401);
         }
@@ -215,7 +213,7 @@ class RequestController extends Controller
                     if($question['type']==7){
                         $filteringItemsData = array(
                             'question_id'       => $questionId,
-                            'item_id'           => (int)$request->answer
+                            'item_id'           => (int)$question['answer']
                         );
                         $this->filteringItemModel->create($filteringItemsData);
                     }
