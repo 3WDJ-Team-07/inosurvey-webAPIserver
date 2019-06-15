@@ -43,7 +43,7 @@ class Question extends Model
 
     //questions테이블 filtering_items테이블 1-1
     public function filteringItem(){
-        return $this->belongsTo('App\Models\Surveys\FilteringItem');
+        return $this->belongsTo('App\Models\Surveys\FsslteringItem');
     }
 
     public function selectItems($id){

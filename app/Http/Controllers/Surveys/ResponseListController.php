@@ -20,20 +20,23 @@ use App\Http\Controllers\Helpers\ConstantEnum;
 use App\Models\Surveys\Form;
 use App\Models\Surveys\Question;
 use App\Models\Users\User;
+use App\Models\Surveys\FilteringItem;
 
 class ResponseListController extends Controller
 {
     
     use Guzzles;
 
-    private $formModel          = null;
-    private $questionModel      = null;
-    private $userModel          = null;
+    private $formModel              = null;
+    private $questionModel          = null;
+    private $userModel              = null;
+    private $filteringItemModel     = null;
 
     public function __construct() {
-        $this->formModel        = new Form();
-        $this->questionModel    = new Question();
-        $this->userModel        = new User(); 
+        $this->formModel             = new Form();
+        $this->questionModel         = new Question();
+        $this->userModel             = new User(); 
+        $this->filteringItemModel    = new FilteringItem(); 
     }
 
 
@@ -62,8 +65,19 @@ class ResponseListController extends Controller
    
     //설문조사 아이템, 질문 내용 select
     public function selectQuestionItem(Request $request){
-        $questionItem   = $this->questionModel->selectItems($request->id);
-        return response()->json(['message' => 'true', 'questionItem' => $questionItem],200);
+        $questionItems   = $this->questionModel->selectItems($request->id);
+
+        
+        foreach($questionItems as  $questionItem){
+            if($questionItem->type_id == 7){
+                
+                     $filtering_item = $this->filteringItemModel->where('question_id',$questionItem->id)->first();
+                     $questionItem->filtering_item = $filtering_item;
+            }
+        }
+   
+        
+        return response()->json(['message' => 'true', 'questionItem' => $questionItems],200);
 
     }
      
