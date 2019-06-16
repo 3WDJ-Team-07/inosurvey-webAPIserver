@@ -54,12 +54,9 @@ class ResponseController extends Controller
 
     //응답 내용 저장
     public function response(Request $request){
-      
         $data = json_decode($request->data, true);
 
         $survey = $this->formModel->where('id', $data["form_id"])->first();
-
-        
         //설문 완료 및 설문 마감 검증
         $now = Carbon::now()->format('Y-m-d H:i:s');    //현재시간
         $closedAt = $survey->closed_at;                 //설문 마감시간
@@ -78,8 +75,8 @@ class ResponseController extends Controller
         $respondent = $this->surveyUserModel->create($surveyUserData);      //설문 응답자 리스트에 추가
 
         //전부 응답 된 데이터인지 확인
-        if($data["responsive_bol"]==false){
-            return response()->json(['message'=>'You can` not response this survey.']);
+        if($data["responsive_bool"]==false){
+            return response()->json(['message'=>'You can not response this survey.']);
         }
 
         foreach ($data["question"] as $responseItem){
