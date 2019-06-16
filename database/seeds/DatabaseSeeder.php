@@ -30,6 +30,6 @@ class DatabaseSeeder extends Seeder
         $this->call(QuestionBanksTableSeed::class);
         // $this->call(JobTargetTableSeed::class);
         $this->call(CategoryTableSeed::class);
-        $this->call(CategoryDonationTableSeed::class);
+        // $this->call(CategoryDonationTableSeed::class);
     }
 }
