@@ -33,8 +33,9 @@ class UserController extends Controller
 {
     use Guzzles;
 
-    private $userModel = null;
-    private $formModel = null;
+    private $userModel      = null;
+    private $formModel      = null;
+    private $donationModel  = null;
 
     function __construct(){
         $this->userModel        = new User();
